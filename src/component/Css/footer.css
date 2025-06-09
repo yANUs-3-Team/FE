@@ -1,0 +1,38 @@
+.footer {
+    width: 100%;
+    height: 16.944vh;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    float: bottom;
+
+    background-color: #6F65A7;
+    border-top: 0.7407vh solid #663E77;
+}
+
+.underNav_box {
+    margin-top: 4.518vh;
+
+    display: flex;
+    gap: 5.208vw;
+}
+
+.underNav {
+    font-size: 2.592vh;
+    color: white;
+    text-decoration: none;
+}
+
+.underText_box {
+    margin-bottom: 3.703vh;
+
+    display: flex;
+    gap: 2.447vw;
+}
+
+.underText {
+    font-size: 1.851vh;
+    color: white;
+}
