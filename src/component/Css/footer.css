@@ -8,8 +8,10 @@
     flex-direction: column;
     float: bottom;
 
-    background-color: #6F65A7;
-    border-top: 0.7407vh solid #663E77;
+    /*background-color: #6F65A7;
+    border-top: 0.7407vh solid #663E77;*/
+    background-color: #FFC5C5;
+    border-top: 0.7407vh solid #FF8F8F;
 }
 
 .underNav_box {
