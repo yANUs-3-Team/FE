@@ -350,34 +350,19 @@ textarea:focus + .placeholder_fallback {
   align-items: center;
 }
 
-.svg_button {
-  width: 4.6875vw;
-  height: 8vh;
-
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.leftButton_img {
+    width: 2.5vw;
+    height: 6.111vh;
+    margin-left: 5.20833vw;
 }
 
-.svg_button svg {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.2s ease;
+.rightButton_img {
+    width: 2.5vw;
+    height: 6.111vh;
+    margin-right: 5.20833vw;
 }
 
-.svg_button:hover svg {
-  transform: scale(1.1);
-}
-
-.svg_button.left {
-  margin-left: 2vw;
-}
-
-.svg_button.right {
-  margin-right: 2vw;
-}
-
+/**/
 .pagination_button {
   width: 9.010416vw;
   height: 5.0925vh;

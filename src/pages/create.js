@@ -3,6 +3,8 @@ import Footer from "../component/footer";
 import "../component/Css/create.css";
 import halfSide2 from "../images/character_halfSide2.png";
 import starIcon from "../images/star_icon.png";
+import leftButton from "../images/leftButton.png";
+import rightButton from "../images/rightButton.png";
 import { useNavigate } from "react-router-dom";
 
 function Create() {
@@ -351,31 +353,20 @@ function Create() {
                     {pageIndex === 0 ? (
                       <div style={{ width: "4.6875vw" }} />
                     ) : (
-                      <div className="svg_button left" onClick={handlePrev}>
-                        <svg viewBox="0 0 24 24">
-                          <path
-                            d="M15 18L9 12L15 6"
-                            stroke="#4A3F55"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            fill="none"
-                          />
-                        </svg>
-                      </div>
+                      <img
+                        src={leftButton}
+                        alt=""
+                        className="leftButton_img"
+                        onClick={handlePrev}
+                      />
                     )}
-                    <div className="svg_button right" onClick={handleNext}>
-                      <svg viewBox="0 0 24 24">
-                        <path
-                          d="M9 6L15 12L9 18"
-                          stroke="#4A3F55"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          fill="none"
-                        />
-                      </svg>
-                    </div>
+
+                    <img
+                      src={rightButton}
+                      alt=""
+                      className="rightButton_img"
+                      onClick={handleNext}
+                    />
                   </>
                 )}
               </div>
