@@ -1,0 +1,38 @@
+.storyComplete_page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 82.314vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.storyComplete_container {
+  position: relative;
+  z-index: 2;
+
+  width: 38.02083vw;
+  height: 67.962vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6.2037vh;
+
+  background-color: white;
+  border: 0.41666vw solid #FBAC33;
+  border-radius: 2.60416vw;
+}
+
+.charJump_img {
+  position: absolute;
+  right: 14.11458vw;
+  bottom: 7.407vh;
+  z-index: 3;
+
+  width: 20vw;
+  height: 49.259vh;
+  pointer-events: none;
+}

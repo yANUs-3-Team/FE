@@ -1,0 +1,80 @@
+.loading_page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 82.314vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading_container {
+  position: relative;
+  z-index: 2;
+
+  width: 43.072916vw;
+  height: 48.7962vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6.2037vh;
+
+  background-color: white;
+  border: 0.20833vw solid #663e77;
+  border-radius: 2.60416vw;
+}
+
+/* 스피너 */
+.loading_spinner {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  animation: rotate 1.5s linear infinite;
+}
+
+.loading_spinner div {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: red; /* 기본 색 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 텍스트 박스 */
+.loading_textBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4.3518vh;
+}
+
+.loading_text:first-child {
+  font-size: 4.444444vh;
+}
+
+.loading_text:last-child {
+  font-size: 3.7037vh;
+}
+
+.charPen_img {
+  position: absolute;
+  right: 14.11458vw;
+  bottom: 7.407vh;
+  z-index: 3;
+
+  width: 18vw;
+  height: 34.444vh;
+  pointer-events: none;
+}

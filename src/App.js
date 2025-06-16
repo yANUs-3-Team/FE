@@ -5,6 +5,8 @@ import Main from "./pages/main";
 import Join from "./pages/join";
 import Login from "./pages/login";
 import Create from "./pages/create";
+import Loading from "./pages/loading";
+import StoryComplete from "./pages/storyComplete";
 import MyStory from "./pages/myStory";
 import OpenStory from "./pages/openStory";
 
@@ -18,6 +20,8 @@ function App() {
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create" element={<Create />} />
+        <Route path="/loading" element={<Loading />} />
+        <Route path="/story-complete" element={<StoryComplete />} />
         <Route path="/my-story" element={<MyStory />} />
         <Route path="/open-story" element={<OpenStory />} />
       </Routes>
