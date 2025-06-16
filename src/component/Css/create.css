@@ -85,10 +85,19 @@
 .sketch_menu {
     margin-bottom: 3.8888vh;
 
-    font-size: 2.592vh;    
+    font-size: 2.592vh;
+}
+
+.sketch_menu.selected {
+  font-size: 2.592vh;
+  font-weight: bold;
+  color: #FFC5C5;
+  -webkit-text-stroke: 0.1388vh #9888A8;
 }
 
 .create_container {
+    position: relative;
+    
     width: 73.125vw;
     height: 61.851vh;
 
@@ -96,8 +105,16 @@
     flex-direction: column;
     align-items: center;
     align-self: center;
+}
 
-    background-color: orange;
+.starImg {
+    position: absolute;
+    top: 3.24074vh;
+    right: 2.239583vw;
+    z-index: 20;
+
+    width: 4.493749vw;
+    height: 6.7592vh;
 }
 
 .create_title {
@@ -109,7 +126,7 @@
     align-items: center;
 
     background-color: white;
-    border: 0.20833vw solid #4A3F55;
+    border: 0.20833vw solid #FF8F8F;
     border-radius: 1.0416vw;
 }
 
@@ -124,25 +141,57 @@
 .create_titleSubtext {
     font-size: 3.7037vh;
     font-weight: bold;
-    color: #663E77;
+    color: #FF8F8F;
 }
 
 .create_contentBox {
+    position: relative;
+    
     width: 73.125vw;
     height: 52.39644vh;
 
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background-color: aqua;
 }
 
 .select_box {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3.3333vh;
+}
+
+.select_box2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3.703vh;
+}
+
+.select_container {
+    position: relative;
+    z-index: 30;
+    
+    display: flex;
+    gap: 2.60416vw;
+}
+
+.select_container2 {
+    position: relative;
+    z-index: 30;
+    
+    width: 58.22916vw;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 .input_container {
+    all: unset;
+
     width: 14.32284vw;
     height: 6.574vh;
     padding: 0 3.02083vw;
@@ -154,8 +203,65 @@
     background-color: white;
     border: 0.10416vw solid #9888A8;
     border-radius: 1.5625vw;
-    color: #C2C2C2;
+    color: black;
     font-size: 2.9629vh;
+}
+
+.textarea_container {
+    all: unset;
+
+    position: relative;
+
+    width: 36.197983vw;
+    height: 23.981vh;
+    padding: 2.037vh 2.0833vw;
+    margin-right: 2.60416vw;
+
+    display: flex;
+    align-items: center;
+
+    background-color: white;
+    border: 0.10416vw solid #9888A8;
+    border-radius: 1.5625vw;
+    color: black;
+    font-size: 2.9629vh;
+}
+
+.placeholder_fallback {
+    position: absolute;
+    top: 2.037vh;
+    left: 2.0833vw;
+
+    color: #aaa;
+    font-size: 2.5vh;
+    line-height: 1.4;
+    pointer-events: none;
+    visibility: visible;
+}
+
+.textarea_container:focus + .placeholder_fallback,
+.textarea_container:not(:placeholder-shown) + .placeholder_fallback {
+    visibility: hidden;
+}
+
+textarea:focus + .placeholder_fallback {
+    visibility: hidden;
+}
+
+.select_button {
+    min-width: 4.1145vw;
+    height: 6.574vh;
+    padding: 0 1.5625vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #E9DAFF;
+    border: 0.10416vw solid #9888A8;
+    border-radius: 1.5625vw;
+    color: #4A3F55;
+    font-size: 3.7037vh;
 }
 
 .random_button {
@@ -171,4 +277,87 @@
     border-radius: 1.5625vw;
     color: #4A3F55;
     font-size: 3.7037vh;
+}
+
+.selected_group {
+    position: relative;
+    z-index: 30;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.40625vw;
+}
+
+.selected_label {
+    font-size: 3.3333vh;
+}
+
+.selected_value {
+    width: 12.447916vw;
+    height: 3.9814vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    border: 0.185vh solid #9888A8;
+    border-radius: 1.0416vw;
+    font-size: 2.5vh;
+}
+
+.selected_value2 {
+    width: 46.97916vw;
+    height: 10.277vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    border: 0.185vh solid #9888A8;
+    border-radius: 1.0416vw;
+    font-size: 2.5vh;
+}
+
+.pagination_box {
+  position: absolute;
+  bottom: 0;
+  z-index: 20;
+
+  width: 100%;
+  height: 20vh;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.svg_button {
+  width: 4.6875vw;
+  height: 8vh;
+
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.svg_button svg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease;
+}
+
+.svg_button:hover svg {
+  transform: scale(1.1);
+}
+
+.svg_button.left {
+  margin-left: 2vw;
+}
+
+.svg_button.right {
+  margin-right: 2vw;
 }
