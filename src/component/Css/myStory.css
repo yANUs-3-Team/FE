@@ -1,5 +1,83 @@
 .myStory_page {
-    width: 100%;
-    height: 82.314vh; /* 동화가 없을 때 */
-    /* height: 205.3703vh; */
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  min-height: 82.314vh;
+}
+
+.decoCircle_box {
+  position: absolute;
+  z-index: 2;
+
+  width: 3.4375vw;
+  height: 4.166vh;
+  margin-top: 10.6481vh;
+  margin-left: 9.84375vw;
+
+  display: flex;
+}
+
+.circleBlue1 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 1.5vw;
+  height: 3vh;
+
+  background-color: #d2f6ff;
+  border: 0.4vh solid #b8c9ff;
+  border-radius: 50%;
+}
+
+.circleBlue2 {
+  position: absolute;
+  left: 1.666vw;
+  top: 0;
+
+  width: 0.572916vw;
+  height: 1.0185vh;
+
+  background-color: #a4edff;
+  border: 0.4vh solid #92acff;
+  border-radius: 50%;
+}
+
+.circleBlue3 {
+  position: absolute;
+  right: 0;
+  top: 0.4629vh;
+
+  width: 0.4166vw;
+  height: 0.7407vh;
+
+  background-color: #88e4fb;
+  border: 0.4vh solid #7692ea;
+  border-radius: 50%;
+}
+
+.myStory_title {
+  position: absolute;
+  z-index: 3;
+
+  margin-top: 13.3333vh;
+  margin-left: 12.03125vw;
+
+  font-size: 4.44444vh;
+  font-weight: bold;
+}
+
+.storyIcon_box {
+  position: absolute;
+  z-index: 2;
+  top: 8.6111vh;
+  right: 12.03125vw;
+
+  background-color: aqua;
+}
+
+.MScharIMG {
+  width: 8.2vw;
+  height: 15.0925vh;
 }
