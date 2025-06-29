@@ -1,0 +1,240 @@
+.openGallery_page {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    min-height: 82.314vh;
+}
+
+.galleryTitle_box2 {
+    width: 100%;
+    height: 20vh;
+}
+
+.decoSquare_box {
+    position: absolute;
+    z-index: 2;
+
+    width: 3.4375vw;
+    height: 6.5vh;
+    margin-top: 9.6481vh;
+    margin-left: 9.84375vw;
+
+    display: flex;
+}
+
+.squarePuple1 {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 1cqmax;
+    height: 3.5vh;
+
+    background-color: #E9DAFF;
+    border: 0.3vh solid #847AE2;
+}
+
+.squarePuple2 {
+    position: absolute;
+    left: 0.6vw;
+    top: 0;
+
+    width: 1.1vw;
+    height: 0.8vh;
+
+    background-color: #BB99FF;
+    border: 0.3vh solid #5F51DA;
+}
+
+.squarePuple3 {
+    position: absolute;
+    right: 0;
+    top: 1.7vh;
+
+    width: 1.4vw;
+    height: 1.4vh;
+
+    background-color: #D7BCFF;
+    border: 0.3vh solid #6D61D9;
+}
+
+.openGallery_title {
+    position: absolute;
+    z-index: 3;
+
+    margin-top: 13.3333vh;
+    margin-left: 12.03125vw;
+
+    font-size: 4.44444vh;
+    font-weight: bold;
+}
+
+.galleryIcon_box2 {
+    position: absolute;
+    z-index: 2;
+    top: 8.6111vh;
+    right: 12.03125vw;
+}
+
+.OGcharIMG {
+    width: 8.2vw;
+    height: 15.0925vh;
+}
+
+.OG_speechBubble {
+    position: absolute;
+    z-index: 2;
+    top: 10vh;
+    right: 22vw;
+
+    width: 36vw;
+    height: 11vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    border-radius: 5vw;
+    border: 0.2vw solid #663E77;
+    font-size: 3vh;
+}
+
+/* 바깥쪽 삼각형 (테두리 역할) */
+.OG_speechBubble::before {
+    content: '';
+    position: absolute;
+    right: -1.2vw;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+
+    border-top: 1.4vh solid transparent;
+    border-bottom: 1.4vh solid transparent;
+    border-left: 1.2vw solid #663E77;
+    z-index: 1;
+}
+
+/* 안쪽 삼각형 (배경색 역할) */
+.OG_speechBubble::after {
+    content: '';
+    position: absolute;
+    right: -0.9vw;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+
+    border-top: 1.3vh solid transparent;
+    border-bottom: 1.3vh solid transparent;
+    border-left: 1.2vw solid white;
+    z-index: 2;
+}
+
+
+.OG_speechBubble_text {}
+
+.cover_container2 {
+    width: calc(100% - 10vw);
+    margin: 0 5vw;
+    margin-top: 10vh;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
+    row-gap: 4vh;
+
+    overflow: visible;
+}
+
+.cover_box2 {
+    position: relative;
+    overflow: hidden;
+
+    width: 25.3125vw;
+    height: 45.185vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4vh;
+
+    border: 0.6vh solid #FBAC33;
+    border-radius: 2vw;
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+
+    transition: transform 0.3s ease;
+}
+
+.cover_box2::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+.cover_box2:hover {
+    transform: scale(1.1);
+}
+
+.cover_box2:hover::before {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.cover_box2>* {
+    position: relative;
+    z-index: 2;
+}
+
+.OG_detail_button {
+    width: 18vw;
+    height: 8vh;
+
+    background-color: transparent;
+    border-radius: 2.6vw;
+    border: none;
+    color: white;
+    font-size: 3vh;
+    font-family: inherit;
+
+    opacity: 0;
+}
+
+.OG_detail_button:last-of-type {
+    background-color: #E9DAFF;
+    color: #4A3F55;
+    font-size: 3vh;
+    box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
+}
+
+.cover_box2:hover .OG_detail_button {
+    opacity: 1;
+}
+
+.OGpagination_container {
+    width: calc(100% - 10vw);
+    height: 20vh;
+    padding-bottom: 6vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+
+    color: #4A3F55;
+    font-size: 2vh;
+}
+
+.OGpagination_button {
+    all: unset !important;
+
+    background-color: #4A3F55;
+    font-size: 2vh;
+}

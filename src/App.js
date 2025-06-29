@@ -7,8 +7,8 @@ import Login from "./pages/login";
 import Create from "./pages/create";
 import Loading from "./pages/loading";
 import StoryComplete from "./pages/storyComplete";
-import MyStory from "./pages/myStory";
-import OpenStory from "./pages/openStory";
+import MyGallery from "./pages/myGallery";
+import OpenGallery from "./pages/openGallery";
 
 function App() {
   return (
@@ -22,8 +22,8 @@ function App() {
         <Route path="/create" element={<Create />} />
         <Route path="/loading" element={<Loading />} />
         <Route path="/story-complete" element={<StoryComplete />} />
-        <Route path="/my-story" element={<MyStory />} />
-        <Route path="/open-story" element={<OpenStory />} />
+        <Route path="/my-gallery" element={<MyGallery />} />
+        <Route path="/open-gallery" element={<OpenGallery />} />
       </Routes>
     </BrowserRouter>
   );

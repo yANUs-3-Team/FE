@@ -14,10 +14,10 @@ function Header() {
           <Link to="/create" className="nav">
             동화 만들기
           </Link>
-          <Link to="/my-story" className="nav">
+          <Link to="/my-gallery" className="nav">
             나의 동화책
           </Link>
-          <Link to="/open-story" className="nav">
+          <Link to="/open-gallery" className="nav">
             공개 갤러리
           </Link>
         </div>
