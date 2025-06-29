@@ -258,7 +258,8 @@ textarea:focus + .placeholder_fallback {
   align-items: center;
 
   background-color: #e9daff;
-  border: 0.10416vw solid #9888a8;
+  box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
+  border: 0.12vw solid #9888a8;
   border-radius: 1.5625vw;
   color: #4a3f55;
   font-size: 3.7037vh;
@@ -273,7 +274,8 @@ textarea:focus + .placeholder_fallback {
   align-items: center;
 
   background-color: #e9daff;
-  border: 0.10416vw solid #9888a8;
+  box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
+  border: 0.12vw solid #9888a8;
   border-radius: 1.5625vw;
   color: #4a3f55;
   font-size: 3.7037vh;

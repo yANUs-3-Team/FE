@@ -133,9 +133,6 @@
     z-index: 2;
 }
 
-
-.OG_speechBubble_text {}
-
 .cover_container2 {
     width: calc(100% - 10vw);
     margin: 0 5vw;
