@@ -153,7 +153,7 @@
   position: relative;
   overflow: hidden;
 
-  width: 25.3125vw;
+  width: calc(100%-5vw);
   height: 45.185vh;
 
   display: flex;
@@ -220,17 +220,57 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2vw;
+}
 
-  color: #4A3F55;
+.MGpagination_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13vw;
+  position: relative;
+}
+
+.MGpagination_center {
+  display: flex;
+  justify-content: center;
+  gap: 1.5vw;
+  flex: 1;
+}
+
+.MGpagination_arrow {
+  all: unset !important;
+  width: 3vw;
+  height: 5vh;
+
+  color: #4a3f55;
   font-size: 2vh;
+  padding: 0.6vh 1vw;
+  border-radius: 0.8vw;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MGpagination_arrow.left {
+  position: absolute;
+  left: 0;
+}
+
+.MGpagination_arrow.right {
+  position: absolute;
+  right: 0;
 }
 
 .MGpagination_button {
   all: unset !important;
-
-  background-color: #4A3F55;
+  
+  color: #4A3F55;
   font-size: 2vh;
+  border-radius: 0.5vw;
+  padding: 0.4vh 1vw;
+  cursor: pointer;
 }
 
 .emptyCover_container {
