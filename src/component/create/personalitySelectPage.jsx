@@ -1,25 +1,43 @@
 import "../../component/Css/selectPages.css";
 
 function PersonalitySelectPage({ personality, setPersonality }) {
+  const options = [
+    "다정한", "친절한", "까칠한", "엄격한",
+    "느긋한", "호기심 많은", "상관 없어요!",
+  ];
+
+  const isCustomInput = !options.includes(personality);
+
   return (
     <div className="select_box">
       <div className="select_container">
-        <div className="select_button">다정한</div>
-        <div className="select_button">친절한</div>
-        <div className="select_button">까칠한</div>
-        <div className="select_button">엄격한</div>
+        {options.slice(0, 4).map((option) => (
+          <div
+            key={option}
+            className={`select_button ${personality === option ? "selected" : ""}`}
+            onClick={() => setPersonality(option)}
+          >
+            {option}
+          </div>
+        ))}
       </div>
       <div className="select_container">
-        <div className="select_button">느긋한</div>
-        <div className="select_button">호기심 많은</div>
-        <div className="select_button">상관 없어요!</div>
+        {options.slice(4).map((option) => (
+          <div
+            key={option}
+            className={`select_button ${personality === option ? "selected" : ""}`}
+            onClick={() => setPersonality(option)}
+          >
+            {option}
+          </div>
+        ))}
       </div>
       <div className="select_container">
         <input
           type="text"
           className="input_container"
           placeholder="직접 입력해 주세요!"
-          value={personality}
+          value={isCustomInput ? personality : ""}
           onChange={(e) => setPersonality(e.target.value)}
         />
       </div>

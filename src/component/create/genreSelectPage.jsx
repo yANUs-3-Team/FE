@@ -1,29 +1,40 @@
 import "../../component/Css/selectPages.css";
 
 function GenreSelectPage({ genre, setGenre }) {
-  const handleClick = (value) => {
-    setGenre(value);
-  };
+  const options = ["판타지", "마법", "우화", "미스터리", "고전", "자연", "상관 없어요!"];
+
+  const isCustomInput = !options.includes(genre);
 
   return (
     <div className="select_box">
       <div className="select_container">
-        <div className="select_button" onClick={() => handleClick("판타지")}>판타지</div>
-        <div className="select_button" onClick={() => handleClick("마법")}>마법</div>
-        <div className="select_button" onClick={() => handleClick("우화")}>우화</div>
-        <div className="select_button" onClick={() => handleClick("미스터리")}>미스터리</div>
+        {options.slice(0, 4).map((option) => (
+          <div
+            key={option}
+            className={`select_button ${genre === option ? "selected" : ""}`}
+            onClick={() => setGenre(option)}
+          >
+            {option}
+          </div>
+        ))}
       </div>
       <div className="select_container">
-        <div className="select_button" onClick={() => handleClick("고전")}>고전</div>
-        <div className="select_button" onClick={() => handleClick("자연")}>자연</div>
-        <div className="select_button" onClick={() => handleClick("상관 없어요!")}>상관 없어요!</div>
+        {options.slice(4).map((option) => (
+          <div
+            key={option}
+            className={`select_button ${genre === option ? "selected" : ""}`}
+            onClick={() => setGenre(option)}
+          >
+            {option}
+          </div>
+        ))}
       </div>
       <div className="select_container">
         <input
           type="text"
           className="input_container"
           placeholder="직접 입력해 주세요!"
-          value={genre}
+          value={isCustomInput ? genre : ""}
           onChange={(e) => setGenre(e.target.value)}
         />
       </div>
