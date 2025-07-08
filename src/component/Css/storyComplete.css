@@ -38,7 +38,7 @@
 
   transform-origin: bottom center;
 
-  animation: shakeSwing 1s ease-in-out infinite;
+  animation: shakeSwing 1.5s ease-in-out infinite;
 }
 
 @keyframes shakeSwing {
