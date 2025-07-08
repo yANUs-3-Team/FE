@@ -35,4 +35,16 @@
   width: 20vw;
   height: 49.259vh;
   pointer-events: none;
+
+  transform-origin: bottom center;
+
+  animation: shakeSwing 1s ease-in-out infinite;
+}
+
+@keyframes shakeSwing {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(5deg); }
+  50%  { transform: rotate(-5deg); }
+  75%  { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
 }

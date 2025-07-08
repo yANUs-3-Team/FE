@@ -6,6 +6,7 @@ import Join from "./pages/join";
 import Login from "./pages/login";
 import Create from "./pages/create";
 import Loading from "./pages/loading";
+import ReadStory from "./pages/readStory";
 import StoryComplete from "./pages/storyComplete";
 import MyGallery from "./pages/myGallery";
 import OpenGallery from "./pages/openGallery";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/create" element={<Create />} />
         <Route path="/loading" element={<Loading />} />
+        <Route path="/read-story" element={<ReadStory />} />
         <Route path="/story-complete" element={<StoryComplete />} />
         <Route path="/my-gallery" element={<MyGallery />} />
         <Route path="/open-gallery" element={<OpenGallery />} />
