@@ -56,7 +56,7 @@
 
 .sketch_char {
   max-width: 6.8229vw;
-  height: 11.574vh;
+  height: 12vh;
   margin-left: 4.6354vw;
   transform: scaleX(-1);
 }
@@ -103,7 +103,7 @@
   right: 2.239583vw;
   z-index: 20;
   width: 4.493749vw;
-  height: 6.7592vh;
+  height: 7vh;
 }
 
 .create_title {
