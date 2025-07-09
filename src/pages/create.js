@@ -122,8 +122,8 @@ function Create() {
         visibility,
       });
 
-      console.log("서버 응답:", response.data);
-      navigate("/loading");
+      const storyId = response.data.storyId;
+      navigate("/loading", { state: { storyId } });
     } catch (error) {
       console.error("동화 생성 실패:", error);
       alert("동화 생성에 실패했어요. 잠시 후 다시 시도해 주세요.");
