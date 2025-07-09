@@ -1,4 +1,3 @@
-// Create.js
 import { useState } from "react";
 import Footer from "../component/footer";
 import "../component/Css/create.css";
@@ -7,6 +6,7 @@ import starIcon from "../images/star_icon.png";
 import leftButton from "../images/leftButton.png";
 import rightButton from "../images/rightButton.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import NameInputPage from "../component/create/nameInputPage";
 import PersonalitySelectPage from "../component/create/personalitySelectPage";
@@ -71,9 +71,19 @@ function Create() {
   };
 
   const pages = [
-    <NameInputPage name={name} setName={setName} handleRandomName={handleRandomName} />,
-    <PersonalitySelectPage personality={personality} setPersonality={setPersonality} />,
-    <CharacteristicsPage characteristics={characteristics} setCharacteristics={setCharacteristics} />,
+    <NameInputPage
+      name={name}
+      setName={setName}
+      handleRandomName={handleRandomName}
+    />,
+    <PersonalitySelectPage
+      personality={personality}
+      setPersonality={setPersonality}
+    />,
+    <CharacteristicsPage
+      characteristics={characteristics}
+      setCharacteristics={setCharacteristics}
+    />,
     <LocationSelectPage location={location} setLocation={setLocation} />,
     <EraSelectPage era={era} setEra={setEra} />,
     <GenreSelectPage genre={genre} setGenre={setGenre} />,
@@ -88,6 +98,37 @@ function Create() {
       setVisibility={setVisibility}
     />,
   ];
+
+  const handleStorySubmit = async () => {
+    try {
+      // 백 연결 이후 삭제
+      console.log("보내는 데이터:", {
+        name,
+        personality,
+        characteristics,
+        location,
+        era,
+        genre,
+        visibility,
+      });
+      //
+      const response = await axios.post("http://localhost:3000/api/story", {
+        name,
+        personality,
+        characteristics,
+        location,
+        era,
+        genre,
+        visibility,
+      });
+
+      console.log("서버 응답:", response.data);
+      navigate("/loading");
+    } catch (error) {
+      console.error("동화 생성 실패:", error);
+      alert("동화 생성에 실패했어요. 잠시 후 다시 시도해 주세요.");
+    }
+  };
 
   return (
     <>
@@ -120,7 +161,9 @@ function Create() {
             <div className="create_container">
               <div className="create_title">
                 <div className="create_titleText">{menuList2_1[pageIndex]}</div>
-                <div className="create_titleSubtext">{menuList2_2[pageIndex]}</div>
+                <div className="create_titleSubtext">
+                  {menuList2_2[pageIndex]}
+                </div>
                 <div className="create_titleText">{menuList2_3[pageIndex]}</div>
               </div>
 
@@ -129,10 +172,16 @@ function Create() {
               <div className="pagination_box">
                 {pageIndex === 6 ? (
                   <>
-                    <div className="pagination_button left_button" onClick={() => setPageIndex(0)}>
+                    <div
+                      className="pagination_button left_button"
+                      onClick={() => setPageIndex(0)}
+                    >
                       설정 바꾸기
                     </div>
-                    <div className="pagination_button right_button" onClick={() => navigate("/loading")}>
+                    <div
+                      className="pagination_button right_button"
+                      onClick={handleStorySubmit}
+                    >
                       동화 만들기
                     </div>
                   </>
