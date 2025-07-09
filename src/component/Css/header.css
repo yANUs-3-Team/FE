@@ -14,12 +14,8 @@
 
 .headerLogo {
     width: 30.9375vw;
-    height: 12.314vh;
-
-    background-image: url("/src/images/headerLogo.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    height: 12.5vh;
+    margin-top: 0.8vh;
 }
 
 .nav_container {
