@@ -80,11 +80,11 @@
   font-size: 2.592vh;
   font-weight: bold;
   color: #ffc5c5;
-  text-shadow:
-    -0.08vw -0.08vw 0 #9888a8,
-     0.08vw -0.08vw 0 #9888a8,
-    -0.08vw  0.08vw 0 #9888a8,
-     0.08vw  0.08vw 0 #9888a8;
+  text-shadow: -0.08vw -0.08vw 0 #9888a8, 0.08vw -0.08vw 0 #9888a8,
+    -0.08vw 0.08vw 0 #9888a8, 0.08vw 0.08vw 0 #9888a8, 0vw 0.08vw 0 #9888a8,
+    0vw -0.08vw 0 #9888a8, -0.08vw 0vw 0 #9888a8, 0.08vw 0vw 0 #9888a8,
+    -0.06vw -0.06vw 0 #9888a8, 0.06vw -0.06vw 0 #9888a8,
+    -0.06vw 0.06vw 0 #9888a8, 0.06vw 0.06vw 0 #9888a8;
 }
 
 .create_container {
