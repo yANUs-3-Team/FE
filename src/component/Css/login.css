@@ -62,7 +62,7 @@
 }
 
 .login_logo {
-  width: 8vw;
+  width: 8.5vw;
   margin-top: 0.5vh;
 }
 
@@ -83,11 +83,10 @@
   width: 26vw;
   display: flex;
   justify-content: space-between;
-  gap: 1vw;
 }
 
 .social_login {
-  width: 12vw;
+  width: 12.5vw;
   height: 5vh;
   border-radius: 1.2vw;
   box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
@@ -95,7 +94,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.8vh;
+  font-size: 1.6vh;
   color: #604949;
   cursor: pointer;
 }
@@ -106,6 +105,47 @@
 
 .social_google {
   background-color: #d6ecff;
+}
+
+.social_icon_box {
+    position: relative;
+
+  width: 1.1vw;
+  height: 1vw;
+  margin-right: 0.5vw;
+
+  display: flex;
+  justify-content: center;
+
+}
+
+.kakao_icon {
+  width: 1.1vw;
+  height: 0.9vw;
+
+  display: flex;
+
+  border-radius: 100%;
+  background-color: #604949;
+}
+
+.kakao_icon::before {
+  content: "";
+  position: absolute;
+  top: 65%;
+  transform: translateY(-50%);
+
+  width: 0;
+  height: 0;
+
+  border-top: 0.5vh solid transparent;
+  border-bottom: 0.5vh solid transparent;
+  border-right: 0.4vw solid #604949;
+  transform: rotate(-50deg);
+}
+
+.google_icon {
+    width: 1vw;
 }
 
 .login_button {
@@ -139,7 +179,6 @@
   cursor: pointer;
 }
 
-/* 회원가입 링크 */
 .login_toJoin {
   font-size: 2.3vh;
   color: black;
