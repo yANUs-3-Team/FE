@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./component/header";
-import Main from "./pages/main";
+import Intro from "./pages/intro";
 import Join from "./pages/join";
 import Login from "./pages/login";
 import Create from "./pages/create";
@@ -17,7 +17,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Intro />} />
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create" element={<Create />} />

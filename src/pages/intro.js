@@ -1,12 +1,12 @@
 import Footer from "../component/footer";
-import "../component/Css/main.css";
+import "../component/Css/intro.css";
 import mainLogo from "../images/mainLogo.png";
 import charHalf4 from "../images/character_halfSide4.png";
 import starImg from "../images/star_icon.png";
 import { useNavigate } from "react-router-dom";
 
 
-function Main() {
+function Intro() {
   const navigate = useNavigate();
 
   return (
@@ -49,4 +49,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Intro;
