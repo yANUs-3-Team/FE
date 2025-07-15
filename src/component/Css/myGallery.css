@@ -317,9 +317,9 @@
   align-items: center;
 
   background-color: #E9DAFF;
-  border-radius: 2.6vw;
+  border-radius: 2vw;
   color: #4A3F55;
-  font-size: 3vh;
+  font-size: 4vh;
   font-family: inherit;
   box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
 }
