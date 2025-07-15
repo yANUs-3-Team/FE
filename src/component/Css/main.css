@@ -1,9 +1,148 @@
-.main_page {
-    width: 100%;
-    height: 127.314vh;
+.intro_page {
+  width: 100%;
 }
 
-/* test (지울 것) */
-p {
-    font-weight: bold;
+.intro_container {
+  width: 100%;
+  height: 82.314vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw;
+}
+
+.intro_container:last-child {
+    height: 60vh;
+
+    justify-content: end;
+}
+
+.intro_logo {
+  width: 26vw;
+}
+
+.intro_text_container {
+  height: 60vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3vh;
+}
+
+.intro_text_box {
+  display: flex;
+  align-items: center;
+}
+
+.intro_text {
+  font-size: 7vh;
+  font-weight: bold;
+  color: #273b5d;
+}
+
+.intro_colorText {
+  margin: 0 1vw;
+
+  font-size: 10vh;
+  font-weight: bold;
+  color: #ffde91;
+  text-shadow: 0.1vw 0.1vw #08274c, -0.1vw 0.1vw #08274c, -0.1vw -0.1vw #08274c,
+    0.1vw -0.1vw #08274c;
+}
+
+.intro_button {
+  width: 23vw;
+  height: 11vh;
+  margin-top: 2vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #e9daff;
+  border-radius: 2vw;
+  color: #4a3f55;
+  font-size: 4vh;
+  font-family: inherit;
+  box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
+}
+
+.intro_speechBubble {
+    position: absolute;
+    z-index: 2;
+    left: 8vw;
+
+    width: 64vw;
+    height: 30vh;
+    margin-bottom: 2vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    border-radius: 5vw;
+    border: 0.3vw solid #FF8F8F;
+    font-size: 3vh;
+}
+
+/* 바깥쪽 삼각형 (테두리 역할) */
+.intro_speechBubble::before {
+    content: '';
+    position: absolute;
+    right: -2.4vw;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-top: 4vh solid transparent;
+    border-bottom: 4vh solid transparent;
+    border-left: 2.4vw solid #FF8F8F;
+    z-index: 1;
+}
+
+/* 안쪽 삼각형 (배경색 역할) */
+.intro_speechBubble::after {
+    content: '';
+    position: absolute;
+    right: -2vw;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-top: 3.3vh solid transparent;
+    border-bottom: 3.3vh solid transparent;
+    border-left: 2.1vw solid white;
+    z-index: 2;
+}
+
+.intro_speechBubble p {
+  margin: 1vh 0;
+  
+  font-size: 3.5vh;
+}
+
+.intro_starImg {
+    position: absolute;
+    z-index: 3;
+    left: 8.5vw;
+    bottom: -18.5vh;
+
+    width: 6vw;
+
+    transform: rotate(-20deg);
+}
+
+
+.intro_char {
+    width: 15vw;
+    margin-right: 8vw;
 }
