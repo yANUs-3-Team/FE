@@ -22,8 +22,9 @@
   gap: 6.2037vh;
 
   background-color: white;
-  border: 0.41666vw solid #FBAC33;
+  border: 0.41666vw solid #fbac33;
   border-radius: 2.60416vw;
+  cursor: pointer;
 }
 
 .charJump_img {
@@ -42,9 +43,19 @@
 }
 
 @keyframes shakeSwing {
-  0%   { transform: rotate(0deg); }
-  25%  { transform: rotate(5deg); }
-  50%  { transform: rotate(-5deg); }
-  75%  { transform: rotate(5deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
