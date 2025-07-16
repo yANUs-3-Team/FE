@@ -2,8 +2,31 @@ import "../component/Css/join.css";
 import { useEffect, useState } from "react";
 
 function Join() {
+  const [birth, setBirth] = useState("");
+  const [isUnder14, setIsUnder14] = useState(false);
   const [termsText, setTermsText] = useState("");
   const [privacyText, setPrivacyText] = useState("");
+  const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const [termsAgreed, setTermsAgreed] = useState(false);
+  const canSubmit = privacyAgreed && termsAgreed;
+
+  const handleBirthChange = (e) => {
+    const inputDate = e.target.value;
+    setBirth(inputDate);
+
+    const birthDate = new Date(inputDate);
+    const today = new Date();
+
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    const dayDiff = today.getDate() - birthDate.getDate();
+
+    const isBirthdayPassedThisYear =
+      monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0);
+    const actualAge = isBirthdayPassedThisYear ? age : age - 1;
+
+    setIsUnder14(actualAge < 14);
+  };
 
   useEffect(() => {
     fetch("/terms.txt")
@@ -36,10 +59,23 @@ function Join() {
           <label className="join_label" htmlFor="birth">
             생년월일
           </label>
-          <input className="join_input" id="birth" type="date" />
+          <input
+            className="join_input"
+            id="birth"
+            type="date"
+            value={birth}
+            onChange={handleBirthChange}
+          />
         </div>
 
-        <div className="join_under14_box">
+        <div
+          className="join_under14_box"
+          style={{
+            visibility: isUnder14 ? "visible" : "hidden",
+            opacity: isUnder14 ? 1 : 0,
+            transition: "opacity 0.3s ease",
+          }}
+        >
           <div className="join_under14_text">
             ! 만 14세 미만 아동은 보호자의 이름과 연락처를 아래에 기입해 주세요
           </div>
@@ -101,6 +137,7 @@ function Join() {
               id="privacyAgree"
               name="privacy"
               className="join_radio_input"
+              onChange={() => setPrivacyAgreed(true)}
             />
             <label htmlFor="privacyAgree" className="join_radio_label">
               개인정보 수집·이용에 동의합니다
@@ -118,6 +155,7 @@ function Join() {
               id="termsAgree"
               name="terms"
               className="join_radio_input"
+              onChange={() => setTermsAgreed(true)}
             />
             <label htmlFor="termsAgree" className="join_radio_label">
               이용약관에 동의합니다
@@ -125,7 +163,12 @@ function Join() {
           </div>
         </div>
 
-        <div className="join_button">가입하기</div>
+        <div
+          className={`join_button ${canSubmit ? "active" : ""}`}
+          style={{ pointerEvents: canSubmit ? "auto" : "none" }}
+        >
+          가입하기
+        </div>
       </div>
 
       <div className="join_spring_box">

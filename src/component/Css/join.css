@@ -172,3 +172,10 @@ width: 34vw;
     color: #B6B6B6;
     font-size: 3vh;
 }
+
+.join_button.active {
+  background-color: #FF8F8F;
+  color: white;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
