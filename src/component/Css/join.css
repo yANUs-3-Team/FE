@@ -136,6 +136,9 @@ width: 34vw;
 
  border: 0.5vh solid #ABADB2;
  background-color: white;
+
+ overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .join_radio {

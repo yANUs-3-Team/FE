@@ -1,6 +1,20 @@
 import "../component/Css/join.css";
+import { useEffect, useState } from "react";
 
 function Join() {
+  const [termsText, setTermsText] = useState("");
+  const [privacyText, setPrivacyText] = useState("");
+
+  useEffect(() => {
+    fetch("/terms.txt")
+      .then((res) => res.text())
+      .then((text) => setTermsText(text));
+
+    fetch("/privacy.txt")
+      .then((res) => res.text())
+      .then((text) => setPrivacyText(text));
+  }, []);
+
   return (
     <div className="join_page">
       <div className="join_container">
@@ -78,7 +92,9 @@ function Join() {
           <div className="join_radio_title">
             [ 개인정보 수집 · 이용 동의서 ]
           </div>
-          <div className="join_radio_detailBox"></div>
+          <div className="join_radio_detailBox">
+            <pre style={{ whiteSpace: "pre-wrap" }}>{privacyText}</pre>
+          </div>
           <div className="join_radio">
             <input
               type="radio"
@@ -92,10 +108,10 @@ function Join() {
           </div>
         </div>
         <div className="join_radio_box">
-          <div className="join_radio_title">
-            [ 이용약관 ]
+          <div className="join_radio_title">[ 이용약관 ]</div>
+          <div className="join_radio_detailBox">
+            <pre style={{ whiteSpace: "pre-wrap" }}>{termsText}</pre>
           </div>
-          <div className="join_radio_detailBox"></div>
           <div className="join_radio">
             <input
               type="radio"
