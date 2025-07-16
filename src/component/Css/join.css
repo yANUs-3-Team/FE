@@ -41,7 +41,6 @@
   justify-content: space-between;
 }
 
-
 .join_spring {
   width: 2.9557vw;
   height: 1.57407vh;
@@ -74,6 +73,11 @@
   background-color: #f6f3f3;
   border-radius: 1vw;
   box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+}
+
+#username {
+    width: 14vw;
+    padding-right: 8vw;
 }
 
 .join_under14_box {
@@ -116,6 +120,26 @@
 
 .join_under14_infoInput:last-child {
   width: 6vw;
+}
+
+.join_idCheck_button {
+position: absolute;
+z-index: 2;
+left: 37.95vw;
+
+width: 6vw;
+height: 5vh;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+background-color: #FFC9C9;
+border-radius: 0.5vw 1vw 1vw 0.5vw;
+color: #604949;
+font-size: 2vh;
+
+cursor: pointer;
 }
 
 .join_radio_box {

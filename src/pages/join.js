@@ -106,6 +106,7 @@ function Join() {
             아이디
           </label>
           <input className="join_input" id="username" type="text" />
+          <div className="join_idCheck_button">중복 확인</div>
         </div>
 
         <div className="join_box">
