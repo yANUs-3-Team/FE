@@ -1,4 +1,171 @@
 .join_page {
-    width: 100%;
-    height: 82.314vh;
+      position: relative;
+
+  width: 100%;
+  height: 82.314vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+.join_container {
+  width: 44%;
+  height: 72vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5vh;
+
+  background-color: white;
+  border: 0.6vh solid #4a3f55;
+  border-radius: 2.5vw;
+}
+
+.join_spring_box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 10;
+
+  width: 3.3723vw;
+  height: 57.407vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.join_spring {
+  width: 2.9557vw;
+  height: 1.57407vh;
+  
+  border-radius: 0.260416vw;
+  background-color: #7e7c73;
+  border: 0.20833vw solid #4a3f55;
+}
+
+.join_box {
+  width: 34vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.join_label {
+  all: unset;
+
+  font-size: 3vh;
+}
+
+.join_input {
+  all: unset;
+
+  width: 20vw;
+  height: 6vh;
+  padding: 0 2vw;
+
+  background-color: #f6f3f3;
+  border-radius: 1vw;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+}
+
+.join_under14_box {
+  margin-left: auto;
+  margin-right: 6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.join_under14_text {
+  color: red;
+  margin-bottom: 0.5vh;
+}
+
+.join_under14_infoBox {
+  display: flex;
+  align-items: center;
+  gap: 0.8vw;
+}
+
+.join_under14_infoLabel {
+  all: unset;
+
+  font-size: 1.8vh;
+}
+
+.join_under14_infoInput {
+  all: unset;
+
+  width: 2vw;
+  height: 3vh;
+  padding: 0 2vw;
+
+  background-color: #f6f3f3;
+  border-radius: 1vw;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+}
+
+.join_under14_infoInput:last-child {
+  width: 6vw;
+}
+
+.join_privacy_box {
+width: 34vw;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.join_privacy_title {
+ font-size: 3vh;
+}
+
+.join_privacy_detailBox {
+ width: 29.5vw;
+ height: 15vh;
+ padding: 1vh 2vw;  
+
+ border: 0.5vh solid #ABADB2;
+ background-color: white;
+}
+
+.join_privacy_radio {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.2vw;
+}
+
+.join_radio_input {
+  width: 0.8vw;
+  height: 0.8vw;
+  accent-color: red;
+}
+
+.join_radio_label {
+  font-size: 1.8vh;
+  cursor: pointer;
+}
+
+.join_button {
+    width: 28vw;
+    height: 8vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: #F6F3F3;
+    border-radius: 1.5vw;
+    color: #B6B6B6;
+    font-size: 3vh;
 }
