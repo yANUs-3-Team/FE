@@ -118,18 +118,18 @@
   width: 6vw;
 }
 
-.join_privacy_box {
+.join_radio_box {
 width: 34vw;
 
   display: flex;
   flex-direction: column;
 }
 
-.join_privacy_title {
+.join_radio_title {
  font-size: 3vh;
 }
 
-.join_privacy_detailBox {
+.join_radio_detailBox {
  width: 29.5vw;
  height: 15vh;
  padding: 1vh 2vw;  
@@ -138,7 +138,7 @@ width: 34vw;
  background-color: white;
 }
 
-.join_privacy_radio {
+.join_radio {
     display: flex;
     justify-content: flex-end;
     align-items: center;

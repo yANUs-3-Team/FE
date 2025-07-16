@@ -74,12 +74,12 @@ function Join() {
       </div>
 
       <div className="join_container">
-        <div className="join_privacy_box">
-          <div className="join_privacy_title">
-            [ 개인정보 수집·이용 동의서 ]
+        <div className="join_radio_box">
+          <div className="join_radio_title">
+            [ 개인정보 수집 · 이용 동의서 ]
           </div>
-          <div className="join_privacy_detailBox"></div>
-          <div className="join_privacy_radio">
+          <div className="join_radio_detailBox"></div>
+          <div className="join_radio">
             <input
               type="radio"
               id="privacyAgree"
@@ -91,19 +91,19 @@ function Join() {
             </label>
           </div>
         </div>
-        <div className="join_privacy_box">
-          <div className="join_privacy_title">
+        <div className="join_radio_box">
+          <div className="join_radio_title">
             [ 이용약관 ]
           </div>
-          <div className="join_privacy_detailBox"></div>
-          <div className="join_privacy_radio">
+          <div className="join_radio_detailBox"></div>
+          <div className="join_radio">
             <input
               type="radio"
-              id="privacyAgree"
-              name="privacy"
+              id="termsAgree"
+              name="terms"
               className="join_radio_input"
             />
-            <label htmlFor="privacyAgree" className="join_radio_label">
+            <label htmlFor="termsAgree" className="join_radio_label">
               이용약관에 동의합니다
             </label>
           </div>
