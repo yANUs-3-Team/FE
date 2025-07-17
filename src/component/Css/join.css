@@ -168,7 +168,7 @@
 
 .join_radio {
   margin-top: 0.2vh;
-  
+
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -205,4 +205,9 @@
   color: white;
   box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
   cursor: pointer;
+}
+
+.join_button.active:active {
+  transform: scale(0.9);
+  transition: transform 0.1s ease;
 }
