@@ -10,6 +10,7 @@ import StoryViewer from "./pages/storyViewer";
 import StoryComplete from "./pages/storyComplete";
 import MyGallery from "./pages/myGallery";
 import OpenGallery from "./pages/openGallery";
+import Policy from "./pages/policy";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/story-complete" element={<StoryComplete />} />
         <Route path="/my-gallery" element={<MyGallery />} />
         <Route path="/open-gallery" element={<OpenGallery />} />
+        <Route path="/policy" element={<Policy />} />
       </Routes>
     </BrowserRouter>
   );

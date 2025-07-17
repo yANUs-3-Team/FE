@@ -31,10 +31,14 @@
     margin-bottom: 3.703vh;
 
     display: flex;
-    gap: 2.447vw;
+    gap: 1.5vw;
 }
 
 .underText {
     font-size: 1.851vh;
     color: white;
+}
+
+.underLink {
+  text-decoration: none;
 }
