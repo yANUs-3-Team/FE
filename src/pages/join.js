@@ -10,6 +10,9 @@ function Join() {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const canSubmit = privacyAgreed && termsAgreed;
 
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
   const handleBirthChange = (e) => {
     const inputDate = e.target.value;
     setBirth(inputDate);
@@ -26,6 +29,15 @@ function Join() {
     const actualAge = isBirthdayPassedThisYear ? age : age - 1;
 
     setIsUnder14(actualAge < 14);
+  };
+
+  const handleJoin = () => {
+    if (password !== passwordConfirm) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    alert("가입이 완료되었습니다!");
   };
 
   useEffect(() => {
@@ -113,14 +125,26 @@ function Join() {
           <label className="join_label" htmlFor="password">
             비밀번호
           </label>
-          <input className="join_input" id="password" type="password" />
+          <input
+            className="join_input"
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
 
         <div className="join_box">
           <label className="join_label" htmlFor="passwordConfirm">
             비밀번호 확인
           </label>
-          <input className="join_input" id="passwordConfirm" type="password" />
+          <input
+            className="join_input"
+            id="passwordConfirm"
+            type="password"
+            value={passwordConfirm}
+            onChange={(e) => setPasswordConfirm(e.target.value)}
+          />
         </div>
       </div>
 
@@ -163,6 +187,7 @@ function Join() {
         <div
           className={`join_button ${canSubmit ? "active" : ""}`}
           style={{ pointerEvents: canSubmit ? "auto" : "none" }}
+          onClick={canSubmit ? handleJoin : undefined}
         >
           가입하기
         </div>
