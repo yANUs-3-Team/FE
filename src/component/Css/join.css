@@ -1,5 +1,5 @@
 .join_page {
-      position: relative;
+  position: relative;
 
   width: 100%;
   height: 82.314vh;
@@ -44,7 +44,7 @@
 .join_spring {
   width: 2.9557vw;
   height: 1.57407vh;
-  
+
   border-radius: 0.260416vw;
   background-color: #7e7c73;
   border: 0.20833vw solid #4a3f55;
@@ -76,8 +76,8 @@
 }
 
 #username {
-    width: 14vw;
-    padding-right: 8vw;
+  width: 14vw;
+  padding-right: 8vw;
 }
 
 .join_under14_box {
@@ -123,53 +123,54 @@
 }
 
 .join_idCheck_button {
-position: absolute;
-z-index: 2;
-left: 37.95vw;
+  position: absolute;
+  z-index: 2;
+  left: 37.95vw;
 
-width: 6vw;
-height: 5vh;
+  width: 6vw;
+  height: 5vh;
 
-display: flex;
-justify-content: center;
-align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-background-color: #FFC9C9;
-border-radius: 0.5vw 1vw 1vw 0.5vw;
-color: #604949;
-font-size: 2vh;
+  background-color: #ffc9c9;
+  border-radius: 0.5vw 1vw 1vw 0.5vw;
+  color: #604949;
+  font-size: 2vh;
 
-cursor: pointer;
+  cursor: pointer;
 }
 
 .join_radio_box {
-width: 34vw;
+  width: 34vw;
 
   display: flex;
   flex-direction: column;
 }
 
 .join_radio_title {
- font-size: 3vh;
+  font-size: 3vh;
 }
 
 .join_radio_detailBox {
- width: 29.5vw;
- height: 15vh;
- padding: 1vh 2vw;  
+  width: 29.5vw;
+  height: 13vh;
+  padding: 2vh 2vw;
 
- border: 0.5vh solid #ABADB2;
- background-color: white;
+  border: 0.5vh solid #abadb2;
+  background-color: white;
 
- overflow-y: auto;
+  overflow-y: auto;
   scrollbar-width: thin;
+  white-space: pre-wrap;
 }
 
 .join_radio {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.2vw;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.2vw;
 }
 
 .join_radio_input {
@@ -184,21 +185,21 @@ width: 34vw;
 }
 
 .join_button {
-    width: 28vw;
-    height: 8vh;
+  width: 28vw;
+  height: 8vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    background-color: #F6F3F3;
-    border-radius: 1.5vw;
-    color: #B6B6B6;
-    font-size: 3vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #f6f3f3;
+  border-radius: 1.5vw;
+  color: #b6b6b6;
+  font-size: 3vh;
 }
 
 .join_button.active {
-  background-color: #FF8F8F;
+  background-color: #ff8f8f;
   color: white;
   box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
   cursor: pointer;
