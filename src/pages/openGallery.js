@@ -2,6 +2,7 @@ import { useState } from "react";
 import Footer from "../component/footer";
 import "../component/Css/openGallery.css";
 import halfSide3 from "../images/character_halfSide3.png";
+import { useNavigate } from "react-router-dom";
 
 function OpenGallery() {
   const itemsPerPage = 9;
@@ -26,6 +27,8 @@ function OpenGallery() {
 
   const author = "홍길동";
 
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="openGallery_page">
@@ -47,7 +50,12 @@ function OpenGallery() {
           {currentCovers.map((cover) => (
             <div key={cover.id} className="cover_box2">
               <button className="OG_detail_button">💡 저자: {author}</button>
-              <button className="OG_detail_button">📖 동화책 읽기</button>
+              <button
+                className="OG_detail_button"
+                onClick={() => navigate("/story-viewer")}
+              >
+                📖 동화책 읽기
+              </button>
             </div>
           ))}
         </div>

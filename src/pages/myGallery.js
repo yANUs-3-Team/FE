@@ -69,8 +69,8 @@ function MyGallery() {
             <div className="cover_container">
               {currentCovers.map((cover) => (
                 <div key={cover.id} className="cover_box">
-                  <button className="MG_detail_button">📖 동화책 읽기</button>
-                  <button className="MG_detail_button">✏️ 동화책 고치기</button>
+                  <button className="MG_detail_button" onClick={() => navigate("/story-viewer")}>📖 동화책 읽기</button>
+                  <button className="MG_detail_button" onClick={() => navigate("/story-viewer")}>✏️ 동화책 고치기</button>
                 </div>
               ))}
             </div>
