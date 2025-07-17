@@ -43,13 +43,20 @@
   justify-content: center;
   align-items: center;
 
-  background-color: #ffefa2;
-  border: 0.6vh solid #f9a92f;
+  background-color: #FFF9DB;
+  border: 0.6vh solid #CDB795;
   border-left: none;
   border-radius: 0 2.5vw 2.5vw 0;
   font-size: 2.2vh;
   color: #604949;
   writing-mode: vertical-rl;
+  cursor: pointer;
+}
+
+
+.policy_bookmark.active {
+  background-color: #ffefa2;
+  border-color: #f9a92f;
 }
 
 .policy_title {
