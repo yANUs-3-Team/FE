@@ -54,6 +54,7 @@
   display: flex;
   align-items: center;
   gap: 0.833vw;
+  
   font-size: 3.333vh;
   cursor: pointer;
   color: #4a3f55;
@@ -62,5 +63,7 @@
 .radio_label input[type="radio"] {
   width: 2.5vh;
   height: 2.5vh;
+
   accent-color: #9888a8;
+  cursor: pointer;
 }

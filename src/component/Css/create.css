@@ -155,6 +155,8 @@
 .rightButton_img {
   width: 2.5vw;
   height: 6.111vh;
+
+  cursor: pointer;
 }
 
 .leftButton_img {
