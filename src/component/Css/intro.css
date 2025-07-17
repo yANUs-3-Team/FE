@@ -13,9 +13,9 @@
 }
 
 .intro_container:last-child {
-    height: 60vh;
+  height: 60vh;
 
-    justify-content: end;
+  justify-content: end;
 }
 
 .intro_logo {
@@ -78,78 +78,136 @@
 }
 
 .intro_speechBubble {
-    position: absolute;
-    z-index: 2;
-    left: 8vw;
+  position: absolute;
+  z-index: 2;
+  left: 8vw;
 
-    width: 64vw;
-    height: 30vh;
-    margin-bottom: 2vh;
+  width: 64vw;
+  height: 30vh;
+  margin-bottom: 2vh;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    background-color: white;
-    border-radius: 5vw;
-    border: 0.3vw solid #FF8F8F;
-    font-size: 3vh;
+  background-color: white;
+  border-radius: 5vw;
+  border: 0.3vw solid #ff8f8f;
+  font-size: 3vh;
 }
 
 /* 바깥쪽 삼각형 (테두리 역할) */
 .intro_speechBubble::before {
-    content: '';
-    position: absolute;
-    right: -2.4vw;
-    top: 50%;
-    transform: translateY(-50%);
+  content: "";
+  position: absolute;
+  right: -2.4vw;
+  top: 50%;
+  transform: translateY(-50%);
 
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 
-    border-top: 4vh solid transparent;
-    border-bottom: 4vh solid transparent;
-    border-left: 2.4vw solid #FF8F8F;
-    z-index: 1;
+  border-top: 4vh solid transparent;
+  border-bottom: 4vh solid transparent;
+  border-left: 2.4vw solid #ff8f8f;
+  z-index: 1;
 }
 
 /* 안쪽 삼각형 (배경색 역할) */
 .intro_speechBubble::after {
-    content: '';
-    position: absolute;
-    right: -2vw;
-    top: 50%;
-    transform: translateY(-50%);
+  content: "";
+  position: absolute;
+  right: -2vw;
+  top: 50%;
+  transform: translateY(-50%);
 
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 
-    border-top: 3.3vh solid transparent;
-    border-bottom: 3.3vh solid transparent;
-    border-left: 2.1vw solid white;
-    z-index: 2;
+  border-top: 3.3vh solid transparent;
+  border-bottom: 3.3vh solid transparent;
+  border-left: 2.1vw solid white;
+  z-index: 2;
 }
 
 .intro_speechBubble p {
   margin: 1vh 0;
-  
+
   font-size: 3.5vh;
 }
 
 .intro_starImg {
-    position: absolute;
-    z-index: 3;
-    left: 8.5vw;
-    bottom: -18.5vh;
+  position: absolute;
+  z-index: 3;
+  left: 8.5vw;
+  bottom: -18.5vh;
 
-    width: 6vw;
+  width: 6vw;
 
-    transform: rotate(-20deg);
+  transform: rotate(-20deg);
 }
 
-
 .intro_char {
-    width: 15vw;
-    margin-right: 8vw;
+  width: 15vw;
+  margin-right: 8vw;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-10vw);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(10vw);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(5vw);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated {
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.animate-left {
+  animation: slideInLeft 0.7s ease-out forwards;
+}
+.animate-right {
+  animation: slideInRight 0.7s ease-out forwards;
+}
+.animate-up {
+  animation: slideInUp 1s ease-out forwards;
+}
+
+/* 딜레이 옵션 */
+.delay-1 {
+  animation-delay: 0.2s;
+}
+.delay-2 {
+  animation-delay: 0.4s;
+}
+.delay-3 {
+  animation-delay: 0.6s;
 }
