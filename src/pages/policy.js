@@ -1,10 +1,13 @@
 import "../component/Css/policy.css";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function Policy() {
   const [privacyText, setPrivacyText] = useState("");
   const [termsText, setTermsText] = useState("");
-  const [selectedPolicy, setSelectedPolicy] = useState("privacy"); // 초기값은 개인정보처리방침
+  const location = useLocation();
+  const defaultTab = location.state?.tab || "privacy";
+  const [selectedPolicy, setSelectedPolicy] = useState(defaultTab);
 
   useEffect(() => {
     fetch("/privacy.txt")
@@ -32,13 +35,17 @@ function Policy() {
 
       <div className="policy_bookmark_box">
         <div
-          className={`policy_bookmark ${selectedPolicy === "privacy" ? "active" : ""}`}
+          className={`policy_bookmark ${
+            selectedPolicy === "privacy" ? "active" : ""
+          }`}
           onClick={() => setSelectedPolicy("privacy")}
         >
           개인정보처리방침
         </div>
         <div
-          className={`policy_bookmark ${selectedPolicy === "terms" ? "active" : ""}`}
+          className={`policy_bookmark ${
+            selectedPolicy === "terms" ? "active" : ""
+          }`}
           onClick={() => setSelectedPolicy("terms")}
         >
           이용약관

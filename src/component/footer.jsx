@@ -16,10 +16,18 @@ function Footer() {
         <div className="underText">2025</div>
         <div className="underText">SOFTWARE CONVERGENCE</div>
         <div className="underText">GYEONGKUK NATIONAL UNIVERSITY</div>
+        
         <div className="underText">|</div>
-        <Link to="/open-gallery" className="underText underLink">개인정보처리방침</Link>
+
+        <Link to="/policy" state={{ tab: "privacy" }} className="underText underLink">
+          개인정보처리방침
+        </Link>
+
         <div className="underText">|</div>
-        <Link to="/" className="underText underLink">이용약관</Link>
+
+        <Link to="/policy" state={{ tab: "terms" }} className="underText underLink">
+          이용약관
+        </Link>
       </div>
     </div>
   );
