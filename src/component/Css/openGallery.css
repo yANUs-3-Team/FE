@@ -206,6 +206,7 @@
 
 .OG_detail_button:last-of-type {
   background-color: #e9daff;
+  border: 0.2vw solid #9888a8;
   color: #4a3f55;
   font-size: 3vh;
   box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
@@ -268,8 +269,8 @@
 
 .OGpagination_button {
   all: unset !important;
-  
-  color: #4A3F55;
+
+  color: #4a3f55;
   font-size: 2vh;
   border-radius: 0.5vw;
   padding: 0.4vh 1vw;
