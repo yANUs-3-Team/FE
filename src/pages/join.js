@@ -2,14 +2,18 @@ import "../component/Css/join.css";
 import { useEffect, useState } from "react";
 
 function Join() {
-  const [birth, setBirth] = useState("");
   const [isUnder14, setIsUnder14] = useState(false);
   const [termsText, setTermsText] = useState("");
   const [privacyText, setPrivacyText] = useState("");
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
-  const canSubmit = privacyAgreed && termsAgreed;
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [birth, setBirth] = useState("");
+  const [parentName, setParentName] = useState("");
+  const [parentPhone, setParentPhone] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
@@ -40,6 +44,17 @@ function Join() {
     alert("가입이 완료되었습니다!");
   };
 
+  const requiredFilled =
+    name &&
+    email &&
+    birth &&
+    username &&
+    password &&
+    passwordConfirm &&
+    (!isUnder14 || (parentName && parentPhone));
+
+  const canSubmit = privacyAgreed && termsAgreed && requiredFilled;
+
   useEffect(() => {
     fetch("/terms.txt")
       .then((res) => res.text())
@@ -57,14 +72,26 @@ function Join() {
           <label className="join_label" htmlFor="name">
             이름
           </label>
-          <input className="join_input" id="name" type="text" />
+          <input
+            className="join_input"
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
 
         <div className="join_box">
           <label className="join_label" htmlFor="email">
             이메일
           </label>
-          <input className="join_input" id="email" type="email" />
+          <input
+            className="join_input"
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
 
         <div className="join_box">
@@ -99,6 +126,8 @@ function Join() {
               className="join_under14_infoInput"
               id="parentName"
               type="text"
+              value={parentName}
+              onChange={(e) => setParentName(e.target.value)}
             />
 
             <label className="join_under14_infoLabel" htmlFor="parentPhone">
@@ -108,7 +137,8 @@ function Join() {
               className="join_under14_infoInput"
               id="parentPhone"
               type="tel"
-              placeholder="010-0000-0000"
+              value={parentPhone}
+              onChange={(e) => setParentPhone(e.target.value)}
             />
           </div>
         </div>
@@ -117,7 +147,13 @@ function Join() {
           <label className="join_label" htmlFor="username">
             아이디
           </label>
-          <input className="join_input" id="username" type="text" />
+          <input
+            className="join_input"
+            id="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
           <div className="join_idCheck_button">중복 확인</div>
         </div>
 
