@@ -153,7 +153,9 @@ function Join() {
           <div className="join_radio_title">
             [ 개인정보 수집 · 이용 동의서 ]
           </div>
-          <div className="join_radio_detailBox">{privacyText}</div>
+          <div className="scroll_wrapper">
+            <div className="join_radio_detailBox">{privacyText}</div>
+          </div>
           <div className="join_radio">
             <input
               type="radio"
@@ -167,9 +169,12 @@ function Join() {
             </label>
           </div>
         </div>
+
         <div className="join_radio_box">
           <div className="join_radio_title">[ 이용약관 ]</div>
-          <div className="join_radio_detailBox">{termsText}</div>
+          <div className="scroll_wrapper">
+            <div className="join_radio_detailBox">{termsText}</div>
+          </div>
           <div className="join_radio">
             <input
               type="radio"
