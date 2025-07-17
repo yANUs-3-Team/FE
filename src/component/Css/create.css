@@ -170,9 +170,11 @@
 .pagination_button {
   width: 9.010416vw;
   height: 5.0925vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   font-size: 2.777vh;
   color: #4a3f55;
   border-radius: 1.5625vw;
@@ -191,4 +193,10 @@
   margin-right: 4.375vw;
   background-color: #b8c9ff;
   border: 0.2083vw solid #2c4673;
+}
+
+.leftButton_img:active,
+.rightButton_img:active {
+  transform: scale(0.9);
+  transition: transform 0.1s ease;
 }

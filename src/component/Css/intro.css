@@ -64,11 +64,17 @@
 
   background-color: #e9daff;
   border-radius: 2vw;
+  border: 0.2vw solid #9888a8;
   color: #4a3f55;
   font-size: 4vh;
   font-family: inherit;
   box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
   cursor: pointer;
+}
+
+.intro_button:active {
+  transform: scale(0.9);
+  transition: transform 0.1s ease;
 }
 
 .intro_speechBubble {
