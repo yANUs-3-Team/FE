@@ -149,6 +149,10 @@
   overflow: visible;
 }
 
+.cover_container:nth-child(1) {
+  background-color: red;
+}
+
 .cover_box {
   position: relative;
   overflow: hidden;
@@ -213,7 +217,7 @@
 }
 
 .MGpagination_container {
-  width: 100%;
+  width: calc(100%-10vw);
   height: 20vh;
   padding-bottom: 6vh;
 
