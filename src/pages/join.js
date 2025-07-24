@@ -69,10 +69,12 @@ function Join() {
       .then((text) => setPrivacyText(text));
   }, []);
 
+  const BACK_IP = process.env.REACT_APP_BACK_IP;
+
   const handleUserInfo = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/register", // 이부분 이제 localhost에서 주소 바뀌면 내가 알려줄게
+        `https://${BACK_IP}/api/users/register`, // 이부분 이제 localhost에서 주소 바뀌면 내가 알려줄게
         {
           name,
           email,
