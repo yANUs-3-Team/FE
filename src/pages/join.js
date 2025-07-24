@@ -41,7 +41,7 @@ function Join() {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    handleStorySubmit();
+    handleUserInfo();
 
     alert("가입이 완료되었습니다!");
   };
@@ -67,7 +67,7 @@ function Join() {
       .then((text) => setPrivacyText(text));
   }, []);
 
-  const handleStorySubmit = async () => {
+  const handleUserInfo = async () => {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/users/register",
