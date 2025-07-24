@@ -85,8 +85,8 @@ function Join() {
       );
       console.log("서버 응답:", response.data);
 
-      if (response.status === 200) {
-        navigate("/intro");
+      if (response.status === 201) {
+        navigate("/");
       }
     } catch (error) {
       console.error("회원가입 중 오류 발생:", error);
