@@ -1,6 +1,7 @@
 import "../component/Css/join.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Join() {
   const [isUnder14, setIsUnder14] = useState(false);
@@ -36,14 +37,13 @@ function Join() {
     setIsUnder14(actualAge < 14);
   };
 
-  const handleJoin = () => {
+  const handleJoin = async () => {
     if (password !== passwordConfirm) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    handleUserInfo();
 
-    alert("가입이 완료되었습니다!");
+    await handleUserInfo();
   };
 
   const requiredFilled =
@@ -56,6 +56,8 @@ function Join() {
     (!isUnder14 || (parentName && parentPhone));
 
   const canSubmit = privacyAgreed && termsAgreed && requiredFilled;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/terms.txt")
@@ -82,6 +84,10 @@ function Join() {
         }
       );
       console.log("서버 응답:", response.data);
+
+      if (response.status === 200) {
+        navigate("/intro");
+      }
     } catch (error) {
       console.error("회원가입 중 오류 발생:", error);
       alert("회원가입 중 오류가 발생했습니다.");
