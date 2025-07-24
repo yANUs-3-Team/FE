@@ -70,7 +70,7 @@ function Join() {
   const handleUserInfo = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/register",
+        "http://localhost:5000/api/users/register", // 이부분 이제 localhost에서 주소 바뀌면 내가 알려줄게
         {
           name,
           email,
