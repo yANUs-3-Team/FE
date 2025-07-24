@@ -1,5 +1,6 @@
 import "../component/Css/join.css";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Join() {
   const [isUnder14, setIsUnder14] = useState(false);
@@ -40,6 +41,7 @@ function Join() {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
+    handleStorySubmit();
 
     alert("가입이 완료되었습니다!");
   };
@@ -64,6 +66,27 @@ function Join() {
       .then((res) => res.text())
       .then((text) => setPrivacyText(text));
   }, []);
+
+  const handleStorySubmit = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/users/register",
+        {
+          name,
+          email,
+          birth,
+          parentName,
+          parentPhone,
+          username,
+          password,
+        }
+      );
+      console.log("서버 응답:", response.data);
+    } catch (error) {
+      console.error("회원가입 중 오류 발생:", error);
+      alert("회원가입 중 오류가 발생했습니다.");
+    }
+  };
 
   return (
     <div className="join_page">
