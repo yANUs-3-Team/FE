@@ -3,19 +3,17 @@ import mainLogo from "../images/mainLogo.png";
 import googleLogo from "../images/google_icon.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
+import { jwtDecode } from "jwt-decode";
 import { UserContext } from "../context/UserContext";
 
 function Login() {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const BACK_IP = process.env.REACT_APP_BACK_IP;
-
-  const { setUser } = useContext(UserContext);
 
   const handleLoginInfo = async () => {
     try {
@@ -23,10 +21,16 @@ function Login() {
         username,
         password,
       });
-      console.log("서버 응답:", response.data);
 
       if (response.status === 200) {
-        setUser({ username });
+        const token = response.data.token;
+        const decoded = jwtDecode(token);
+        const expire = decoded.exp * 1000;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("token_expire", expire);
+
+        setUser({ username: decoded.username, token });
         navigate("/");
       }
     } catch (error) {
