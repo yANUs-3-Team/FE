@@ -7,8 +7,6 @@ import { useState, useContext } from "react";
 import { jwtDecode } from "jwt-decode";
 import { UserContext } from "../context/UserContext";
 
-import bcrypt from "bcryptjs-react";
-
 function Login() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -19,13 +17,9 @@ function Login() {
 
   const handleLoginInfo = async () => {
     try {
-      // 비밀번호를 해시하여 전송
-      const hashedPassword = bcrypt.hashSync(password, 10);
-
       const response = await axios.post(`https://${BACK_IP}/api/users/login`, {
         username,
-        // password,
-        password: hashedPassword, // 해시된 비밀번호 전송
+        password,
       });
 
       if (response.status === 200) {

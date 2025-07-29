@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import bcrypt from "bcryptjs-react";
-
 function Join() {
   const [isUnder14, setIsUnder14] = useState(false);
   const [termsText, setTermsText] = useState("");
@@ -75,9 +73,6 @@ function Join() {
 
   const handleUserInfo = async () => {
     try {
-      // 비밀번호 해싱
-      const hashedPassword = bcrypt.hashSync(password, 10);
-
       const response = await axios.post(
         `https://${BACK_IP}/api/users/register`,
         {
@@ -87,8 +82,7 @@ function Join() {
           parentName,
           parentPhone,
           username,
-          // password,
-          password: hashedPassword, // 해시된 비밀번호 전송
+          password,
         }
       );
       console.log("서버 응답:", response.data);
