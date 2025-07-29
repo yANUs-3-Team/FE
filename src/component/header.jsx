@@ -30,7 +30,15 @@ function Header() {
 
         <div className="nav_box">
           {user ? (
-            <div className="nav">{user.username}님</div>
+            <>
+              <div className="user_dropdown">
+                <div className="nav username">{user.username}님</div>
+                <div className="myBox">
+                  <div className="dropdown_item">마이페이지</div>
+                  <div className="dropdown_item">로그아웃</div>
+                </div>
+              </div>
+            </>
           ) : (
             <>
               <Link to="/login" className="nav">
