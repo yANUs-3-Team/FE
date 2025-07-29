@@ -6,7 +6,13 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 function Header() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setUser(null);
+    window.location.href = "/";
+  };
 
   return (
     <div className="header">
@@ -35,7 +41,9 @@ function Header() {
                 <div className="nav username">{user.username}님</div>
                 <div className="myBox">
                   <div className="dropdown_item">마이페이지</div>
-                  <div className="dropdown_item">로그아웃</div>
+                  <div className="dropdown_item" onClick={handleLogout}>
+                    로그아웃
+                  </div>
                 </div>
               </div>
             </>
