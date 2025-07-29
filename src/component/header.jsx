@@ -1,8 +1,22 @@
 import { Link } from "react-router-dom";
 import "../component/Css/header.css";
 import headerLogo from "../images/headerLogo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 function Header() {
+  const { user, setUser } = useContext(UserContext);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setUser(null);
+    window.location.href = "/";
+  };
+
   return (
     <div className="header">
       <img src={headerLogo} alt="" className="headerLogo" />
@@ -24,12 +38,30 @@ function Header() {
         </div>
 
         <div className="nav_box">
-          <Link to="/login" className="nav">
-            로그인
-          </Link>
-          <Link to="/join" className="nav">
-            회원가입
-          </Link>
+          {user ? (
+            <>
+              <div className="user_dropdown">
+                <div className="nav username">{user.username} 님</div>
+                <div className="myBox">
+                  <div className="dropdown_item">
+                    <FontAwesomeIcon icon={faUser} className="dropdown_icon"/> 마이페이지
+                  </div>
+                  <div className="dropdown_item" onClick={handleLogout}>
+                    <FontAwesomeIcon icon={faSignOutAlt} className="dropdown_icon"/> 로그아웃
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="nav">
+                로그인
+              </Link>
+              <Link to="/join" className="nav">
+                회원가입
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -12,23 +12,48 @@ import MyGallery from "./pages/myGallery";
 import OpenGallery from "./pages/openGallery";
 import Policy from "./pages/policy";
 
+import { UserProvider } from "./context/UserContext";
+import ProtectedRoute from "./component/ProtectedRoute";
+
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-
-      <Routes>
-        <Route path="/" element={<Intro />} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/loading" element={<Loading />} />
-        <Route path="/story-viewer" element={<StoryViewer />} />
-        <Route path="/story-complete" element={<StoryComplete />} />
-        <Route path="/my-gallery" element={<MyGallery />} />
-        <Route path="/open-gallery" element={<OpenGallery />} />
-        <Route path="/policy" element={<Policy />} />
-      </Routes>
+      <UserProvider>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Intro />} />
+          <Route path="/join" element={<Join />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/create"
+            element={
+              <ProtectedRoute>
+                <Create />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/loading" element={<Loading />} />
+          <Route path="/story-viewer" element={<StoryViewer />} />
+          <Route path="/story-complete" element={<StoryComplete />} />
+          <Route
+            path="/my-gallery"
+            element={
+              <ProtectedRoute>
+                <MyGallery />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/open-gallery"
+            element={
+              <ProtectedRoute>
+                <OpenGallery />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/policy" element={<Policy />} />
+        </Routes>
+      </UserProvider>
     </BrowserRouter>
   );
 }
