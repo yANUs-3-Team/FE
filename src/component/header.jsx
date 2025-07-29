@@ -2,7 +2,12 @@ import { Link } from "react-router-dom";
 import "../component/Css/header.css";
 import headerLogo from "../images/headerLogo.png";
 
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+
 function Header() {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="header">
       <img src={headerLogo} alt="" className="headerLogo" />
@@ -24,12 +29,18 @@ function Header() {
         </div>
 
         <div className="nav_box">
-          <Link to="/login" className="nav">
-            로그인
-          </Link>
-          <Link to="/join" className="nav">
-            회원가입
-          </Link>
+          {user ? (
+            <div className="nav">{user.username}님</div>
+          ) : (
+            <>
+              <Link to="/login" className="nav">
+                로그인
+              </Link>
+              <Link to="/join" className="nav">
+                회원가입
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

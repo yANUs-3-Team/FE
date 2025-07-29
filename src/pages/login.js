@@ -4,7 +4,8 @@ import googleLogo from "../images/google_icon.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,18 +15,18 @@ function Login() {
 
   const BACK_IP = process.env.REACT_APP_BACK_IP;
 
+  const { setUser } = useContext(UserContext);
+
   const handleLoginInfo = async () => {
     try {
-      const response = await axios.post(
-        `https://${BACK_IP}/api/users/login`,
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post(`https://${BACK_IP}/api/users/login`, {
+        username,
+        password,
+      });
       console.log("서버 응답:", response.data);
 
       if (response.status === 200) {
+        setUser({ username });
         navigate("/");
       }
     } catch (error) {
