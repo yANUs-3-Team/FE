@@ -1,10 +1,38 @@
 import "../component/Css/login.css";
 import mainLogo from "../images/mainLogo.png";
 import googleLogo from "../images/google_icon.png";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 
 function Login() {
   const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const BACK_IP = process.env.REACT_APP_BACK_IP;
+
+  const handleLoginInfo = async () => {
+    try {
+      const response = await axios.post(
+        `https://${BACK_IP}/api/users/login`,
+        {
+          username,
+          password,
+        }
+      );
+      console.log("서버 응답:", response.data);
+
+      if (response.status === 200) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("로그인 중 오류 발생:", error);
+      alert("로그인 중 오류가 발생했습니다.");
+    }
+  };
 
   return (
     <div className="login_page">
@@ -15,8 +43,20 @@ function Login() {
           <img src={mainLogo} alt="main logo" className="login_logo" />
         </div>
 
-        <input type="text" placeholder="아이디" className="login_input" />
-        <input type="password" placeholder="비밀번호" className="login_input" />
+        <input
+          type="text"
+          placeholder="아이디"
+          className="login_input"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          className="login_input"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <div className="social_login_box">
           <div className="social_login social_kakao">
@@ -27,13 +67,15 @@ function Login() {
           </div>
           <div className="social_login social_google">
             <div className="social_icon_box">
-              <img src={googleLogo} alt="" className="google_icon"></img>
+              <img src={googleLogo} alt="google icon" className="google_icon" />
             </div>
             Google 계정으로 로그인
           </div>
         </div>
 
-        <div className="login_button">로그인</div>
+        <div className="login_button" onClick={handleLoginInfo}>
+          로그인
+        </div>
 
         <div className="login_find">아이디/비밀번호 찾기</div>
 
