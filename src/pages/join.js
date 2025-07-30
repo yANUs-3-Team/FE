@@ -182,6 +182,7 @@ function Join() {
             className="join_input"
             id="username"
             type="text"
+            placeholder="최소 4자. 영문과 숫자만 사용 가능"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -196,6 +197,7 @@ function Join() {
             className="join_input"
             id="password"
             type="password"
+            placeholder="영문, 숫자, 특수문자 포함 최소 8자"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
