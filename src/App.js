@@ -30,9 +30,9 @@ function App() {
           <Route
             path="/create"
             element={
-              <ProtectedRoute>
+              /*<ProtectedRoute>*/
                 <Create />
-              </ProtectedRoute>
+              /*</ProtectedRoute>*/
             }
           />
           <Route path="/loading" element={<Loading />} />
@@ -41,17 +41,17 @@ function App() {
           <Route
             path="/my-gallery"
             element={
-              <ProtectedRoute>
+              /*<ProtectedRoute>*/
                 <MyGallery />
-              </ProtectedRoute>
+              /*</ProtectedRoute>*/
             }
           />
           <Route
             path="/open-gallery"
             element={
-              <ProtectedRoute>
+              /*<ProtectedRoute>*/
                 <OpenGallery />
-              </ProtectedRoute>
+              /*</ProtectedRoute>*/
             }
           />
           <Route path="/community" element={<Community />} />
