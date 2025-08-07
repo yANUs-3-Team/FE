@@ -1,4 +1,120 @@
 .myPage_page {
   width: 100%;
   height: 82.314vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tag_container {
+  width: 58vw;
+  height: 52vh;
+  padding: 8vh 7vw;
+
+  display: flex;
+
+  background-color: white;
+  border: 0.6vh solid #4a3f55;
+  border-radius: 4vw;
+}
+
+.tag_box {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag_profile {
+  width: 16.5vw;
+  height: 33vh;
+
+  border-radius: 5.5vw;
+}
+
+.tag_contour {
+  width: 0.1vw;
+  height: 100%;
+
+  background-color: black;
+}
+
+.tag_detailBox {
+  width: 32vw;
+  height: 33vh;
+}
+
+.tag_titleBox {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.tag_idBox {
+  display: flex;
+  align-items: end;
+  gap: 0.5vw;
+}
+
+.tag_subId {
+  font-size: 2.8vh;
+}
+
+.tag_id {
+  font-size: 3.5vh;
+  font-weight: bold;
+  color: #604949;
+}
+
+.tag_edit {
+  width: 1.7vw;
+  height: 3.5vh;
+  padding-left: 0.1vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #9888A8;
+  border-radius: 0.5vw;
+  color: white;
+  font-size: 2.2vh;
+}
+
+.tag_subBox {
+  width: 100%;
+  height: 26vh;
+  padding-top: 7vh;
+
+  display: flex;
+}
+
+.tag_leftBox {
+  width: 50%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1vh;
+}
+
+.tag_rightBox {
+  width: 50%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1vh;
+}
+
+.tag_info {
+  height: 3.5vh;
+
+  font-size: 2.2vh;
 }
