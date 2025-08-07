@@ -1,4 +1,221 @@
 .join_page {
-    width: 100%;
-    height: 82.314vh;
+  position: relative;
+
+  width: 100%;
+  height: 82.314vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+.join_container {
+  width: 44%;
+  height: 72vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5vh;
+
+  background-color: white;
+  border: 0.6vh solid #4a3f55;
+  border-radius: 2.5vw;
+}
+
+.join_spring_box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 10;
+
+  width: 3.3723vw;
+  height: 57.407vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.join_spring {
+  width: 2.9557vw;
+  height: 1.57407vh;
+
+  border-radius: 0.260416vw;
+  background-color: #7e7c73;
+  border: 0.20833vw solid #4a3f55;
+}
+
+.join_box {
+  width: 34vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.join_label {
+  all: unset;
+
+  font-size: 3vh;
+}
+
+.join_input {
+  all: unset;
+
+  width: 20vw;
+  height: 6vh;
+  padding: 0 2vw;
+
+  background-color: #f6f3f3;
+  border-radius: 1vw;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+}
+
+#username {
+  width: 14vw;
+  padding-right: 8vw;
+}
+
+.join_under14_box {
+  margin-left: auto;
+  margin-right: 6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.join_under14_text {
+  color: red;
+  margin-bottom: 0.5vh;
+}
+
+.join_under14_infoBox {
+  display: flex;
+  align-items: center;
+  gap: 0.8vw;
+}
+
+.join_under14_infoLabel {
+  all: unset;
+
+  font-size: 1.8vh;
+}
+
+.join_under14_infoInput {
+  all: unset;
+
+  width: 2vw;
+  height: 3vh;
+  padding: 0 2vw;
+
+  background-color: #f6f3f3;
+  border-radius: 1vw;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+}
+
+.join_under14_infoInput:last-child {
+  width: 6vw;
+}
+
+.join_idCheck_button {
+  position: absolute;
+  z-index: 2;
+  left: 37.95vw;
+
+  width: 6vw;
+  height: 5vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #ffc9c9;
+  border-radius: 0.5vw 1vw 1vw 0.5vw;
+  color: #604949;
+  font-size: 2vh;
+
+  cursor: pointer;
+}
+
+.join_radio_box {
+  width: 34vw;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.join_radio_title {
+  font-size: 3vh;
+}
+
+.scroll_wrapper {
+  width: 29.5vw;
+  height: 13vh;
+  padding: 2vh 2vw;
+
+  border-radius: 1vw;
+  overflow: hidden;
+  border: 0.5vh solid #abadb2;
+  background-color: white;
+}
+
+.join_radio_detailBox {
+  width: 100%;
+  height: 100%;
+
+  overflow-y: auto;
+  scrollbar-width: thin;
+  white-space: pre-wrap;
+  background-color: transparent;
+}
+
+.join_radio {
+  margin-top: 0.2vh;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.2vw;
+}
+
+.join_radio_input {
+  width: 0.8vw;
+  height: 0.8vw;
+  accent-color: red;
+}
+
+.join_radio_label {
+  font-size: 1.8vh;
+  cursor: pointer;
+}
+
+.join_button {
+  width: 28vw;
+  height: 8vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #f6f3f3;
+  border-radius: 1.5vw;
+  color: #b6b6b6;
+  font-size: 3vh;
+}
+
+.join_button.active {
+  background-color: #ff8f8f;
+  color: white;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.join_button.active:active {
+  transform: scale(0.9);
+  transition: transform 0.1s ease;
 }

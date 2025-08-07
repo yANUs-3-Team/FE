@@ -1,0 +1,79 @@
+.policy_page {
+  position: relative;
+
+  width: 100%;
+  height: 82.314vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.policy_container {
+  width: 52vw;
+  height: 69vh;
+
+  padding: 1.5vh 4vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+  border: 0.6vh solid #4a3f55;
+  border-radius: 2.5vw;
+}
+
+.policy_bookmark_box {
+  position: absolute;
+  right: 15.5vw;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10vh;
+}
+
+.policy_bookmark {
+  width: 3.5vw;
+  height: 20vh;
+  padding-right: 0.5vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #FFF9DB;
+  border: 0.6vh solid #CDB795;
+  border-left: none;
+  border-radius: 0 2.5vw 2.5vw 0;
+  font-size: 2.2vh;
+  color: #604949;
+  writing-mode: vertical-rl;
+  cursor: pointer;
+}
+
+
+.policy_bookmark.active {
+  background-color: #ffefa2;
+  border-color: #f9a92f;
+}
+
+.policy_title {
+  width: 100%;
+  height: 7vh;
+
+  font-size: 3.5vh;
+  font-weight: bold;
+}
+
+.policy_paragraphs_box {
+  width: 100%;
+  height: 55vh;
+
+  overflow-y: auto;
+  scrollbar-width: thin;
+
+  font-size: 2.5vh;
+  white-space: pre-wrap;
+}

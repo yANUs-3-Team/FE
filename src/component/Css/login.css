@@ -1,4 +1,187 @@
 .login_page {
-    width: 100%;
-    height: 82.314vh;
+  position: relative;
+  width: 100%;
+  height: 82.314vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_container {
+  position: relative;
+  z-index: 2;
+
+  width: 32vw;
+  height: 54vh;
+  margin-top: 13vh;
+  padding-top: 8vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.8vh;
+
+  background-color: white;
+  border-radius: 3vw;
+  border: 0.8vh solid #ff8f8f;
+  font-size: 2.5vh;
+}
+
+.login_circle_back {
+  position: absolute;
+  top: 2.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 26vh;
+  height: 26vh;
+
+  background-color: #ff8f8f;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.login_circle_front {
+  position: absolute;
+  top: -13.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 24vh;
+  height: 24vh;
+
+  background-color: white;
+  border-radius: 50%;
+  z-index: 3;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_logo {
+  width: 8.5vw;
+}
+
+.login_input {
+  all: unset;
+
+  width: 22vw;
+  height: 7vh;
+  padding: 0 2vw;
+
+  background-color: #f6f3f3;
+  border-radius: 1.2vw;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+  font-size: 2.5vh;
+}
+
+.social_login_box {
+  width: 26vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.social_login {
+  width: 12.5vw;
+  height: 5vh;
+  border-radius: 1.2vw;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6vh;
+  color: #604949;
+  cursor: pointer;
+}
+
+.social_kakao {
+  background-color: #ffe942;
+}
+
+.social_google {
+  background-color: #d6ecff;
+}
+
+.social_icon_box {
+    position: relative;
+
+  width: 1.1vw;
+  height: 1vw;
+  margin-right: 0.5vw;
+
+  display: flex;
+  justify-content: center;
+
+}
+
+.kakao_icon {
+  width: 1.1vw;
+  height: 0.9vw;
+
+  display: flex;
+
+  border-radius: 100%;
+  background-color: #604949;
+}
+
+.kakao_icon::before {
+  content: "";
+  position: absolute;
+  top: 65%;
+  transform: translateY(-50%);
+
+  width: 0;
+  height: 0;
+
+  border-top: 0.5vh solid transparent;
+  border-bottom: 0.5vh solid transparent;
+  border-right: 0.4vw solid #604949;
+  transform: rotate(-50deg);
+}
+
+.google_icon {
+    width: 1vw;
+}
+
+.login_button {
+  all: unset;
+
+  width: 26vw;
+  height: 7vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #ff8f8f;
+  border: 0.3vh solid white;
+  border-radius: 1.2vw;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
+  font-size: 3vh;
+  cursor: pointer;
+}
+
+.login_find {
+  width: 26vw;
+  margin-top: 1vh;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  font-size: 2vh;
+  color: #5a5a5a;
+  cursor: pointer;
+}
+
+.login_toJoin {
+  font-size: 2.3vh;
+  color: black;
+  text-decoration: underline;
+  text-underline-offset: 0.3vh;
+  cursor: pointer;
 }

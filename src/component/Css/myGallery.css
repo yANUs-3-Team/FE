@@ -86,54 +86,54 @@
 }
 
 .MG_speechBubble {
-    position: absolute;
-    z-index: 2;
-    top: 10vh;
-    right: 22vw;
+  position: absolute;
+  z-index: 2;
+  top: 10vh;
+  right: 22vw;
 
-    width: 36vw;
-    height: 11vh;
+  width: 36vw;
+  height: 11vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background-color: white;
-    border-radius: 5vw;
-    border: 0.2vw solid #663E77;
-    font-size: 3vh;
+  background-color: white;
+  border-radius: 5vw;
+  border: 0.2vw solid #663e77;
+  font-size: 3vh;
 }
 
 /* 바깥쪽 삼각형 (테두리 역할) */
 .MG_speechBubble::before {
-    content: '';
-    position: absolute;
-    right: -1.2vw;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
+  content: "";
+  position: absolute;
+  right: -1.2vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
 
-    border-top: 1.4vh solid transparent;
-    border-bottom: 1.4vh solid transparent;
-    border-left: 1.2vw solid #663E77;
-    z-index: 1;
+  border-top: 1.4vh solid transparent;
+  border-bottom: 1.4vh solid transparent;
+  border-left: 1.2vw solid #663e77;
+  z-index: 1;
 }
 
 /* 안쪽 삼각형 (배경색 역할) */
 .MG_speechBubble::after {
-    content: '';
-    position: absolute;
-    right: -0.9vw;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
+  content: "";
+  position: absolute;
+  right: -0.9vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
 
-    border-top: 1.3vh solid transparent;
-    border-bottom: 1.3vh solid transparent;
-    border-left: 1.2vw solid white;
-    z-index: 2;
+  border-top: 1.3vh solid transparent;
+  border-bottom: 1.3vh solid transparent;
+  border-left: 1.2vw solid white;
+  z-index: 2;
 }
 
 .cover_container {
@@ -157,7 +157,7 @@
   position: relative;
   overflow: hidden;
 
-  width: 25.3125vw;
+  width: calc(100%-5vw);
   height: 45.185vh;
 
   display: flex;
@@ -166,7 +166,7 @@
   align-items: center;
   gap: 4vh;
 
-  border: 0.6vh solid #FBAC33;
+  border: 0.6vh solid #fbac33;
   border-radius: 2vw;
   background-color: white;
   background-size: cover;
@@ -192,7 +192,7 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.cover_box>* {
+.cover_box > * {
   position: relative;
   z-index: 2;
 }
@@ -201,10 +201,10 @@
   width: 18vw;
   height: 8vh;
 
-  background-color: #E9DAFF;
+  background-color: #e9daff;
   border-radius: 2.6vw;
-  border: none;
-  color: #4A3F55;
+  border: 0.2vw solid #9888a8;
+  color: #4a3f55;
   font-size: 3vh;
   font-family: inherit;
   box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
@@ -224,17 +224,57 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2vw;
+}
 
-  color: #4A3F55;
+.MGpagination_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13vw;
+  position: relative;
+}
+
+.MGpagination_center {
+  display: flex;
+  justify-content: center;
+  gap: 1.5vw;
+  flex: 1;
+}
+
+.MGpagination_arrow {
+  all: unset !important;
+  width: 3vw;
+  height: 5vh;
+
+  color: #4a3f55;
   font-size: 2vh;
+  padding: 0.6vh 1vw;
+  border-radius: 0.8vw;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MGpagination_arrow.left {
+  position: absolute;
+  left: 0;
+}
+
+.MGpagination_arrow.right {
+  position: absolute;
+  right: 0;
 }
 
 .MGpagination_button {
   all: unset !important;
 
-  background-color: #4A3F55;
+  color: #4a3f55;
   font-size: 2vh;
+  border-radius: 0.5vw;
+  padding: 0.4vh 1vw;
+  cursor: pointer;
 }
 
 .emptyCover_container {
@@ -280,12 +320,18 @@
   justify-content: center;
   align-items: center;
 
-  background-color: #E9DAFF;
-  border-radius: 2.6vw;
-  color: #4A3F55;
-  font-size: 3vh;
+  background-color: #e9daff;
+  border: 0.2vw solid #9888a8;
+  border-radius: 2vw;
+  color: #4a3f55;
+  font-size: 4vh;
   font-family: inherit;
   box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
+}
+
+.emptyToCreate_button:active {
+   transform: scale(0.9);
+   transition: transform 0.1s ease;
 }
 
 .MGcharEmptyIMG {

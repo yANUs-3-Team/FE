@@ -77,4 +77,14 @@
   width: 18vw;
   height: 34.444vh;
   pointer-events: none;
+
+  transform-origin: bottom center;
+  animation: pop 1.2s ease-in-out infinite;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.98); }
+  60% { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
