@@ -179,7 +179,7 @@ function Join() {
             아이디
           </label>
           <input
-            className="join_input"
+            className="join_input_id"
             id="username"
             type="text"
             placeholder="최소 4자. 영문과 숫자만 사용 가능"

@@ -75,9 +75,17 @@
   box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
 }
 
-#username {
+.join_input_id {
+  all: unset;
+
   width: 14vw;
+  height: 6vh;
+  padding: 0 2vw;
   padding-right: 8vw;
+
+  background-color: #f6f3f3;
+  border-radius: 1vw;
+  box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
 }
 
 .join_under14_box {
