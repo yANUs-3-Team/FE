@@ -202,6 +202,8 @@
   font-family: inherit;
 
   opacity: 0;
+  transform: translateY(1.5vh);
+  pointer-events: none;
 }
 
 .OG_detail_button:last-of-type {
@@ -212,8 +214,14 @@
   box-shadow: inset 0 -1vh 2vh rgba(146, 131, 218, 0.8);
 }
 
-.cover_box2:hover .OG_detail_button {
-  opacity: 1;
+.cover_box2:hover .OG_detail_button:first-of-type {
+  animation: fadeInLeft_OG 0.4s ease-out forwards;
+  pointer-events: auto;
+}
+
+.cover_box2:hover .OG_detail_button:last-of-type {
+  animation: fadeInRight_OG 0.4s ease-out forwards;
+  pointer-events: auto;
 }
 
 .OGpagination_container {
@@ -275,4 +283,26 @@
   border-radius: 0.5vw;
   padding: 0.4vh 1vw;
   cursor: pointer;
+}
+
+@keyframes fadeInLeft_OG {
+  from {
+    opacity: 0;
+    transform: translateX(-4vw);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight_OG {
+  from {
+    opacity: 0;
+    transform: translateX(4vw);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

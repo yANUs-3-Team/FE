@@ -1,5 +1,7 @@
 import "../component/Css/join.css";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Join() {
   const [isUnder14, setIsUnder14] = useState(false);
@@ -35,13 +37,13 @@ function Join() {
     setIsUnder14(actualAge < 14);
   };
 
-  const handleJoin = () => {
+  const handleJoin = async () => {
     if (password !== passwordConfirm) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
 
-    alert("가입이 완료되었습니다!");
+    await handleUserInfo();
   };
 
   const requiredFilled =
@@ -55,6 +57,8 @@ function Join() {
 
   const canSubmit = privacyAgreed && termsAgreed && requiredFilled;
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetch("/terms.txt")
       .then((res) => res.text())
@@ -64,6 +68,33 @@ function Join() {
       .then((res) => res.text())
       .then((text) => setPrivacyText(text));
   }, []);
+
+  const BACK_IP = process.env.REACT_APP_BACK_IP;
+
+  const handleUserInfo = async () => {
+    try {
+      const response = await axios.post(
+        `https://${BACK_IP}/api/users/register`,
+        {
+          name,
+          email,
+          birth,
+          parentName,
+          parentPhone,
+          username,
+          password,
+        }
+      );
+      console.log("서버 응답:", response.data);
+
+      if (response.status === 201) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("회원가입 중 오류 발생:", error);
+      alert("회원가입 중 오류가 발생했습니다.");
+    }
+  };
 
   return (
     <div className="join_page">
@@ -148,9 +179,10 @@ function Join() {
             아이디
           </label>
           <input
-            className="join_input"
+            className="join_input_id"
             id="username"
             type="text"
+            placeholder="최소 4자. 영문과 숫자만 사용 가능"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -165,6 +197,7 @@ function Join() {
             className="join_input"
             id="password"
             type="password"
+            placeholder="영문, 숫자, 특수문자 포함 최소 8자"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
