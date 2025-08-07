@@ -4,6 +4,7 @@ import headerLogo from "../images/headerLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
@@ -16,6 +17,8 @@ function Header() {
     setUser(null);
     window.location.href = "/";
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className="header">
@@ -44,10 +47,19 @@ function Header() {
                 <div className="nav username">{user.username} 님</div>
                 <div className="myBox">
                   <div className="dropdown_item">
-                    <FontAwesomeIcon icon={faUser} className="dropdown_icon"/> 마이페이지
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      className="dropdown_icon"
+                      onClick={() => navigate("/my-page")}
+                    />{" "}
+                    마이페이지
                   </div>
                   <div className="dropdown_item" onClick={handleLogout}>
-                    <FontAwesomeIcon icon={faSignOutAlt} className="dropdown_icon"/> 로그아웃
+                    <FontAwesomeIcon
+                      icon={faSignOutAlt}
+                      className="dropdown_icon"
+                    />{" "}
+                    로그아웃
                   </div>
                 </div>
               </div>
