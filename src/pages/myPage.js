@@ -2,17 +2,20 @@ import "../component/Css/myPage.css";
 import Footer from "../component/footer";
 import { useEffect, useState } from "react";
 import MyPageView from "../component/myPage/myPageView";
+import MyPageEdit from "../component/myPage/myPageEdit"; // ⭐️ 수정 페이지 import
 
 function MyPage() {
   const [userInfo, setUserInfo] = useState({
     name: "홍길동",
     email: "gildong@example.com",
-    birth: "20021-08-07",
+    birth: "2005-08-07", // ← 오타 있었음
     parentName: "홍어머니",
     parentPhone: "010-1234-5678",
     username: "gildong123",
     password: "********",
   });
+
+  const [isEdit, setIsEdit] = useState(false); // ⭐️ 뷰/수정 전환 상태
 
   useEffect(() => {
     const stored = localStorage.getItem("userInfo");
@@ -45,7 +48,20 @@ function MyPage() {
     <>
       <div className="myPage_page">
         <div className="tag_container">
-          <MyPageView userInfo={userInfo} isUnder14={isUnder14} />
+          {isEdit ? (
+            <MyPageEdit
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              isUnder14={isUnder14}
+              onDone={() => setIsEdit(false)}
+            />
+          ) : (
+            <MyPageView
+              userInfo={userInfo}
+              isUnder14={isUnder14}
+              onEdit={() => setIsEdit(true)}
+            />
+          )}
         </div>
       </div>
       <Footer />

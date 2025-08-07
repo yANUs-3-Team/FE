@@ -3,7 +3,8 @@ import profile from "../../images/default_profile.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
-function MyPageView({ userInfo, isUnder14 }) {
+function MyPageView({ userInfo, isUnder14, onEdit }) {
+
   return (
     <div className="tag_box">
       <img src={profile} alt="" className="tag_profile" />
@@ -14,7 +15,7 @@ function MyPageView({ userInfo, isUnder14 }) {
             <div className="tag_subId">동화작가</div>
             <div className="tag_id">{userInfo.username}</div>
           </div>
-          <div className="tag_edit">
+          <div className="tag_edit" onClick={onEdit}>
             <FontAwesomeIcon icon={faPenToSquare} />
           </div>
         </div>
@@ -22,12 +23,10 @@ function MyPageView({ userInfo, isUnder14 }) {
         <div className="tag_subBox">
           <div className="tag_leftBox">
             <div className="tag_info">이름: {userInfo.name}</div>
-            <div className="tag_info">비밀번호가: {userInfo.password}</div>
+            <div className="tag_info">비밀번호: {userInfo.password}</div>
             <div className="tag_info">이메일: {userInfo.email}</div>
             {isUnder14 && (
-              <div className="tag_info">
-                보호자 이름: {userInfo.parentName}
-              </div>
+              <div className="tag_info">보호자 이름: {userInfo.parentName}</div>
             )}
             <div className="tag_info">생성한 동화책 수: n 권</div>
           </div>
