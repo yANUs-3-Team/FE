@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-function MyPageEdit({ userInfo, setUserInfo, isUnder14, onDone }) {
+function MyPageEdit({ userInfo, setUserInfo, onDone }) {
   const [form, setForm] = useState({ ...userInfo });
 
   const handleChange = (e) => {
@@ -18,6 +18,18 @@ function MyPageEdit({ userInfo, setUserInfo, isUnder14, onDone }) {
     setUserInfo(form);
     onDone();
   };
+
+  const isUnder14 = (() => {
+  if (!form.birth) return false;
+  const birthDate = new Date(form.birth);
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  const dayDiff = today.getDate() - birthDate.getDate();
+  const isBirthdayPassedThisYear = monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0);
+  const actualAge = isBirthdayPassedThisYear ? age : age - 1;
+  return actualAge < 14;
+})();
 
   return (
     <div className="edit_box">
