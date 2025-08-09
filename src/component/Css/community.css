@@ -69,7 +69,7 @@
   font-weight: bold;
 }
 
-.commu_wholeBox{
+.commu_wholeBox {
   width: calc(100%-4vw);
   margin: 10vh 4vw;
 
@@ -78,12 +78,42 @@
 }
 
 .commu_myContainer {
-  width: 15vw;
-  height: 30vh;
+  width: 11vw;
+  height: 26vh;
+  padding: 2vh 2vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   background-color: #e9f5ff;
   border: 0.2vw solid #4a3f55;
   border-radius: 2vw;
+}
+
+.commu_myButton {
+  width: 10vw;
+  height: 6vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2.6vh;
+  border-radius: 0.5vw;
+}
+
+.commu_myButton:hover {
+  background-color: #D1E2F5;
+}
+
+.commu_myContour {
+  width: 90%;
+  height: 0.1vw;
+  margin: 1.2vh 0;
+
+  background-color: black;
 }
 
 .commu_mainBox {
@@ -93,26 +123,87 @@
   flex-direction: column;
   align-items: center;
   gap: 0.8vh;
-
-  background-color: aqua;
 }
 
 .commu_topContainer {
-  width: 100%;
-  height: 8vh;
+  width: 46vw;
+  height: 9vh;
+  padding: 0 5vw;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   background-color: #F4F4F4;
   border: 0.2vw solid #4a3f55;
   border-radius: 2vw 2vw 0.5vw 0.5vw;
 }
 
+.commu_topText {
+  font-size: 2.6vh;
+}
+
+.commu_topSelect {
+  all: unset;
+
+  width: 4vw;
+  height: 4vh;
+  padding: 0 1vw;
+
+  display: flex;
+  align-items: center;
+
+  background-color: white;
+  border: 0.1vw solid #6F65A7;
+  border-radius: 0.6vw;
+  font-size: 2.2vh;
+}
+
+.commu_topInput {
+  all: unset;
+
+  width: 22vw;
+  height: 4vh;
+  padding: 0 2vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+  border: 0.1vw solid #6F65A7;
+  border-radius: 0.6vw;
+  font-size: 2.2vh;
+}
+
+.commu_topButton {
+  width: 6vw;
+  height: 4vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #6F65A7;
+  border-radius: 0.6vw;
+  color: white;
+  font-size: 2.2vh;
+}
+
 .commu_writeContainer {
-  width: 100%;
+  width: 46vw;
   height: 10vh;
+  padding: 0 5vw;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   background-color: #F4F4F4;
   border: 0.2vw solid #4a3f55;
   border-radius: 0.5vw;
+  color: #9C9B9B;
+  font-size: 2.6vh;
 }
 
 .commu_listContainer {
@@ -123,11 +214,32 @@
 }
 
 .commu_postContainer {
-  width: 100%;
+  width: 46vw;
   height: 7vh;
+  padding: 0 5vw;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   background-color: white;
-  border-bottom: 0.2vh solid #929292;
+}
+
+.commu_postTitle {
+  font-size: 2.8vh;
+}
+
+.commu_postDate {
+  font-size: 2.6vh;
+  color: #858585;
+}
+
+.commu_postContour {
+  width: 100%;
+  height: 0.1vw;
+
+  background-color: #929292;
+  ;
 }
 
 .commu_bottomContainer {
@@ -140,10 +252,53 @@
 }
 
 .commu_bestContainer {
-  width: 15vw;
-  height: 40vh;
+  width: 11vw;
+  height: 25vh;
+  padding: 4vh 2vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 
   background-color: #e9f5ff;
   border: 0.2vw solid #4a3f55;
   border-radius: 2vw;
+}
+
+.commu_bestTitle {
+  font-size: 2.6vh;
+}
+
+.commu_bestContour {
+  width: 90%;
+  height: 0.1vw;
+  margin: 1.2vh 0;
+
+  background-color: black;
+}
+
+.commu_bestPostBox {
+  width: 10.5vw;
+  height: 18vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.commu_bestPost {
+  width: 6.5vw;
+  height: 4.4vh;
+  padding: 0 1.5vw;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 2vh;
+  border-radius: 0.5vw;
+}
+
+.commu_bestPost:hover {
+  background-color: #D1E2F5;
 }
