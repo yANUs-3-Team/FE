@@ -22,25 +22,53 @@ function MyPageView({ userInfo, isUnder14, onEdit }) {
 
         <div className="tag_subBox">
           <div className="tag_leftBox">
-            <div className="tag_info">이름: {userInfo.name}</div>
-            <div className="tag_info">비밀번호: {userInfo.password}</div>
-            <div className="tag_info">이메일: {userInfo.email}</div>
+            <div className="tag_infoBox">
+              <div className="tag_label">이름</div>
+              <div className="tag_info">: {userInfo.name}</div>
+            </div>
+            <div className="tag_infoBox">
+              <div className="tag_label">비밀번호</div>
+              <div className="tag_info">: {userInfo.password}</div>
+            </div>
+            <div className="tag_infoBox">
+              <div className="tag_label">이메일</div>
+              <div className="tag_info">: {userInfo.email}</div>
+            </div>
             {isUnder14 && (
-              <div className="tag_info">보호자 이름: {userInfo.parentName}</div>
+              <div className="tag_infoBox">
+                <div className="tag_label">보호자 이름</div>
+                <div className="tag_info">: {userInfo.parentName}</div>
+              </div>
             )}
-            <div className="tag_info">생성한 동화책 수: n 권</div>
+            <div className="tag_infoBox">
+              <div className="tag_label">생성한 동화책 수</div>
+              <div className="tag_info">: n 권</div>
+            </div>
           </div>
 
           <div className="tag_rightBox">
-            <div className="tag_info">가입 날짜: </div>
-            <div className="tag_info">생년월일: {userInfo.birth}</div>
-            <div className="tag_info">간편 로그인: -</div>
+            <div className="tag_infoBox">
+              <div className="tag_label">가입 날짜</div>
+              <div className="tag_info">: </div>
+            </div>
+            <div className="tag_infoBox">
+              <div className="tag_label">생년월일</div>
+              <div className="tag_info">: {userInfo.birth}</div>
+            </div>
+            <div className="tag_infoBox">
+              <div className="tag_label">간편 로그인</div>
+              <div className="tag_info">: -</div>
+            </div>
             {isUnder14 && (
-              <div className="tag_info">
-                보호자 연락처: {userInfo.parentPhone}
+              <div className="tag_infoBox">
+                <div className="tag_label">보호자 연락처</div>
+                <div className="tag_info">: {userInfo.parentPhone}</div>
               </div>
             )}
-            <div className="tag_info">공개 동화책 수: n 권</div>
+            <div className="tag_infoBox">
+              <div className="tag_label">공개 동화책 수</div>
+              <div className="tag_info">: n 권</div>
+            </div>
           </div>
         </div>
       </div>

@@ -8,8 +8,8 @@
 }
 
 .tag_profile {
-  width: 16.5vw;
-  height: 33vh;
+  width: 17vw;
+  height: 32.5vh;
 
   border-radius: 5.5vw;
 }
@@ -22,7 +22,7 @@
 }
 
 .tag_detailBox {
-  width: 32vw;
+  width: 36vw;
   height: 33vh;
 }
 
@@ -46,7 +46,7 @@
 .tag_id {
   font-size: 3.5vh;
   font-weight: bold;
-  color: #604949;
+  color: #FFCB24;
 }
 
 .tag_edit {
@@ -83,13 +83,25 @@
 }
 
 .tag_rightBox {
-  width: 15vw;
+  width: 16vw;
   height: 100%;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1vh;
+}
+
+.tag_infoBox {
+  display: flex;
+  align-items: center;
+}
+
+.tag_label {
+  height: 3.5vh;
+
+  font-size: 2.5vh;
+  color: #FF8F8F;
 }
 
 .tag_info {

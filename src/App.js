@@ -15,7 +15,7 @@ import Community from "./pages/community";
 import Policy from "./pages/policy";
 
 import { UserProvider } from "./context/UserContext";
-import ProtectedRoute from "./component/ProtectedRoute";
+// import ProtectedRoute from "./component/ProtectedRoute";
 
 function App() {
   return (
