@@ -8,10 +8,10 @@ function Community() {
     <>
       <div className="community_page">
         <div className="commuTitle_box">
-          <div className="decoCircle_box">
-            <div className="circleBlue1"></div>
-            <div className="circleBlue2"></div>
-            <div className="circleBlue3"></div>
+          <div className="decoPurple_box">
+            <div className="circlePurple1"></div>
+            <div className="circlePurple2"></div>
+            <div className="circlePurple3"></div>
           </div>
           <div className="commu_title">커뮤니티</div>
         </div>
@@ -77,9 +77,37 @@ function Community() {
                 <div className="commu_postTitle">제목</div>
                 <div className="commu_postDate">mm분 전</div>
               </div>
+              <div className="commu_postContour"></div>
+              <div className="commu_postContainer">
+                <div className="commu_postTitle">제목</div>
+                <div className="commu_postDate">mm분 전</div>
+              </div>
+              <div className="commu_postContour"></div>
+              <div className="commu_postContainer">
+                <div className="commu_postTitle">제목</div>
+                <div className="commu_postDate">mm분 전</div>
+              </div>
+              <div className="commu_postContour"></div>
+              <div className="commu_postContainer">
+                <div className="commu_postTitle">제목</div>
+                <div className="commu_postDate">mm분 전</div>
+              </div>
             </div>
 
-            <div className="commu_bottomContainer"></div>
+            <div className="commu_bottomContainer">
+              <div className="commu_pagination">
+                <div className="commu_pageArrow">{'<<'}</div>
+                <div className="commu_pageArrow">{'<'}</div>
+                <div className="commu_pageNumberBox"><div className="commu_pageNumber">1</div>
+                  <div className="commu_pageNumber">2</div>
+                  <div className="commu_pageNumber">3</div>
+                  <div className="commu_pageNumber">4</div>
+                  <div className="commu_pageNumber">5</div>
+                </div>
+                <div className="commu_pageArrow">{'>'}</div>
+                <div className="commu_pageArrow">{'>>'}</div>
+              </div>
+            </div>
           </div>
 
           <div className="commu_bestContainer">
