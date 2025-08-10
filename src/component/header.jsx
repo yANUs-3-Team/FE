@@ -32,11 +32,11 @@ function Header() {
           <Link to="/create" className="nav">
             동화 만들기
           </Link>
-          <Link to="/my-gallery" className="nav">
-            나의 동화책
+          <Link to="/gallery" className="nav">
+            갤러리
           </Link>
-          <Link to="/open-gallery" className="nav">
-            공개 갤러리
+          <Link to="/community" className="nav">
+            커뮤니티
           </Link>
         </div>
 
