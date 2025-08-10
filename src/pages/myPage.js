@@ -1,4 +1,4 @@
-import "../component/Css/myPage.css";
+ import "../component/Css/myPage.css";
 import Footer from "../component/footer";
 import { useEffect, useState } from "react";
 import MyPageView from "../component/myPage/myPageView";
@@ -8,7 +8,7 @@ function MyPage() {
   const [userInfo, setUserInfo] = useState({
     name: "홍길동",
     email: "gildong@example.com",
-    birth: "2005-08-07", // ← 오타 있었음
+    birth: "2005-08-07",
     parentName: "홍어머니",
     parentPhone: "010-1234-5678",
     username: "gildong123",

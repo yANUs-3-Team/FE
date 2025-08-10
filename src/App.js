@@ -9,9 +9,11 @@ import Loading from "./pages/loading";
 import MyPage from "./pages/myPage";
 import StoryViewer from "./pages/storyViewer";
 import StoryComplete from "./pages/storyComplete";
+import WholeGallery from "./pages/wholeGallery";
 import MyGallery from "./pages/myGallery";
 import OpenGallery from "./pages/openGallery";
 import Community from "./pages/community";
+import CommunityView from "./pages/communityView";
 import Policy from "./pages/policy";
 
 import { UserProvider } from "./context/UserContext";
@@ -31,7 +33,7 @@ function App() {
             path="/create"
             element={
               /*<ProtectedRoute>*/
-                <Create />
+              <Create />
               /*</ProtectedRoute>*/
             }
           />
@@ -39,22 +41,17 @@ function App() {
           <Route path="/story-viewer" element={<StoryViewer />} />
           <Route path="/story-complete" element={<StoryComplete />} />
           <Route
-            path="/my-gallery"
+            path="/gallery"
             element={
               /*<ProtectedRoute>*/
-                <MyGallery />
+              <WholeGallery />
               /*</ProtectedRoute>*/
             }
           />
-          <Route
-            path="/open-gallery"
-            element={
-              /*<ProtectedRoute>*/
-                <OpenGallery />
-              /*</ProtectedRoute>*/
-            }
-          />
+          <Route path="/my-gallery" element={<MyGallery />}/>
+          <Route path="/open-gallery" element={<OpenGallery />}/>
           <Route path="/community" element={<Community />} />
+          <Route path="/community-view" element={<CommunityView />} />
           <Route path="/policy" element={<Policy />} />
         </Routes>
       </UserProvider>
