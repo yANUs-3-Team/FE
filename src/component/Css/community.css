@@ -206,6 +206,84 @@
   font-size: 2.6vh;
 }
 
+.commu_writingContainer {
+  width: 56vw;
+  height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: #F4F4F4;
+  border: 0.2vw solid #4a3f55;
+  border-radius: 0.5vw;
+  color: #9C9B9B;
+  font-size: 2.6vh;
+}
+
+.commu_writeTitle {
+  all: unset;
+
+  width: 46vw;
+  height: 6vh;
+  padding: 0 5vw;
+
+  border-bottom: 0.1vw solid #929292;
+  font-size: 2.4vh;
+  color: black;
+}
+
+.commu_writeBody {
+  all: unset;
+
+  width: 46vw;
+  height: 62vh;
+  padding: 3vh 5vw;
+
+  font-size: 2.4vh;
+  color: black;
+}
+
+.commu_writeBottom {
+  all: unset;
+
+  width: 56vw;
+  height: 6vh;
+
+  display: flex;
+  justify-content: space-between;
+
+  border-top: 0.1vw solid #929292;
+}
+
+.commu_writeFileButton {
+  width: 3.2vw;
+  height: 6vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #9C9B9B;
+  font-size: 3.5vh;
+  border-radius: 0 0 0 0.5vw;
+}
+
+.commu_writeSaveButton {
+  width: 3.2vw;
+  height: 6vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #D9D9D9;
+  color: #9C9B9B;
+  font-size: 3.5vh;
+  border-radius: 0 0 0.5vw 0;
+}
+
 .commu_listContainer {
   width: 100%;
 
@@ -273,6 +351,7 @@
 .commu_pageArrow,
 .commu_pageNumber {
   padding: 0.8vh 1.2vw;
+
   border-radius: 0.5vw;
   font-size: 2.2vh;
   cursor: pointer;
@@ -283,6 +362,10 @@
 .commu_pageArrow:hover,
 .commu_pageNumber:hover {
   background-color: #D1E2F5;
+}
+
+.commu_pageNumber.active {
+  font-weight: bold;
 }
 
 .commu_bestContainer {
