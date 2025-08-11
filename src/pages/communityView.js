@@ -6,6 +6,7 @@ import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Footer from "../component/footer";
 import "../component/Css/communityView.css";
+import { useLocation } from 'react-router-dom';
 
 function CommunityView() {
     const [comments, setComments] = useState([]);
@@ -38,6 +39,13 @@ function CommunityView() {
         );
     };
 
+    const location = useLocation();
+    const post = location.state;
+
+    if (!post) {
+        return <div className="commuView_page">잘못된 접근입니다.</div>;
+    }
+
     return (
         <>
             <div className="commuView_page">
@@ -45,12 +53,12 @@ function CommunityView() {
                     <div className="commuView_topBox">
                         <div className="commuView_postProfile"></div>
                         <div className="commuView_postIdBox">
-                            <div className="commuView_postId">아이디</div>
-                            <div className="commuView_postDate">2025.08.11</div>
+                            <div className="commuView_postId">익명</div>
+                            <div className="commuView_postDate">{post.date}</div>
                         </div>
                     </div>
-                    <div className="commuView_postTitle">게시글 제목</div>
-                    <div className="commuView_postText">Incididunt dolore adipisicing duis labore nulla cupidatat.</div>
+                    <div className="commuView_postTitle">{post.title}</div>
+                    <div className="commuView_postText">{post.content}</div>
                     <div className="commuView_statusBar">
                         <div className="commuView_postLikeBox">
                             <div className="commuView_postLike">
