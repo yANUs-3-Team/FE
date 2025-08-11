@@ -48,8 +48,22 @@ function App() {
               /*</ProtectedRoute>*/
             }
           />
-          <Route path="/my-gallery" element={<MyGallery />}/>
-          <Route path="/open-gallery" element={<OpenGallery />}/>
+           <Route
+            path="/my-gallery"
+            element={
+              /*<ProtectedRoute>*/
+                <MyGallery />
+              /*</ProtectedRoute>*/
+            }
+          />
+          <Route
+            path="/open-gallery"
+            element={
+              /*<ProtectedRoute>*/
+                <OpenGallery />
+              /*</ProtectedRoute>*/
+            }
+          />
           <Route path="/community" element={<Community />} />
           <Route path="/community-view" element={<CommunityView />} />
           <Route path="/policy" element={<Policy />} />
