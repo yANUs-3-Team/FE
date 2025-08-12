@@ -9,7 +9,6 @@ import Loading from "./pages/loading";
 import MyPage from "./pages/myPage";
 import StoryViewer from "./pages/storyViewer";
 import StoryComplete from "./pages/storyComplete";
-import WholeGallery from "./pages/wholeGallery";
 import MyGallery from "./pages/myGallery";
 import OpenGallery from "./pages/openGallery";
 import Community from "./pages/community";
@@ -40,14 +39,6 @@ function App() {
           <Route path="/loading" element={<Loading />} />
           <Route path="/story-viewer" element={<StoryViewer />} />
           <Route path="/story-complete" element={<StoryComplete />} />
-          <Route
-            path="/gallery"
-            element={
-              /*<ProtectedRoute>*/
-              <WholeGallery />
-              /*</ProtectedRoute>*/
-            }
-          />
            <Route
             path="/my-gallery"
             element={
