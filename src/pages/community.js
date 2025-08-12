@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function Community() {
   const [posts, setPosts] = useState(
-    Array.from({ length: 1 }, (_, i) => ({
+    Array.from({ length: 304 }, (_, i) => ({
       id: i + 1,
       title: `게시글 제목 ${i + 1}`,
       author: "작가 아이디",
@@ -48,10 +48,17 @@ function Community() {
     };
     const key = fieldMap[searchField] || "title";
 
-    return posts.filter((p) => String(p[key] || "").toLowerCase().includes(q));
+    return posts.filter((p) =>
+      String(p[key] || "")
+        .toLowerCase()
+        .includes(q)
+    );
   }, [posts, applyToken]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / postsPerPage));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredPosts.length / postsPerPage)
+  );
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -60,7 +67,8 @@ function Community() {
 
   const handlePageClick = (pageNum) => setCurrentPage(pageNum);
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const handleNextPage = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handleFirstPage = () => setCurrentPage(1);
   const handleLastPage = () => setCurrentPage(totalPages);
 
@@ -85,6 +93,25 @@ function Community() {
     setIsWriting(false);
     setCurrentPage(1);
   };
+
+  const getVisiblePages = (total, current, max = 5) => {
+    if (total <= max) return Array.from({ length: total }, (_, i) => i + 1);
+
+    let start = Math.max(1, current - Math.floor(max / 2));
+    let end = start + max - 1;
+
+    if (end > total) {
+      end = total;
+      start = Math.max(1, end - max + 1);
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  };
+
+  const visiblePages = useMemo(
+    () => getVisiblePages(totalPages, currentPage, 5),
+    [totalPages, currentPage]
+  );
 
   const navigate = useNavigate();
   const handlePostClick = (post) => {
@@ -160,7 +187,10 @@ function Community() {
                   className="commu_writeBody"
                 />
                 <div className="commu_writeBottom">
-                  <div className="commu_writeFileButton" onClick={handleSavePost}>
+                  <div
+                    className="commu_writeFileButton"
+                    onClick={handleSavePost}
+                  >
                     <FontAwesomeIcon icon={faPaperclip} />
                   </div>
                   <div
@@ -177,7 +207,10 @@ function Community() {
 
             <div className="commu_listContainer">
               {currentPosts.length === 0 ? (
-                <div className="commu_postContainer first last" style={{ justifyContent: "center" }}>
+                <div
+                  className="commu_postContainer first last"
+                  style={{ justifyContent: "center" }}
+                >
                   검색 결과가 없습니다.
                 </div>
               ) : (
@@ -219,7 +252,7 @@ function Community() {
                   {"<"}
                 </div>
                 <div className="commu_pageNumberBox">
-                  {pageNumbers.map((num) => (
+                  {visiblePages.map((num) => (
                     <div
                       key={num}
                       className={`commu_pageNumber ${
