@@ -8,14 +8,14 @@ function Footer() {
         <Link to="/" className="underNav">
           서비스 소개
         </Link>
-        <Link to="/create" className="underNav">
-          동화 만들기
-        </Link>
         <Link to="/my-gallery" className="underNav">
           나의 동화책
         </Link>
         <Link to="/open-gallery" className="underNav">
           공개 갤러리
+        </Link>
+        <Link to="/community" className="underNav">
+          커뮤니티
         </Link>
       </div>
 
