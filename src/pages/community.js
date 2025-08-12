@@ -177,7 +177,7 @@ function Community() {
 
             <div className="commu_listContainer">
               {currentPosts.length === 0 ? (
-                <div className="commu_postContainer" style={{ justifyContent: "center" }}>
+                <div className="commu_postContainer first last" style={{ justifyContent: "center" }}>
                   검색 결과가 없습니다.
                 </div>
               ) : (
