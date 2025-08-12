@@ -11,6 +11,7 @@ function Community() {
     Array.from({ length: 1 }, (_, i) => ({
       id: i + 1,
       title: `게시글 제목 ${i + 1}`,
+      author: "작가 아이디",
       content: `이건 내용 ${i + 1}`,
       date: `${i + 1}분 전`,
     }))
@@ -149,9 +150,14 @@ function Community() {
                         ${isLast ? "last" : ""}`}
                       onClick={() => handlePostClick(post)}
                     >
-                      <div className="commu_postTitle">{post.title}</div>
+                      <div className="commu_postTitleBox">
+                        <div className="commu_postTitle">{post.title}</div>
+                        <span>|</span>
+                        <span>{post.author}</span>
+                      </div>
                       <div className="commu_postDate">{post.date}</div>
                     </div>
+                    
                     {index < currentPosts.length - 1 && (
                       <div className="commu_postContour"></div>
                     )}
