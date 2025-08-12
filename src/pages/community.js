@@ -7,7 +7,7 @@ import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
 
 function Community() {
   const [posts, setPosts] = useState(
-    Array.from({ length: 87 }, (_, i) => ({
+    Array.from({ length: 1 }, (_, i) => ({
       id: i + 1,
       title: `게시글 제목 ${i + 1}`,
       content: `이건 내용 ${i + 1}`,

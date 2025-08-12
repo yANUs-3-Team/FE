@@ -78,6 +78,12 @@ textarea:focus + .placeholder_fallback {
   visibility: hidden;
 }
 
+.select_button_wrapper {
+  position: relative;
+  display: inline-flex;
+  z-index: 40;
+}
+
 .select_button,
 .random_button {
   display: flex;
@@ -90,13 +96,17 @@ textarea:focus + .placeholder_fallback {
   border-radius: 1.4vw;
   color: #4a3f55;
   font-size: 3.7037vh;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .select_button {
   min-width: 4.1145vw;
   height: 6.574vh;
   padding: 0 1.5625vw;
+
+  position: relative;
+  overflow: visible;
+  z-index: 41;
 }
 
 .random_button {
@@ -115,6 +125,49 @@ textarea:focus + .placeholder_fallback {
 .random_button:active {
   transform: scale(0.9);
   transition: transform 0.1s ease;
+}
+
+.select_button_wrapper .select_button_description {
+  position: absolute;
+  bottom: calc(100% + 0.8vh);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  pointer-events: none;
+
+  width: max-content;
+  max-width: 40ch;
+  padding: 0.9vh 1.6vw;
+
+  display: inline-block;
+  white-space: nowrap;
+
+  background-color: #fff;
+  color: #4a3f55;
+  border: 0.12vw solid #9888a8;
+  border-radius: 0.9vw;
+  box-shadow: 0 0.8vh 2vh rgba(0, 0, 0, 0.12);
+  font-size: 2vh;
+
+  opacity: 0;
+  animation: tooltipIn 120ms ease-out forwards;
+}
+
+@supports not (width: max-content) {
+  .select_button_wrapper .select_button_description {
+    display: inline-block;
+  }
+}
+
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .radio_label {
