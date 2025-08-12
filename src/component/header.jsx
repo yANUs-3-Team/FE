@@ -29,9 +29,6 @@ function Header() {
           <Link to="/" className="nav">
             서비스 소개
           </Link>
-          <Link to="/create" className="nav">
-            동화 만들기
-          </Link>
           <Link to="/my-gallery" className="nav">
             나의 갤러리
           </Link>
