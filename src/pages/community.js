@@ -4,6 +4,7 @@ import "../component/Css/community.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 function Community() {
   const [posts, setPosts] = useState(
@@ -54,6 +55,12 @@ function Community() {
     setPosts([newPost, ...posts]);
     setIsWriting(false);
     setCurrentPage(1);
+  };
+
+  const navigate = useNavigate();
+
+  const handlePostClick = (post) => {
+    navigate('/community-view', { state: post });
   };
 
   return (
@@ -113,7 +120,10 @@ function Community() {
                   <div className="commu_writeFileButton" onClick={handleSavePost}>
                     <FontAwesomeIcon icon={faPaperclip} />
                   </div>
-                  <div className="commu_writeSaveButton" onClick={handleSavePost}>
+                  <div
+                    className={`commu_writeSaveButton ${newTitle.trim() && newContent.trim() ? 'active' : ''}`}
+                    onClick={handleSavePost}
+                  >
                     <FontAwesomeIcon icon={faPen} />
                   </div>
                 </div>
@@ -123,7 +133,7 @@ function Community() {
             <div className="commu_listContainer">
               {currentPosts.map((post) => (
                 <React.Fragment key={post.id}>
-                  <div className="commu_postContainer">
+                  <div className="commu_postContainer" onClick={() => handlePostClick(post)}>
                     <div className="commu_postTitle">{post.title}</div>
                     <div className="commu_postDate">{post.date}</div>
                   </div>

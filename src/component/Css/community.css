@@ -1,5 +1,6 @@
 .community_page {
   width: 100%;
+  min-height: 82.314vh;
 }
 
 .commuTitle_box {
@@ -282,6 +283,12 @@
   color: #9C9B9B;
   font-size: 3.5vh;
   border-radius: 0 0 0.5vw 0;
+}
+
+.commu_writeSaveButton.active {
+  background-color: #FF8F8F;
+  color: #FFC5C5;
+  cursor: pointer;
 }
 
 .commu_listContainer {
