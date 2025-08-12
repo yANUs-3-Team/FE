@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Footer from "../component/footer";
 import "../component/Css/community.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,17 +24,43 @@ function Community() {
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
 
+  const [searchField, setSearchField] = useState("title");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [applyToken, setApplyToken] = useState(0);
+
+  const handleSearch = () => {
+    setApplyToken((t) => t + 1);
+    setCurrentPage(1);
+  };
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter") handleSearch();
+  };
+
+  const filteredPosts = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return posts;
+
+    const fieldMap = {
+      title: "title",
+      author: "author",
+      date: "date",
+    };
+    const key = fieldMap[searchField] || "title";
+
+    return posts.filter((p) => String(p[key] || "").toLowerCase().includes(q));
+  }, [posts, applyToken]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / postsPerPage));
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const totalPages = Math.ceil(posts.length / postsPerPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const handlePageClick = (pageNum) => setCurrentPage(pageNum);
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handleNextPage = () =>
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handleFirstPage = () => setCurrentPage(1);
   const handleLastPage = () => setCurrentPage(totalPages);
 
@@ -49,8 +75,9 @@ function Community() {
 
     const newPost = {
       id: posts.length + 1,
-      title: newTitle,
-      content: newContent,
+      title: newTitle.trim(),
+      author: "작가 아이디",
+      content: newContent.trim(),
       date: "방금 전",
     };
 
@@ -60,7 +87,6 @@ function Community() {
   };
 
   const navigate = useNavigate();
-
   const handlePostClick = (post) => {
     navigate("/community-view", { state: post });
   };
@@ -89,13 +115,28 @@ function Community() {
           <div className="commu_mainBox">
             <div className="commu_topContainer">
               <div className="commu_topText">검색 결과</div>
-              <select className="commu_topSelect">
+
+              <select
+                className="commu_topSelect"
+                value={searchField}
+                onChange={(e) => setSearchField(e.target.value)}
+              >
                 <option value="title">제목</option>
                 <option value="author">작가</option>
                 <option value="date">날짜</option>
               </select>
-              <input className="commu_topInput" />
-              <div className="commu_topButton">검색</div>
+
+              <input
+                className="commu_topInput"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearchKeyDown}
+                placeholder="검색어를 입력하세요"
+              />
+
+              <div className="commu_topButton" onClick={handleSearch}>
+                검색
+              </div>
             </div>
 
             {!isWriting ? (
@@ -119,10 +160,7 @@ function Community() {
                   className="commu_writeBody"
                 />
                 <div className="commu_writeBottom">
-                  <div
-                    className="commu_writeFileButton"
-                    onClick={handleSavePost}
-                  >
+                  <div className="commu_writeFileButton" onClick={handleSavePost}>
                     <FontAwesomeIcon icon={faPaperclip} />
                   </div>
                   <div
@@ -138,32 +176,38 @@ function Community() {
             )}
 
             <div className="commu_listContainer">
-              {currentPosts.map((post, index) => {
-                const isFirst = index === 0;
-                const isLast = index === currentPosts.length - 1;
+              {currentPosts.length === 0 ? (
+                <div className="commu_postContainer" style={{ justifyContent: "center" }}>
+                  검색 결과가 없습니다.
+                </div>
+              ) : (
+                currentPosts.map((post, index) => {
+                  const isFirst = index === 0;
+                  const isLast = index === currentPosts.length - 1;
 
-                return (
-                  <React.Fragment key={post.id}>
-                    <div
-                      className={`commu_postContainer
-                        ${isFirst ? "first" : ""}
-                        ${isLast ? "last" : ""}`}
-                      onClick={() => handlePostClick(post)}
-                    >
-                      <div className="commu_postTitleBox">
-                        <div className="commu_postTitle">{post.title}</div>
-                        <span>|</span>
-                        <span>{post.author}</span>
+                  return (
+                    <React.Fragment key={post.id}>
+                      <div
+                        className={`commu_postContainer
+                          ${isFirst ? "first" : ""}
+                          ${isLast ? "last" : ""}`}
+                        onClick={() => handlePostClick(post)}
+                      >
+                        <div className="commu_postTitleBox">
+                          <div className="commu_postTitle">{post.title}</div>
+                          <span>|</span>
+                          <span>{post.author}</span>
+                        </div>
+                        <div className="commu_postDate">{post.date}</div>
                       </div>
-                      <div className="commu_postDate">{post.date}</div>
-                    </div>
-                    
-                    {index < currentPosts.length - 1 && (
-                      <div className="commu_postContour"></div>
-                    )}
-                  </React.Fragment>
-                );
-              })}
+
+                      {index < currentPosts.length - 1 && (
+                        <div className="commu_postContour"></div>
+                      )}
+                    </React.Fragment>
+                  );
+                })
+              )}
             </div>
 
             <div className="commu_bottomContainer">
