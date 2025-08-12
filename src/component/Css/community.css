@@ -8,7 +8,7 @@
   height: 20vh;
 }
 
-.decoPurple_box {
+.decoGreen_box {
   position: absolute;
   z-index: 2;
 
@@ -20,7 +20,7 @@
   display: flex;
 }
 
-.circlePurple1 {
+.circleGreen1 {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -28,12 +28,12 @@
   width: 1.5vw;
   height: 3vh;
 
-  background-color: #E9DAFF;
-  border: 0.3vh solid #847AE2;
+  background-color: #FEDAFF;
+  border: 0.3vh solid #E34CAF;
   border-radius: 50%;
 }
 
-.circlePurple2 {
+.circleGreen2 {
   position: absolute;
   left: 1.666vw;
   top: 1.5vh;
@@ -41,12 +41,12 @@
   width: 0.572916vw;
   height: 1.0185vh;
 
-  background-color: #D7BCFF;
-  border: 0.3vh solid #6D61D9;
+  background-color: #F77BDC;
+  border: 0.3vh solid #BC318C;
   border-radius: 50%;
 }
 
-.circlePurple3 {
+.circleGreen3 {
   position: absolute;
   right: 1.2vw;
   top: 0vh;
@@ -54,8 +54,8 @@
   width: 0.4166vw;
   height: 0.7407vh;
 
-  background-color: #BB99FF;
-  border: 0.3vh solid #5F51DA;
+  background-color: #CD269E;
+  border: 0.3vh solid #991A75;
   border-radius: 50%;
 }
 

@@ -154,10 +154,10 @@ function Community() {
     <>
       <div className="community_page">
         <div className="commuTitle_box">
-          <div className="decoPurple_box">
-            <div className="circlePurple1"></div>
-            <div className="circlePurple2"></div>
-            <div className="circlePurple3"></div>
+          <div className="decoGreen_box">
+            <div className="circleGreen1"></div>
+            <div className="circleGreen2"></div>
+            <div className="circleGreen3"></div>
           </div>
           <div className="commu_title">커뮤니티</div>
         </div>
