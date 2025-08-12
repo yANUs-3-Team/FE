@@ -72,7 +72,9 @@
 
 .commu_wholeBox {
   width: calc(100%-4vw);
-  margin: 10vh 4vw;
+  margin: 0 4vw;
+  margin-top: 5vh;
+  margin-bottom: 10vh;
 
   display: flex;
   justify-content: space-between;
