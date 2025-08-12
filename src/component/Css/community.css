@@ -105,6 +105,8 @@
 
   font-size: 2.6vh;
   border-radius: 0.5vw;
+
+  cursor: pointer;
 }
 
 .commu_myButton:hover {
@@ -161,6 +163,8 @@
   border: 0.1vw solid #6F65A7;
   border-radius: 0.6vw;
   font-size: 2.2vh;
+
+  cursor: pointer;
 }
 
 .commu_topInput {
@@ -192,6 +196,8 @@
   border-radius: 0.6vw;
   color: white;
   font-size: 2.2vh;
+
+  cursor: pointer;
 }
 
 .commu_writeContainer {
@@ -212,7 +218,7 @@
 
 .commu_writingContainer {
   width: 56vw;
-  height: 80vh;
+  min-height: 40vh;
 
   display: flex;
   flex-direction: column;
@@ -242,8 +248,10 @@
   all: unset;
 
   width: 46vw;
-  height: 62vh;
-  padding: 3vh 5vw;
+  min-height: 40vh;
+  padding: 0 5vw;
+  padding-top: 3vh;
+  padding-bottom: 1vh;
 
   font-size: 2.4vh;
   color: black;
@@ -272,6 +280,8 @@
   color: #9C9B9B;
   font-size: 3.5vh;
   border-radius: 0 0 0 0.5vw;
+
+  cursor: pointer;
 }
 
 .commu_writeSaveButton {
@@ -286,11 +296,64 @@
   color: #9C9B9B;
   font-size: 3.5vh;
   border-radius: 0 0 0.5vw 0;
+
+  cursor: pointer;
 }
 
 .commu_writeSaveButton.active {
   background-color: #FF8F8F;
   color: #FFC5C5;
+  cursor: pointer;
+}
+
+/* 작성 영역 아래 미디어 프리뷰 박스 */
+.commu_mediaPreview {
+  width: 46vw;
+  padding: 0 5vw;
+  padding-top: 1vh;
+  padding-bottom: 3vh;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1vw 1vh;
+
+  background-color: #F4F4F4;
+}
+
+/* 각 미디어 카드 */
+.commu_mediaItem {
+  position: relative;
+
+  min-width: 12vw;
+  max-width: 30vw;
+
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.commu_mediaItem img,
+.commu_mediaItem video {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+/* 삭제 버튼 */
+.commu_mediaRemove {
+  position: absolute;
+  top: 0.4vh;
+  right: 0.4vw;
+  width: 2.6vh;
+  height: 2.6vh;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 2vh;
+  line-height: 2.6vh;
   cursor: pointer;
 }
 
@@ -311,6 +374,8 @@
   align-items: center;
 
   background-color: white;
+
+  cursor: pointer;
 }
 
 .commu_postContainer.first {
@@ -447,6 +512,8 @@
 
   font-size: 2vh;
   border-radius: 0.5vw;
+
+  cursor: pointer;
 }
 
 .commu_bestPost:hover {

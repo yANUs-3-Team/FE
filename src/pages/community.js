@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import Footer from "../component/footer";
 import "../component/Css/community.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,9 +24,13 @@ function Community() {
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
 
+  // 검색 상태
   const [searchField, setSearchField] = useState("title");
   const [searchQuery, setSearchQuery] = useState("");
   const [applyToken, setApplyToken] = useState(0);
+
+  // 미디어 미리보기 상태
+  const [media, setMedia] = useState([]); // [{url, type: 'image'|'video', name, file}]
 
   const handleSearch = () => {
     setApplyToken((t) => t + 1);
@@ -63,36 +67,12 @@ function Community() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-
   const handlePageClick = (pageNum) => setCurrentPage(pageNum);
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
   const handleNextPage = () =>
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handleFirstPage = () => setCurrentPage(1);
   const handleLastPage = () => setCurrentPage(totalPages);
-
-  const toggleWriting = () => {
-    setIsWriting(true);
-    setNewTitle("");
-    setNewContent("");
-  };
-
-  const handleSavePost = () => {
-    if (newTitle.trim() === "" || newContent.trim() === "") return;
-
-    const newPost = {
-      id: posts.length + 1,
-      title: newTitle.trim(),
-      author: "작가 아이디",
-      content: newContent.trim(),
-      date: "방금 전",
-    };
-
-    setPosts([newPost, ...posts]);
-    setIsWriting(false);
-    setCurrentPage(1);
-  };
 
   const getVisiblePages = (total, current, max = 5) => {
     if (total <= max) return Array.from({ length: total }, (_, i) => i + 1);
@@ -112,6 +92,58 @@ function Community() {
     () => getVisiblePages(totalPages, currentPage, 5),
     [totalPages, currentPage]
   );
+
+  const toggleWriting = () => {
+    setIsWriting(true);
+    setNewTitle("");
+    setNewContent("");
+    setMedia([]);
+  };
+
+  const handleSavePost = () => {
+    if (newTitle.trim() === "" || newContent.trim() === "") return;
+
+    const newPost = {
+      id: posts.length + 1,
+      title: newTitle.trim(),
+      author: "작가 아이디",
+      content: newContent.trim(),
+      date: "방금 전",
+      media: media.map((m) => ({ url: m.url, type: m.type, name: m.name })),
+    };
+
+    setPosts([newPost, ...posts]);
+    setIsWriting(false);
+    setCurrentPage(1);
+    setMedia([]); // UI만 비우기 (URL은 revoke하지 않음)
+  };
+
+  // 파일 선택 처리 + 미리보기 생성
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+
+    const next = files
+      .filter((f) => f.type.startsWith("image/") || f.type.startsWith("video/"))
+      .map((f) => ({
+        url: URL.createObjectURL(f),
+        type: f.type.startsWith("image/") ? "image" : "video",
+        name: f.name,
+        file: f,
+      }));
+
+    setMedia((prev) => [...prev, ...next]);
+    e.target.value = ""; // 같은 파일 재선택 가능하도록 초기화
+  };
+
+  // 개별 미디어 삭제
+  const removeMedia = (url) => {
+    setMedia((prev) => {
+      const target = prev.find((m) => m.url === url);
+      if (target) URL.revokeObjectURL(target.url);
+      return prev.filter((m) => m.url !== url);
+    });
+  };
 
   const navigate = useNavigate();
   const handlePostClick = (post) => {
@@ -180,19 +212,55 @@ function Community() {
                   onChange={(e) => setNewTitle(e.target.value)}
                   className="commu_writeTitle"
                 />
+
                 <textarea
                   placeholder="내용을 입력하세요"
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
                   className="commu_writeBody"
                 />
+
+                {/* 미디어 프리뷰 */}
+                {media.length > 0 && (
+                  <div className="commu_mediaPreview">
+                    {media.map((m) => (
+                      <div className="commu_mediaItem" key={m.url}>
+                        {m.type === "image" ? (
+                          <img src={m.url} alt={m.name} />
+                        ) : (
+                          <video src={m.url} controls />
+                        )}
+                        <button
+                          className="commu_mediaRemove"
+                          onClick={() => removeMedia(m.url)}
+                          type="button"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 <div className="commu_writeBottom">
-                  <div
+                  {/* 숨긴 파일 인풋 */}
+                  <input
+                    id="fileUpload"
+                    type="file"
+                    style={{ display: "none" }}
+                    multiple
+                    accept="image/*,video/*"
+                    onChange={handleFileChange}
+                  />
+                  {/* 클립 아이콘 → 파일 선택 */}
+                  <label
+                    htmlFor="fileUpload"
                     className="commu_writeFileButton"
-                    onClick={handleSavePost}
+                    role="button"
                   >
                     <FontAwesomeIcon icon={faPaperclip} />
-                  </div>
+                  </label>
+
                   <div
                     className={`commu_writeSaveButton ${
                       newTitle.trim() && newContent.trim() ? "active" : ""

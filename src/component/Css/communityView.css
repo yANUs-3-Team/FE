@@ -1,203 +1,240 @@
 .commuView_page {
-    width: 100%;
-    min-height: 62.314vh;
-    padding: 10vh 0;
+  width: 100%;
+  min-height: 62.314vh;
+  padding: 10vh 0;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
 }
 
 .commuView_postContainer {
-    width: 54vw;
-    padding: 5vh 3vw;
+  width: 54vw;
+  padding: 5vh 3vw;
 
-    background-color: white;
-    border: 0.1vw solid #6F65A7;
-    border-radius: 2vw;
+  background-color: white;
+  border: 0.1vw solid #6f65a7;
+  border-radius: 2vw;
 }
 
 .commuView_topBox {
-    width: 100%;
-    height: 5vh;
+  width: 100%;
+  height: 5vh;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .commuView_postProfile {
-    width: 2.4vw;
-    height: 4.5vh;
+  width: 2.4vw;
+  height: 4.5vh;
 
-    background-color: orange;
-    border-radius: 0.5vw;
+  background-color: orange;
+  border-radius: 0.5vw;
 }
 
 .commuView_postIdBox {
-    height: 4.5vh;
-    padding-left: 1vw;
+  height: 4.5vh;
+  padding-left: 1vw;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .commuView_postId {
-    font-size: 2.2vh;
-    font-weight: 650;
+  font-size: 2.2vh;
+  font-weight: 650;
 }
 
 .commuView_postDate {
-    font-size: 1.6vh;
+  font-size: 1.6vh;
 }
 
 .commuView_postTitle {
-    width: 100%;
-    min-height: 4vh;
-    padding-top: 2vh;
+  width: 100%;
+  min-height: 4vh;
+  padding-top: 2vh;
 
-    font-size: 4vh;
-    font-weight: bold;
+  font-size: 4vh;
+  font-weight: bold;
 }
 
 .commuView_postText {
-    width: 100%;
-    min-height: 25vh;
-    padding: 2vh 0;
+  width: 100%;
+  min-height: 25vh;
+  padding-top: 3vh;
+  padding-bottom: 1vh;
 
-    font-size: 3.5vh;
+  font-size: 3.5vh;
+
+}
+
+/* 본문 아래 미디어 그리드 */
+.commuView_mediaGrid {
+  width: 44vw;
+  padding: 0 5vw;
+  padding-top: 1vh;
+  padding-bottom: 3vh;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1vw 1vh;
+}
+
+/* 각 미디어 아이템 */
+.commuView_mediaItem {
+  position: relative;
+
+  min-width: 12vw;
+  max-width: 30vw;
+
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.commuView_mediaItem img,
+.commuView_mediaItem video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .commuView_statusBar {
-    width: 100%;
-    height: 6vh;
+  width: 100%;
+  height: 6vh;
 
-    display: flex;
-    justify-content: end;
-    align-items: center;
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
 
 .commuView_postLikeBox {
-    width: 3.8vw;
-    height: 4vh;
+  width: 3.8vw;
+  height: 4vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5vw;
 
-    font-size: 2.5vh;
-    color: #FF8F8F;
+  font-size: 2.5vh;
+  color: #ff8f8f;
 }
 
 .commuView_postLike {
-    cursor: pointer;
-    transition: color 0.2s;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .commuView_postCommentBox {
-    width: 3.8vw;
-    height: 4vh;
+  width: 3.8vw;
+  height: 4vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5vw;
 
-    font-size: 2.5vh;
-    color: #B8C9FF;
+  font-size: 2.5vh;
+  color: #b8c9ff;
 }
 
 .commuView_commentWritingBox {
-    display: flex;
+  display: flex;
 }
 
 .commuView_commentContainer {
-    all: unset;
+  all: unset;
 
-    width: 51.5vw;
-    padding: 2vh 2vw;
+  width: 51.5vw;
+  padding: 2vh 2vw;
 
-    background-color: white;
-    border: 0.1vw solid #6F65A7;
-    border-radius: 2vw 0 0 2vw;
-    font-size: 3vh;
+  background-color: white;
+  border: 0.1vw solid #6f65a7;
+  border-radius: 2vw 0 0 2vw;
+  font-size: 3vh;
 }
 
 .commuView_commentSave {
-    width: 4.5vw;
-    height: 7.5vh;
+  width: 4.5vw;
+  height: 7.5vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background-color: #FF8F8F;
-    border: 0.1vw solid #6F65A7;
-    border-left: 0;
-    border-radius: 0 2vw 2vw 0;
-    font-size: 3vh;
-    color: white;
+  background-color: #ff8f8f;
+  border: 0.1vw solid #6f65a7;
+  border-left: 0;
+  border-radius: 0 2vw 2vw 0;
+  font-size: 3vh;
+  color: white;
+
+  cursor: pointer;
 }
 
 .commuView_commentListContainer {
-    width: 56vw;
-    min-height: 13vh;
-    padding: 3vh 2vw;
+  width: 56vw;
+  min-height: 13vh;
+  padding: 3vh 2vw;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5vh;
 
-    background-color: white;
-    border: 0.1vw solid #6F65A7;
-    border-radius: 2vw;
-    font-size: 3.5vh;
+  background-color: white;
+  border: 0.1vw solid #6f65a7;
+  border-radius: 2vw;
+  font-size: 3.5vh;
 }
 
 .commuView_commentBox {
-    width: 52vw;
-    min-height: 11vh;
-    padding: 2vh 2vw;
+  width: 52vw;
+  min-height: 11vh;
+  padding: 2vh 2vw;
 
-    background-color: aliceblue;
-    border-radius: 1.5vw;
-    font-size: 3vh;
+  background-color: aliceblue;
+  border-radius: 1.5vw;
+  font-size: 3vh;
 }
 
 .commuView_commentTopBox {
-    width: 100%;
-    height: 5vh;
+  width: 100%;
+  height: 5vh;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .commuView_commentProfile {
-    width: 2.4vw;
-    height: 4.5vh;
+  width: 2.4vw;
+  height: 4.5vh;
 
-    background-color: orange;
-    border-radius: 0.5vw;
+  background-color: orange;
+  border-radius: 0.5vw;
 }
 
 .commuView_commentIdBox {
-    height: 4.5vh;
-    padding-left: 1vw;
+  height: 4.5vh;
+  padding-left: 1vw;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .commuView_commentId {
-    font-size: 2.2vh;
-    font-weight: 650;
+  font-size: 2.2vh;
+  font-weight: 650;
 }
 
 .commuView_commentDate {
-    font-size: 1.6vh;
+  font-size: 1.6vh;
 }
