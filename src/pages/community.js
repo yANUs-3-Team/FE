@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Footer from "../component/footer";
 import "../component/Css/community.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function Community() {
   const [posts, setPosts] = useState(
@@ -32,7 +32,8 @@ function Community() {
 
   const handlePageClick = (pageNum) => setCurrentPage(pageNum);
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const handleNextPage = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handleFirstPage = () => setCurrentPage(1);
   const handleLastPage = () => setCurrentPage(totalPages);
 
@@ -60,7 +61,7 @@ function Community() {
   const navigate = useNavigate();
 
   const handlePostClick = (post) => {
-    navigate('/community-view', { state: post });
+    navigate("/community-view", { state: post });
   };
 
   return (
@@ -117,11 +118,16 @@ function Community() {
                   className="commu_writeBody"
                 />
                 <div className="commu_writeBottom">
-                  <div className="commu_writeFileButton" onClick={handleSavePost}>
+                  <div
+                    className="commu_writeFileButton"
+                    onClick={handleSavePost}
+                  >
                     <FontAwesomeIcon icon={faPaperclip} />
                   </div>
                   <div
-                    className={`commu_writeSaveButton ${newTitle.trim() && newContent.trim() ? 'active' : ''}`}
+                    className={`commu_writeSaveButton ${
+                      newTitle.trim() && newContent.trim() ? "active" : ""
+                    }`}
                     onClick={handleSavePost}
                   >
                     <FontAwesomeIcon icon={faPen} />
@@ -131,34 +137,56 @@ function Community() {
             )}
 
             <div className="commu_listContainer">
-              {currentPosts.map((post) => (
-                <React.Fragment key={post.id}>
-                  <div className="commu_postContainer" onClick={() => handlePostClick(post)}>
-                    <div className="commu_postTitle">{post.title}</div>
-                    <div className="commu_postDate">{post.date}</div>
-                  </div>
-                  <div className="commu_postContour"></div>
-                </React.Fragment>
-              ))}
+              {currentPosts.map((post, index) => {
+                const isFirst = index === 0;
+                const isLast = index === currentPosts.length - 1;
+
+                return (
+                  <React.Fragment key={post.id}>
+                    <div
+                      className={`commu_postContainer
+                        ${isFirst ? "first" : ""}
+                        ${isLast ? "last" : ""}`}
+                      onClick={() => handlePostClick(post)}
+                    >
+                      <div className="commu_postTitle">{post.title}</div>
+                      <div className="commu_postDate">{post.date}</div>
+                    </div>
+                    {index < currentPosts.length - 1 && (
+                      <div className="commu_postContour"></div>
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </div>
 
             <div className="commu_bottomContainer">
               <div className="commu_pagination">
-                <div className="commu_pageArrow" onClick={handleFirstPage}>{'<<'}</div>
-                <div className="commu_pageArrow" onClick={handlePrevPage}>{'<'}</div>
+                <div className="commu_pageArrow" onClick={handleFirstPage}>
+                  {"<<"}
+                </div>
+                <div className="commu_pageArrow" onClick={handlePrevPage}>
+                  {"<"}
+                </div>
                 <div className="commu_pageNumberBox">
                   {pageNumbers.map((num) => (
                     <div
                       key={num}
-                      className={`commu_pageNumber ${currentPage === num ? 'active' : ''}`}
+                      className={`commu_pageNumber ${
+                        currentPage === num ? "active" : ""
+                      }`}
                       onClick={() => handlePageClick(num)}
                     >
                       {num}
                     </div>
                   ))}
                 </div>
-                <div className="commu_pageArrow" onClick={handleNextPage}>{'>'}</div>
-                <div className="commu_pageArrow" onClick={handleLastPage}>{'>>'}</div>
+                <div className="commu_pageArrow" onClick={handleNextPage}>
+                  {">"}
+                </div>
+                <div className="commu_pageArrow" onClick={handleLastPage}>
+                  {">>"}
+                </div>
               </div>
             </div>
           </div>

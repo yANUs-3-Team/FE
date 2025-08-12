@@ -310,6 +310,18 @@
   background-color: white;
 }
 
+.commu_postContainer.first {
+  border-radius: 0.5vw 0.5vw 0 0;
+}
+
+.commu_postContainer.last {
+  border-radius: 0 0 0.5vw 0.5vw;
+}
+
+.commu_postContainer.first.last {
+  border-radius: 0.5vw;
+}
+
 .commu_postTitle {
   font-size: 2.8vh;
 }
