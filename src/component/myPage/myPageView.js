@@ -1,6 +1,6 @@
 import "../Css/myPageView.css";
 import profile from "../../images/default_profile.png";
-import starIcon from "../../images/star2_icon.png";
+import starIcon from "../../images/star_icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
