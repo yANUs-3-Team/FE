@@ -1,4 +1,6 @@
 .tag_box {
+  position: relative;
+
   width: 100%;
   height: 100%;
 
@@ -14,6 +16,66 @@
   border-radius: 5.5vw;
 }
 
+.concave-diamond {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none; 
+
+  background: currentColor;
+  color: #F9A92F;
+  clip-path: polygon(
+    50% 0%,   /* 위 꼭짓점 */
+    65% 35%,  /* 오른쪽 상단 오목 지점 */
+    100% 50%, /* 오른쪽 꼭짓점 */
+    65% 65%,  /* 오른쪽 하단 오목 지점 */
+    50% 100%, /* 아래 꼭짓점 */
+    35% 65%,  /* 왼쪽 하단 오목 지점 */
+    0% 50%,   /* 왼쪽 꼭짓점 */
+    35% 35%   /* 왼쪽 상단 오목 지점 */
+  );
+}
+
+.star1 {
+  top: 8vh;;
+  left: 1vw;
+
+  width: 1.2vw;
+  height: 1.8vw;
+
+  transform: rotate(9.38deg);
+}
+
+.star2 {
+  top: 12vh;;
+  left: -0.5vw;
+
+  width: 0.8vw;
+  height: 1.2vw;
+
+  transform: rotate(-10.3deg);
+}
+
+.star3 {
+  bottom: 12.5vh;;
+  left: 16.5vw;
+
+  width: 1.2vw;
+  height: 1.8vw;
+
+  transform: rotate(-156.87deg);
+}
+
+.star4 {
+  bottom: 9vh;;
+  left: 14vw;
+
+ width: 0.8vw;
+  height: 1.2vw;
+
+  transform: rotate(-165.69deg);
+}
+
+
 .tag_contour {
   width: 0.1vw;
   height: 100%;
@@ -26,8 +88,18 @@
   height: 33vh;
 }
 
+.tag_starIcon {
+  position: absolute;
+  z-index: 4;
+  top: 9.5vh;
+  left: 25vw;
+  
+  width: 4vw;
+}
+
 .tag_titleBox {
-  width: 100%;
+  width: 33.5vw;
+  padding-left: 2.5vw;
 
   display: flex;
   justify-content: space-between;

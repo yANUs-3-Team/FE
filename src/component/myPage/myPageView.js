@@ -1,15 +1,20 @@
 import "../Css/myPageView.css";
 import profile from "../../images/default_profile.png";
+import starIcon from "../../images/star2_icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 function MyPageView({ userInfo, isUnder14, onEdit }) {
-
   return (
     <div className="tag_box">
       <img src={profile} alt="" className="tag_profile" />
+      <div className="concave-diamond star1"></div>
+      <div className="concave-diamond star2"></div>
+      <div className="concave-diamond star3"></div>
+      <div className="concave-diamond star4"></div>
       <div className="tag_contour"></div>
       <div className="tag_detailBox">
+        <img src={starIcon} alt="" className="tag_starIcon" />
         <div className="tag_titleBox">
           <div className="tag_idBox">
             <div className="tag_subId">동화작가</div>
