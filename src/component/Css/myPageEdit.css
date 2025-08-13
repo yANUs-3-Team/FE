@@ -23,8 +23,8 @@
 
 .edit_profileEdit {
   position: relative;
-right: 1.8vw;
-top: 14.5vh;
+  right: 1.8vw;
+  top: 14.5vh;
   z-index: 3;
 
   width: 1.7vw;
@@ -43,12 +43,12 @@ top: 14.5vh;
 
 .edit_save {
   position: relative;
-  left: 23.5vw;
-  top: 7.3vh;
+  left: 25.38vw;
+  top: 8vh;
   z-index: 1;
 
-  width: 1.7vw;
-  height: 3.5vh;
+  width: 2vw;
+  height: 4vh;
   padding-left: 0.1vw;
 
   display: flex;
