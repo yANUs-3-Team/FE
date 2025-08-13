@@ -4,6 +4,7 @@ import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-icons';
 import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
+import profile from "../images/default_profile.png";
 import Footer from "../component/footer";
 import "../component/Css/communityView.css";
 import { useLocation } from 'react-router-dom';
@@ -49,7 +50,7 @@ function CommunityView() {
       <div className="commuView_page">
         <div className="commuView_postContainer">
           <div className="commuView_topBox">
-            <div className="commuView_postProfile"></div>
+            <img src={profile} alt="" className="commuView_postProfile" />
             <div className="commuView_postIdBox">
               <div className="commuView_postId">익명</div>
               <div className="commuView_postDate">{post.date}</div>
@@ -115,7 +116,7 @@ function CommunityView() {
             comments.map((comment) => (
               <div className="commuView_commentBox" key={comment.id}>
                 <div className="commuView_commentTopBox">
-                  <div className="commuView_commentProfile"></div>
+                  <img src={profile} alt="" className="commuView_commentProfile" />
                   <div className="commuView_commentIdBox">
                     <div className="commuView_commentId">아이디</div>
                     <div className="commuView_commentDate">{comment.createdAt}</div>
