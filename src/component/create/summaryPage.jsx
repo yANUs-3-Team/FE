@@ -18,15 +18,15 @@ function SummaryPage({
     <div className="select_box2">
       <div className="select_container2">
         <div className="selected_group">
-          <div className="selected_label2">주인공의 이름</div>
+          <div className="selected_label">주인공의 이름</div>
           <div className="selected_value">{name || "선택되지 않음"}</div>
         </div>
         <div className="selected_group">
-          <div className="selected_label2">주인공의 성격</div>
+          <div className="selected_label">주인공의 성격</div>
           <div className="selected_value">{personality || "선택되지 않음"}</div>
         </div>
         <div className="selected_group">
-          <label className="selected_label2" htmlFor="endingCount">
+          <label className="selected_label" htmlFor="endingCount">
             페이지 수
           </label>
           <input
@@ -61,15 +61,15 @@ function SummaryPage({
       </div>
       <div className="select_container2">
         <div className="selected_group">
-          <div className="selected_label2">시작 장소</div>
+          <div className="selected_label">시작 장소</div>
           <div className="selected_value">{location || "선택되지 않음"}</div>
         </div>
         <div className="selected_group">
-          <div className="selected_label2">시대</div>
+          <div className="selected_label">시대</div>
           <div className="selected_value">{era || "선택되지 않음"}</div>
         </div>
         <div className="selected_group">
-          <div className="selected_label2">장르</div>
+          <div className="selected_label">장르</div>
           <div className="selected_value">{genre || "선택되지 않음"}</div>
         </div>
       </div>
