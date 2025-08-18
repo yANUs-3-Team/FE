@@ -1,4 +1,3 @@
-// src/pages/community.js
 import React, { useMemo, useState, useEffect, useCallback } from "react";
 import Footer from "../component/footer";
 import "../component/Css/community.css";
@@ -26,7 +25,9 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// 날짜 포맷
+/**
+ * 한국식 날짜 & 시간 문자열 표현
+ */
 const formatKoreanDate = (iso) => {
   if (!iso) return "";
   const d = new Date(iso);
@@ -34,7 +35,30 @@ const formatKoreanDate = (iso) => {
   return d.toLocaleString("ko-KR", { hour12: false });
 };
 
-// ✅ 숫자 user_id만 반환: localStorage → JWT → 실패 시 null
+/*
+*24시간 이내면 상대시간, 넘으면 YYYY-MM-DD HH:mm
+*/
+const formatRelativeOrDate = (iso) => {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+
+  const diffMs = Date.now() - d.getTime();
+  const diffMin = Math.floor(diffMs / 60000);
+  if (diffMin < 1) return "방금 전";
+  if (diffMin < 60) return `${diffMin}분 전`;
+
+  const diffHour = Math.floor(diffMin / 60);
+  if (diffHour < 24) return `${diffHour}시간 전`;
+
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+};
+
+
+/**
+*숫자 user_id만 반환: localStorage → JWT → 실패 시 null
+*/
 const getNumericUserId = () => {
   const s = localStorage.getItem("user_id");
   if (s != null && s !== "") {
@@ -92,7 +116,7 @@ function Community() {
       id,
       title: a.title,
       author: String(author),
-      date: formatKoreanDate(createdIso),
+      date: formatRelativeOrDate(createdIso),
       content: a.content ?? "",
       raw: a,
     };
