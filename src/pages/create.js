@@ -25,6 +25,7 @@ function Create() {
   const [era, setEra] = useState("");
   const [genre, setGenre] = useState("");
   const [visibility, setVisibility] = useState("private");
+  const [endingpoint, setEndingpoint] = useState("");
   const navigate = useNavigate();
 
   const menuList = [
@@ -90,6 +91,8 @@ function Create() {
     <SummaryPage
       name={name}
       personality={personality}
+      endingpoint={endingpoint}
+      setEndingpoint={setEndingpoint}
       characteristics={characteristics}
       location={location}
       era={era}
