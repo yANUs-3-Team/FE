@@ -25,12 +25,29 @@ function Login() {
       if (response.status === 200) {
         const token = response.data.token;
         const decoded = jwtDecode(token);
-        const expire = decoded.exp * 1000;
 
+        // 만료시각 (있을 때만 저장)
+        const expire = decoded?.exp ? decoded.exp * 1000 : null;
+
+        // username / user_id 안전 폴백
+        const decodedUsername =
+          decoded.username || decoded.name || decoded.email || decoded.sub || "";
+        const decodedUserId =
+          decoded.user_id || decoded.id || decoded.sub || decodedUsername || "사용자 아이디";
+
+        // 로컬 스토리지 저장
         localStorage.setItem("token", token);
-        localStorage.setItem("token_expire", expire);
+        if (expire) localStorage.setItem("token_expire", String(expire));
+        localStorage.setItem("user_id", String(decodedUserId));
+        localStorage.setItem("username", String(decodedUsername));
 
-        setUser({ username: decoded.username, token });
+        // 전역 상태 업데이트
+        setUser({
+          username: decodedUsername,
+          user_id: decodedUserId,
+          token,
+        });
+        console.log(decodedUserId, decodedUsername);
         navigate("/");
       }
     } catch (error) {

@@ -14,10 +14,8 @@ const BACK_IP = process.env.REACT_APP_BACK_IP;
 const api = axios.create({
   baseURL: `https://${BACK_IP}`,
 });
-
-// ngrok 경고 우회(선택)
 api.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
-// 쿠키 기반이면 사용: api.defaults.withCredentials = true;
+// api.defaults.withCredentials = true; // (쿠키 기반이면)
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -36,21 +34,23 @@ const formatKoreanDate = (iso) => {
   return d.toLocaleString("ko-KR", { hour12: false });
 };
 
-// user_id 가져오기: localStorage > JWT 토큰 > 기본값("사용자 아이디")
-const getUserId = () => {
-  const fromStorage = localStorage.getItem("user_id");
-  if (fromStorage) return fromStorage;
-
+// ✅ 숫자 user_id만 반환: localStorage → JWT → 실패 시 null
+const getNumericUserId = () => {
+  const s = localStorage.getItem("user_id");
+  if (s != null && s !== "") {
+    const n = Number(s);
+    if (Number.isFinite(n)) return n;
+  }
   const token = localStorage.getItem("token");
   if (token) {
     try {
-      const decoded = jwtDecode(token);
-      return decoded.user_id || decoded.username || decoded.sub || "사용자 아이디";
-    } catch {
-      // ignore
-    }
+      const d = jwtDecode(token);
+      const raw = d.user_id ?? d.id ?? d.uid ?? d.userId ?? d.sub ?? null;
+      const n = Number(raw);
+      if (Number.isFinite(n)) return n;
+    } catch {}
   }
-  return "사용자 아이디";
+  return null;
 };
 
 function Community() {
@@ -66,11 +66,11 @@ function Community() {
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
 
-  const [searchField, setSearchField] = useState("title"); // title | author | date
+  const [searchField, setSearchField] = useState("title");
   const [searchQuery, setSearchQuery] = useState("");
 
   // 미디어 프리뷰(현재 전송 X)
-  const [media, setMedia] = useState([]); // [{url, type, name, file}]
+  const [media, setMedia] = useState([]);
 
   const navigate = useNavigate();
 
@@ -80,8 +80,13 @@ function Community() {
       a.article_id ?? a.id ?? a._id ?? a.articleId ?? String(Math.random());
     const author = a.user_id ?? a.author ?? a.username ?? "작성자";
     const createdIso =
-      a.created_At ?? a.createdAt ?? a.created_at ??
-      a.updated_At ?? a.updatedAt ?? a.updated_at ?? null;
+      a.created_At ??
+      a.createdAt ??
+      a.created_at ??
+      a.updated_At ??
+      a.updatedAt ??
+      a.updated_at ??
+      null;
 
     return {
       id,
@@ -109,11 +114,22 @@ function Community() {
     }
   }, []);
 
-  // POST /api/articles  → { user_id, title, content }
-  const createArticle = async ({ title, content }) => {
-    const user_id = getUserId();
+  // ✅ POST /api/articles  → { user_id, title, content }
+  const createArticle = async ({ title, content, }) => {
+    const user_id = getNumericUserId();
+    if (user_id == null) {
+      // 토큰/스토리지에 user_id 없으면 서버에 잘못된 값 보내지 않음
+      throw new Error("NO_USER_ID");
+      console.log(user_id);
+    }
     const body = { user_id, title, content };
-    const res = await api.post("/api/articles", body);
+    // 디버깅용 로그
+    console.debug("POST /api/articles body:", body);
+    console.log(user_id);
+    console.log(body);
+    const res = await api.post("/api/articles", body, {
+      headers: { "Content-Type": "application/json" },
+    });
     return res.data;
   };
 
@@ -123,14 +139,8 @@ function Community() {
   }, [fetchArticles]);
 
   // 검색
-  const handleSearch = () => {
-    // 필요 시 검색 버튼 누를 때만 페이지 리셋
-    setCurrentPage(1);
-  };
-
-  const handleSearchKeyDown = (e) => {
-    if (e.key === "Enter") handleSearch();
-  };
+  const handleSearch = () => setCurrentPage(1);
+  const handleSearchKeyDown = (e) => e.key === "Enter" && handleSearch();
 
   const filteredPosts = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -193,8 +203,15 @@ function Community() {
       setCurrentPage(1);
       setMedia([]);
     } catch (e) {
-      console.error("createArticle error:", e?.message, e);
-      alert("게시글 저장 중 오류가 발생했습니다.");
+      if (e?.message === "NO_USER_ID") {
+        alert("로그인 정보가 없습니다. 다시 로그인해 주세요.");
+      } else if (e?.response) {
+        console.error("createArticle error:", e.response.status, e.response.data);
+        alert(`게시글 저장 실패 (${e.response.status})`);
+      } else {
+        console.error("createArticle error:", e);
+        alert("게시글 저장 중 오류가 발생했습니다.");
+      }
     }
   };
 
@@ -266,7 +283,7 @@ function Community() {
                 className="commu_topInput"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={handleSearchKeyDown}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 placeholder="검색어를 입력하세요"
               />
 
@@ -314,7 +331,7 @@ function Community() {
                   className="commu_writeBody"
                 />
 
-                {/* 미디어 프리뷰 (현재 업로드 전송 X) */}
+                {/* 미디어 프리뷰 */}
                 {media.length > 0 && (
                   <div className="commu_mediaPreview">
                     {media.map((m) => (
@@ -365,7 +382,10 @@ function Community() {
             {!loading && !errorMsg && (
               <div className="commu_listContainer">
                 {currentPosts.length === 0 ? (
-                  <div className="commu_postContainer first last" style={{ justifyContent: "center" }}>
+                  <div
+                    className="commu_postContainer first last"
+                    style={{ justifyContent: "center" }}
+                  >
                     검색 결과가 없습니다.
                   </div>
                 ) : (
@@ -390,7 +410,6 @@ function Community() {
                             <span>{post.author}</span>
                           </div>
 
-                          {/* 오른쪽: 날짜만 표시 */}
                           <div className="commu_postRight">
                             <div className="commu_postDate">{post.date}</div>
                           </div>
