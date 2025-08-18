@@ -16,7 +16,7 @@ import CommunityView from "./pages/communityView";
 import Policy from "./pages/policy";
 
 import { UserProvider } from "./context/UserContext";
-// import ProtectedRoute from "./component/ProtectedRoute";
+import ProtectedRoute from "./component/ProtectedRoute";
 
 function App() {
   return (
@@ -31,9 +31,9 @@ function App() {
           <Route
             path="/create"
             element={
-              /*<ProtectedRoute>*/
+              <ProtectedRoute>
               <Create />
-              /*</ProtectedRoute>*/
+              </ProtectedRoute>
             }
           />
           <Route path="/loading" element={<Loading />} />
@@ -42,17 +42,17 @@ function App() {
            <Route
             path="/my-gallery"
             element={
-              /*<ProtectedRoute>*/
+              <ProtectedRoute>
                 <MyGallery />
-              /*</ProtectedRoute>*/
+              </ProtectedRoute>
             }
           />
           <Route
             path="/open-gallery"
             element={
-              /*<ProtectedRoute>*/
+              <ProtectedRoute>
                 <OpenGallery />
-              /*</ProtectedRoute>*/
+              </ProtectedRoute>
             }
           />
           <Route path="/community" element={<Community />} />
