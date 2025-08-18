@@ -6,7 +6,7 @@ function StoryComplete() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/story-viewer");
+    navigate("/interactive-story");
   };
 
   return (
