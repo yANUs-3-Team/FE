@@ -46,11 +46,10 @@ function Header() {
               <div className="user_dropdown">
                 <div className="nav username">{user.username} 님</div>
                 <div className="myBox">
-                  <div className="dropdown_item">
+                  <div className="dropdown_item" onClick={() => navigate("/my-page")}>
                     <FontAwesomeIcon
                       icon={faUser}
                       className="dropdown_icon"
-                      onClick={() => navigate("/my-page")}
                     />{" "}
                     마이페이지
                   </div>
