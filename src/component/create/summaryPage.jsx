@@ -95,27 +95,7 @@ function SummaryPage({
           전체 공개
         </label>
       </div>
-      <div className="pagination_box">
-        <div
-          className="pagination_button left_button"
-          onClick={() => setPageIndex(0)}
-        >
-          설정 바꾸기
-        </div>
-        <div
-          className="pagination_button right_button"
-          onClick={() => {
-            const n = parseInt(endingpoint, 10);
-            if (!Number.isInteger(n) || n < 1) {
-              alert("엔딩페이지 수를 1 이상의 정수로 입력해 주세요.");
-              return;
-            }
-            navigate("/loading");
-          }}
-        >
-          동화 만들기
-        </div>
-      </div>
+    
     </div>
   );
 }

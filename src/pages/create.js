@@ -26,6 +26,7 @@ function Create() {
   const [genre, setGenre] = useState("");
   const [visibility, setVisibility] = useState("private");
   const [endingpoint, setEndingpoint] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const menuList = [
@@ -103,8 +104,14 @@ function Create() {
   ];
 
   const handleStorySubmit = async () => {
+    const n = parseInt(endingpoint, 10);
+    if (!Number.isInteger(n) || n < 1) {
+      alert("엔딩페이지 수를 1 이상의 정수로 입력해 주세요.");
+      return;
+    }
+
     try {
-      // 백 연결 이후 삭제
+      setSubmitting(true);
       console.log("보내는 데이터:", {
         name,
         personality,
@@ -113,8 +120,10 @@ function Create() {
         era,
         genre,
         visibility,
+        endingpoint: n,
       });
-      //
+
+      // TODO: 백엔드 주소로 교체
       const response = await axios.post("http://localhost:3000/api/story", {
         name,
         personality,
@@ -123,6 +132,7 @@ function Create() {
         era,
         genre,
         visibility,
+        endingpoint: n,
       });
 
       const storyId = response.data.storyId;
@@ -130,8 +140,14 @@ function Create() {
     } catch (error) {
       console.error("동화 생성 실패:", error);
       alert("동화 생성에 실패했어요. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      setSubmitting(false);
     }
   };
+
+  const isEndingpointValid =
+    Number.isInteger(parseInt(endingpoint, 10)) &&
+    parseInt(endingpoint, 10) >= 1;
 
   return (
     <>
@@ -184,6 +200,7 @@ function Create() {
                     <div
                       className="pagination_button right_button"
                       onClick={handleStorySubmit}
+                      disabled={!isEndingpointValid || submitting}
                     >
                       동화 만들기
                     </div>
