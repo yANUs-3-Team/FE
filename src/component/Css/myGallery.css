@@ -212,6 +212,7 @@
   opacity: 0;
   transform: translateY(1.5vh);
   pointer-events: none;
+  cursor: pointer;
 }
 
 .cover_box:hover .MG_detail_button:nth-child(1) {
