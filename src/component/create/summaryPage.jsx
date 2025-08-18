@@ -52,7 +52,7 @@ function SummaryPage({
         </div>
       </div>
       <div className="select_container2">
-        <div className="selected_group">
+        <div className="selected_group2">
           <div className="selected_label">주인공의 특징</div>
           <div className="selected_value2">
             {characteristics || "선택되지 않음"}
