@@ -1,3 +1,4 @@
+// src/pages/create.js
 import { useState } from "react";
 import Footer from "../component/footer";
 import "../component/Css/create.css";
@@ -16,6 +17,13 @@ import EraSelectPage from "../component/create/eraSelectPage";
 import GenreSelectPage from "../component/create/genreSelectPage";
 import SummaryPage from "../component/create/summaryPage";
 
+// ✅ AI 서버 axios 인스턴스 (.env: REACT_APP_AI_IP=79823528d5cc.ngrok-free.app)
+const AI_IP = process.env.REACT_APP_AI_IP;
+const ai = axios.create({
+  baseURL: `https://${AI_IP}`,
+  headers: { "ngrok-skip-browser-warning": "true" },
+});
+
 function Create() {
   const [pageIndex, setPageIndex] = useState(0);
   const [name, setName] = useState("");
@@ -24,7 +32,7 @@ function Create() {
   const [location, setLocation] = useState("");
   const [era, setEra] = useState("");
   const [genre, setGenre] = useState("");
-  const [visibility, setVisibility] = useState("private");
+  const [visibility, setVisibility] = useState("private"); // UI에는 유지, 전송은 안 함
   const [endingpoint, setEndingpoint] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -60,11 +68,10 @@ function Create() {
   ];
 
   const handleNext = () => {
-    if (pageIndex < 6) setPageIndex(pageIndex + 1);
+    if (pageIndex < 6) setPageIndex((p) => p + 1);
   };
-
   const handlePrev = () => {
-    if (pageIndex > 0) setPageIndex(pageIndex - 1);
+    if (pageIndex > 0) setPageIndex((p) => p - 1);
   };
 
   const handleRandomName = () => {
@@ -100,9 +107,14 @@ function Create() {
       genre={genre}
       visibility={visibility}
       setVisibility={setVisibility}
+      setPageIndex={setPageIndex}
+      navigate={navigate}
     />,
   ];
 
+  /**
+   * AI로 전달
+   */
   const handleStorySubmit = async () => {
     const n = parseInt(endingpoint, 10);
     if (!Number.isInteger(n) || n < 1) {
@@ -112,30 +124,28 @@ function Create() {
 
     try {
       setSubmitting(true);
-      console.log("보내는 데이터:", {
+
+      const token = localStorage.getItem("token");
+      const payload = {
         name,
         personality,
         characteristics,
         location,
         era,
         genre,
-        visibility,
         endingpoint: n,
+      };
+
+      console.log("[DEBUG] AI로 보낼 페이로드:", payload);
+
+      const { data } = await ai.post("/api/story", payload, {
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
       });
 
-      // TODO: 백엔드 주소로 교체
-      const response = await axios.post("http://localhost:3000/api/story", {
-        name,
-        personality,
-        characteristics,
-        location,
-        era,
-        genre,
-        visibility,
-        endingpoint: n,
-      });
-
-      const storyId = response.data.storyId;
+      const storyId = data?.storyId;
       navigate("/loading", { state: { storyId } });
     } catch (error) {
       console.error("동화 생성 실패:", error);
@@ -197,13 +207,14 @@ function Create() {
                     >
                       설정 바꾸기
                     </div>
-                    <div
+                    <button
+                      type="button"
                       className="pagination_button right_button"
                       onClick={handleStorySubmit}
                       disabled={!isEndingpointValid || submitting}
                     >
                       동화 만들기
-                    </div>
+                    </button>
                   </>
                 ) : (
                   <>
