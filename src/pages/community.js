@@ -115,7 +115,7 @@ function Community() {
   }, []);
 
   // ✅ POST /api/articles  → { user_id, title, content }
-  const createArticle = async ({ title, content, }) => {
+  const createArticle = async ({ title, content }) => {
     const user_id = getNumericUserId();
     if (user_id == null) {
       // 토큰/스토리지에 user_id 없으면 서버에 잘못된 값 보내지 않음
@@ -147,20 +147,32 @@ function Community() {
     if (!q) return posts;
 
     const key =
-      searchField === "author" ? "author" : searchField === "date" ? "date" : "title";
+      searchField === "author"
+        ? "author"
+        : searchField === "date"
+        ? "date"
+        : "title";
 
-    return posts.filter((p) => String(p[key] || "").toLowerCase().includes(q));
+    return posts.filter((p) =>
+      String(p[key] || "")
+        .toLowerCase()
+        .includes(q)
+    );
   }, [posts, searchField, searchQuery]);
 
   // 페이지네이션
-  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / postsPerPage));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredPosts.length / postsPerPage)
+  );
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   const handlePageClick = (pageNum) => setCurrentPage(pageNum);
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const handleNextPage = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handleFirstPage = () => setCurrentPage(1);
   const handleLastPage = () => setCurrentPage(totalPages);
 
@@ -206,7 +218,11 @@ function Community() {
       if (e?.message === "NO_USER_ID") {
         alert("로그인 정보가 없습니다. 다시 로그인해 주세요.");
       } else if (e?.response) {
-        console.error("createArticle error:", e.response.status, e.response.data);
+        console.error(
+          "createArticle error:",
+          e.response.status,
+          e.response.data
+        );
         alert(`게시글 저장 실패 (${e.response.status})`);
       } else {
         console.error("createArticle error:", e);
@@ -241,7 +257,8 @@ function Community() {
 
   // 상세
   const handlePostClick = (post) => {
-    navigate("/community-view", { state: post.raw });
+    // 정규화된 post( author, date, title, content 포함 )를 그대로 넘김
+    navigate("/community-view", { state: post });
   };
 
   return (
@@ -294,7 +311,10 @@ function Community() {
 
             {/* 로딩/에러 */}
             {loading && (
-              <div className="commu_postContainer first last" style={{ justifyContent: "center" }}>
+              <div
+                className="commu_postContainer first last"
+                style={{ justifyContent: "center" }}
+              >
                 불러오는 중…
               </div>
             )}
@@ -362,7 +382,11 @@ function Community() {
                     accept="image/*,video/*"
                     onChange={handleFileChange}
                   />
-                  <label htmlFor="fileUpload" className="commu_writeFileButton" role="button">
+                  <label
+                    htmlFor="fileUpload"
+                    className="commu_writeFileButton"
+                    role="button"
+                  >
                     <FontAwesomeIcon icon={faPaperclip} />
                   </label>
 
@@ -396,9 +420,9 @@ function Community() {
                     return (
                       <React.Fragment key={post.id}>
                         <div
-                          className={`commu_postContainer ${isFirst ? "first" : ""} ${
-                            isLast ? "last" : ""
-                          }`}
+                          className={`commu_postContainer ${
+                            isFirst ? "first" : ""
+                          } ${isLast ? "last" : ""}`}
                         >
                           <div
                             className="commu_postTitleBox"
@@ -415,7 +439,9 @@ function Community() {
                           </div>
                         </div>
 
-                        {index < currentPosts.length - 1 && <div className="commu_postContour"></div>}
+                        {index < currentPosts.length - 1 && (
+                          <div className="commu_postContour"></div>
+                        )}
                       </React.Fragment>
                     );
                   })
@@ -437,7 +463,9 @@ function Community() {
                     {visiblePages.map((num) => (
                       <div
                         key={num}
-                        className={`commu_pageNumber ${currentPage === num ? "active" : ""}`}
+                        className={`commu_pageNumber ${
+                          currentPage === num ? "active" : ""
+                        }`}
                         onClick={() => handlePageClick(num)}
                       >
                         {num}
