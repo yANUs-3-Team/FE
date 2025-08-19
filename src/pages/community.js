@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; // (미사용이어도 요청대로 다른 부분은 건드리지 않음)
 
 const BACK_IP = process.env.REACT_APP_BACK_IP;
 
@@ -14,7 +14,7 @@ const api = axios.create({
   baseURL: `https://${BACK_IP}`,
 });
 api.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
-// api.defaults.withCredentials = true; // (쿠키 기반이면)
+api.defaults.withCredentials = true; // ★ 쿠키 기반 인증 활성화
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -52,27 +52,21 @@ const formatRelativeOrDate = (iso) => {
   if (diffHour < 24) return `${diffHour}시간 전`;
 
   const pad = (n) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(
+    d.getHours()
+  )}:${pad(d.getMinutes())}`;
 };
 
 
 /**
-*숫자 user_id만 반환: localStorage → JWT → 실패 시 null
-*/
+ * 숫자 user_id 반환(동기): sessionStorage 캐시만 사용
+ * - 마운트 시 useEffect에서 /users/me로 1회 프라임하여 sessionStorage.user_id 채움
+ */
 const getNumericUserId = () => {
-  const s = localStorage.getItem("user_id");
+  const s = sessionStorage.getItem("user_id");
   if (s != null && s !== "") {
     const n = Number(s);
     if (Number.isFinite(n)) return n;
-  }
-  const token = localStorage.getItem("token");
-  if (token) {
-    try {
-      const d = jwtDecode(token);
-      const raw = d.user_id ?? d.id ?? d.uid ?? d.userId ?? d.sub ?? null;
-      const n = Number(raw);
-      if (Number.isFinite(n)) return n;
-    } catch {}
   }
   return null;
 };
@@ -97,6 +91,29 @@ function Community() {
   const [media, setMedia] = useState([]);
 
   const navigate = useNavigate();
+
+  // ✅ 마운트 시 한번 /users/me 호출하여 user_id 프라임(세션 캐시)
+  useEffect(() => {
+    (async () => {
+      try {
+        const me = await api.get("/users/me"); // 쿠키 포함됨
+        const raw =
+          me?.data?.user?.user_id ??
+          me?.data?.user_id ??
+          me?.data?.id ??
+          me?.data?.uid ??
+          null;
+        const n = Number(raw);
+        if (Number.isFinite(n)) {
+          sessionStorage.setItem("user_id", String(n));
+        } else {
+          sessionStorage.removeItem("user_id");
+        }
+      } catch {
+        sessionStorage.removeItem("user_id");
+      }
+    })();
+  }, []);
 
   // 목록 데이터 정규화
   const mapArticleToPost = (a) => {
@@ -140,17 +157,12 @@ function Community() {
 
   // ✅ POST /articles  → { user_id, title, content }
   const createArticle = async ({ title, content }) => {
-    const user_id = getNumericUserId();
+    const user_id = getNumericUserId(); // 세션 캐시에서 동기 조회
     if (user_id == null) {
-      // 토큰/스토리지에 user_id 없으면 서버에 잘못된 값 보내지 않음
       throw new Error("NO_USER_ID");
-      console.log(user_id);
     }
     const body = { user_id, title, content };
-    // 디버깅용 로그
     console.debug("POST /articles body:", body);
-    console.log(user_id);
-    console.log(body);
     const res = await api.post("/articles", body, {
       headers: { "Content-Type": "application/json" },
     });
@@ -281,7 +293,6 @@ function Community() {
 
   // 상세
   const handlePostClick = (post) => {
-    // 정규화된 post( author, date, title, content 포함 )를 그대로 넘김
     navigate("/community-view", { state: post });
   };
 

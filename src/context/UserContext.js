@@ -1,44 +1,46 @@
-import { createContext, useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
+// src/context/UserContext.js
+import { createContext, useEffect, useState, useCallback } from "react";
 
 export const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const expire = localStorage.getItem("token_expire");
-
-    if (token && expire) {
-      const now = Date.now();
-
-      if (now < Number(expire)) {
-        const decoded = jwtDecode(token);
-        setUser({ username: decoded.username, token });
-
-        const remaining = Number(expire) - now;
-        console.log("⏱ 자동 로그아웃까지 남은 시간(ms):", remaining);
-
-        const timer = setTimeout(() => {
-          console.log("⏰ 세션 만료됨 — 로그아웃");
-          alert("세션이 만료되었습니다. 다시 로그인해주세요.");
-          localStorage.clear();
-          setUser(null);
-          window.location.href = "/login";
-        }, remaining);
-
-        return () => clearTimeout(timer);
-      } else {
-        // 토큰 만료됨
-        localStorage.clear();
-        setUser(null);
+  // sessionStorage에서만 복원 (백엔드 me 엔드포인트가 없으므로)
+  const primeFromSession = useCallback(() => {
+    try {
+      const raw = sessionStorage.getItem("user");
+      if (raw) {
+        const u = JSON.parse(raw);
+        if (u?.user_id) {
+          setUser({ username: u.username ?? "", user_id: u.user_id });
+          return;
+        }
       }
-    }
+      const idStr = sessionStorage.getItem("user_id");
+      const uid = idStr ? Number(idStr) : null;
+      if (Number.isFinite(uid)) {
+        setUser((prev) => prev ?? { username: "", user_id: uid });
+        return;
+      }
+    } catch {}
+    setUser(null);
+  }, []);
+
+  useEffect(() => {
+    primeFromSession();
+  }, [primeFromSession]);
+
+  // (선택) 로그아웃 헬퍼
+  const logout = useCallback(() => {
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("user_id");
+    setUser(null);
+    window.location.href = "/login";
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, logout }}>
       {children}
     </UserContext.Provider>
   );

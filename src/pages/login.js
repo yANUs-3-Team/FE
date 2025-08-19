@@ -1,4 +1,3 @@
-// Login.jsx
 import "../component/Css/login.css";
 import mainLogo from "../images/mainLogo.png";
 import googleLogo from "../images/google_icon.png";
@@ -18,15 +17,22 @@ function Login() {
   // axios 인스턴스 (쿠키 포함 전송)
   const api = axios.create({
     baseURL: `https://${BACK_IP}`,
-    withCredentials: true,              // ★ 중요: 쿠키 전송
-    xsrfCookieName: "XSRF-TOKEN",       // (선택) 서버가 CSRF용 쿠키를 줄 때
-    xsrfHeaderName: "X-XSRF-TOKEN",     // (선택)
+    withCredentials: true, // ★ 중요: 쿠키 전송
+    xsrfCookieName: "XSRF-TOKEN", // (선택)
+    xsrfHeaderName: "X-XSRF-TOKEN", // (선택)
+    headers: { "ngrok-skip-browser-warning": "true" },
   });
 
   const handleLoginInfo = async () => {
     try {
       // 서버는 여기서 Set-Cookie: access_token=...; HttpOnly; Secure; SameSite=...
-      const res = await api.post("/users/login", { username, password });
+      const res = await api.post(
+        "/users/login",
+        { username, password },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       // 1) 응답에 user가 오면 그대로 사용
       let user = res?.data?.user;
@@ -42,12 +48,16 @@ function Login() {
         return;
       }
 
-      // 전역 상태만 업데이트 (토큰 저장 X)
+      // ✅ 전역 상태 업데이트 + community가 동기 조회할 sessionStorage 프라임
       setUser({
         username: user.username,
         user_id: user.user_id,
-        // token: undefined  // 토큰 보관하지 않음
       });
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify({ username: user.username, user_id: user.user_id })
+      );
+      sessionStorage.setItem("user_id", String(user.user_id ?? ""));
 
       navigate("/");
     } catch (error) {

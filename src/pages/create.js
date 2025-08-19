@@ -16,11 +16,13 @@ import EraSelectPage from "../component/create/eraSelectPage";
 import GenreSelectPage from "../component/create/genreSelectPage";
 import SummaryPage from "../component/create/summaryPage";
 
-// ✅ AI 서버 axios 인스턴스 (.env: REACT_APP_AI_IP=79823528d5cc.ngrok-free.app)
-const AI_IP = process.env.REACT_APP_AI_IP;
-const ai = axios.create({
-  baseURL: `https://${AI_IP}:8000`,
-  headers: { "ngrok-skip-browser-warning": "true" },
+// AI -> Back 서버 axios 인스턴스
+const BACK_IP = process.env.REACT_APP_BACK_IP;
+const api = axios.create({
+  baseURL: `https://${BACK_IP}`,
+  withCredentials: true,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
 });
 
 function Create() {
@@ -112,13 +114,11 @@ function Create() {
   ];
 
   /**
-   * POST /stories 로 "동화 시작" 호출
-   * 서버가 storyId를 반환
-   * 
-   * /loading 으로 storyId와 설정값들을 넘김
-   * /loading에서 /stories/:storyId/pages, /stories/:storyId(제목 설정) 호출
-   */
+   * 전송 성공(2xx)이면 곧장 /loading 으로 이동
+   * */
   const handleStorySubmit = async () => {
+    if (submitting) return;
+
     const n = parseInt(endingpoint, 10);
     if (!Number.isInteger(n) || n < 1) {
       alert("엔딩페이지 수를 1 이상의 정수로 입력해 주세요.");
@@ -139,32 +139,30 @@ function Create() {
       setSubmitting(true);
 
       const token = localStorage.getItem("token");
-      console.log("[DEBUG] POST /stories payload:", payload);
 
-      const { data } = await ai.post("/sessions", payload, {
+      const res = await api.post("/stories", payload, {
         headers: {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
+        // 필요하면 withCredentsials: true,
       });
 
-      const storyId = data?.storyId;
-      if (!storyId) {
-        throw new Error("storyId가 응답에 없습니다.");
-      }
+      // 응답 형태에 storyId가 있으면 함께 넘기고, 없어도 로딩으로 이동해 대기
+      const storyId = res.data?.storyId ?? res.data?.id ?? null;
 
-      console.log("[DEBUG] 받은 storyId:", storyId);
-
-      // 로딩 페이지로 이동 (여기서 페이지 추가/제목 설정 진행)
       navigate("/loading", {
         state: {
-          storyId,
-          settings: payload, // 로딩 페이지에서 필요하면 사용
+          storyId, // 있으면 사용, 없어도 OK
+          request: payload, // 로딩에서 디버깅/표시용으로 쓸 수 있음
         },
+        replace: true, // 뒤로가기 시 중복 제출 방지
       });
-    } catch (error) {
-      console.error("동화 시작 실패:", error);
-      alert("동화 시작에 실패했어요. 잠시 후 다시 시도해 주세요.");
+    } catch (err) {
+      console.error("동화 생성 요청 실패:", err);
+      alert(
+        "동화 생성 요청을 전송하지 못했습니다. 잠시 후 다시 시도해 주세요."
+      );
     } finally {
       setSubmitting(false);
     }
