@@ -1,10 +1,10 @@
+// Login.jsx
 import "../component/Css/login.css";
 import mainLogo from "../images/mainLogo.png";
 import googleLogo from "../images/google_icon.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
-import { jwtDecode } from "jwt-decode";
 import { UserContext } from "../context/UserContext";
 
 function Login() {
@@ -15,41 +15,41 @@ function Login() {
   const [password, setPassword] = useState("");
   const BACK_IP = process.env.REACT_APP_BACK_IP;
 
+  // axios 인스턴스 (쿠키 포함 전송)
+  const api = axios.create({
+    baseURL: `https://${BACK_IP}`,
+    withCredentials: true,              // ★ 중요: 쿠키 전송
+    xsrfCookieName: "XSRF-TOKEN",       // (선택) 서버가 CSRF용 쿠키를 줄 때
+    xsrfHeaderName: "X-XSRF-TOKEN",     // (선택)
+  });
+
   const handleLoginInfo = async () => {
     try {
-      const response = await axios.post(`https://${BACK_IP}/users/login`, {
-        username,
-        password,
+      // 서버는 여기서 Set-Cookie: access_token=...; HttpOnly; Secure; SameSite=...
+      const res = await api.post("/users/login", { username, password });
+
+      // 1) 응답에 user가 오면 그대로 사용
+      let user = res?.data?.user;
+
+      // 2) 없으면 쿠키 기반 인증으로 /users/me에서 조회
+      if (!user) {
+        const me = await api.get("/users/me");
+        user = me?.data?.user || me?.data;
+      }
+
+      if (!user) {
+        alert("사용자 정보를 불러오지 못했습니다.");
+        return;
+      }
+
+      // 전역 상태만 업데이트 (토큰 저장 X)
+      setUser({
+        username: user.username,
+        user_id: user.user_id,
+        // token: undefined  // 토큰 보관하지 않음
       });
 
-      if (response.status === 200) {
-        const token = response.data.token;
-        const decoded = jwtDecode(token);
-
-        // 만료시각 (있을 때만 저장)
-        const expire = decoded?.exp ? decoded.exp * 1000 : null;
-
-        // username / user_id 안전 폴백
-        const decodedUsername =
-          decoded.username || decoded.name || decoded.email || decoded.sub || "";
-        const decodedUserId =
-          decoded.user_id || decoded.id || decoded.sub || decodedUsername || "사용자 아이디";
-
-        // 로컬 스토리지 저장
-        localStorage.setItem("token", token);
-        if (expire) localStorage.setItem("token_expire", String(expire));
-        localStorage.setItem("user_id", String(decodedUserId));
-        localStorage.setItem("username", String(decodedUsername));
-
-        // 전역 상태 업데이트
-        setUser({
-          username: decodedUsername,
-          user_id: decodedUserId,
-          token,
-        });
-        console.log(decodedUserId, decodedUsername);
-        navigate("/");
-      }
+      navigate("/");
     } catch (error) {
       console.error("로그인 중 오류 발생:", error);
       alert("로그인 중 오류가 발생했습니다.");
