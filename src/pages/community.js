@@ -1,29 +1,21 @@
-import React, { useMemo, useState, useEffect, useCallback } from "react";
+import React, { useMemo, useState, useEffect, useCallback, useContext } from "react";
 import Footer from "../component/footer";
 import "../component/Css/community.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode"; // (미사용이어도 요청대로 다른 부분은 건드리지 않음)
+import { UserContext } from "../context/UserContext";
 
 const BACK_IP = process.env.REACT_APP_BACK_IP;
 
 // axios 인스턴스
 const api = axios.create({
   baseURL: `https://${BACK_IP}`,
+  withCredentials: true, // ★ 쿠키 기반 인증 활성화
 });
 api.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
-api.defaults.withCredentials = true; // ★ 쿠키 기반 인증 활성화
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers = config.headers ?? {};
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
 
 /**
  * 한국식 날짜 & 시간 문자열 표현
@@ -57,21 +49,8 @@ const formatRelativeOrDate = (iso) => {
   )}:${pad(d.getMinutes())}`;
 };
 
-
-/**
- * 숫자 user_id 반환(동기): sessionStorage 캐시만 사용
- * - 마운트 시 useEffect에서 /users/me로 1회 프라임하여 sessionStorage.user_id 채움
- */
-const getNumericUserId = () => {
-  const s = sessionStorage.getItem("user_id");
-  if (s != null && s !== "") {
-    const n = Number(s);
-    if (Number.isFinite(n)) return n;
-  }
-  return null;
-};
-
 function Community() {
+  const { user } = useContext(UserContext);
   // 상태
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -91,29 +70,6 @@ function Community() {
   const [media, setMedia] = useState([]);
 
   const navigate = useNavigate();
-
-  // ✅ 마운트 시 한번 /users/me 호출하여 user_id 프라임(세션 캐시)
-  useEffect(() => {
-    (async () => {
-      try {
-        const me = await api.get("/users/me"); // 쿠키 포함됨
-        const raw =
-          me?.data?.user?.user_id ??
-          me?.data?.user_id ??
-          me?.data?.id ??
-          me?.data?.uid ??
-          null;
-        const n = Number(raw);
-        if (Number.isFinite(n)) {
-          sessionStorage.setItem("user_id", String(n));
-        } else {
-          sessionStorage.removeItem("user_id");
-        }
-      } catch {
-        sessionStorage.removeItem("user_id");
-      }
-    })();
-  }, []);
 
   // 목록 데이터 정규화
   const mapArticleToPost = (a) => {
@@ -157,10 +113,14 @@ function Community() {
 
   // ✅ POST /articles  → { user_id, title, content }
   const createArticle = async ({ title, content }) => {
-    const user_id = getNumericUserId(); // 세션 캐시에서 동기 조회
-    if (user_id == null) {
+    if (!user || !user.user_id) {
       throw new Error("NO_USER_ID");
     }
+    const user_id = Number(user.user_id);
+    if (isNaN(user_id)) {
+        throw new Error("INVALID_USER_ID");
+    }
+
     const body = { user_id, title, content };
     console.debug("POST /articles body:", body);
     const res = await api.post("/articles", body, {
@@ -253,6 +213,8 @@ function Community() {
     } catch (e) {
       if (e?.message === "NO_USER_ID") {
         alert("로그인 정보가 없습니다. 다시 로그인해 주세요.");
+      } else if (e?.message === "INVALID_USER_ID") {
+        alert("사용자 ID가 올바르지 않습니다.");
       } else if (e?.response) {
         console.error(
           "createArticle error:",

@@ -53,11 +53,7 @@ function Login() {
         username: user.username,
         user_id: user.user_id,
       });
-      sessionStorage.setItem(
-        "user",
-        JSON.stringify({ username: user.username, user_id: user.user_id })
-      );
-      sessionStorage.setItem("user_id", String(user.user_id ?? ""));
+      
 
       navigate("/");
     } catch (error) {

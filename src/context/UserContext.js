@@ -1,47 +1,58 @@
-// src/context/UserContext.js
 import { createContext, useEffect, useState, useCallback } from "react";
+import axios from "axios";
 
 export const UserContext = createContext(null);
 
+const api = axios.create({
+  baseURL: `https://${process.env.REACT_APP_BACK_IP}`,
+  withCredentials: true,
+  headers: { "ngrok-skip-browser-warning": "true" },
+});
+
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // sessionStorage에서만 복원 (백엔드 me 엔드포인트가 없으므로)
-  const primeFromSession = useCallback(() => {
+  const fetchUser = useCallback(async () => {
     try {
-      const raw = sessionStorage.getItem("user");
-      if (raw) {
-        const u = JSON.parse(raw);
-        if (u?.user_id) {
-          setUser({ username: u.username ?? "", user_id: u.user_id });
-          return;
-        }
+      const res = await api.get("/users/me");
+      const userData = res?.data?.user || res?.data;
+      if (userData) {
+        setUser({
+          username: userData.username,
+          user_id: userData.user_id,
+        });
+      } else {
+        setUser(null);
       }
-      const idStr = sessionStorage.getItem("user_id");
-      const uid = idStr ? Number(idStr) : null;
-      if (Number.isFinite(uid)) {
-        setUser((prev) => prev ?? { username: "", user_id: uid });
-        return;
-      }
-    } catch {}
-    setUser(null);
+    } catch (error) {
+      console.log("사용자 정보 가져오기 실패", error);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    primeFromSession();
-  }, [primeFromSession]);
+    fetchUser();
+  }, [fetchUser]);
 
-  // (선택) 로그아웃 헬퍼
-  const logout = useCallback(() => {
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("user_id");
-    setUser(null);
-    window.location.href = "/login";
+  const logout = useCallback(async () => {
+    try {
+      await api.post("/users/logout");
+    } catch (error) {
+      console.error("로그아웃 실패", error);
+    } finally {
+      setUser(null);
+      window.location.href = "/login";
+    }
   }, []);
 
+  const value = { user, setUser, logout, loading };
+
   return (
-    <UserContext.Provider value={{ user, setUser, logout }}>
-      {children}
+    <UserContext.Provider value={value}>
+      {!loading && children}
     </UserContext.Provider>
   );
 }

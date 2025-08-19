@@ -1,23 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../component/Css/header.css";
 import headerLogo from "../images/headerLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-
+import { faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 function Header() {
-  const { user, setUser } = useContext(UserContext);
-
-  const handleLogout = () => {
-    localStorage.clear();
-    setUser(null);
-    window.location.href = "/";
-  };
-
+  const { user, logout } = useContext(UserContext);
   const navigate = useNavigate();
 
   return (
@@ -53,7 +43,7 @@ function Header() {
                     />{" "}
                     마이페이지
                   </div>
-                  <div className="dropdown_item" onClick={handleLogout}>
+                  <div className="dropdown_item" onClick={logout}>
                     <FontAwesomeIcon
                       icon={faSignOutAlt}
                       className="dropdown_icon"
