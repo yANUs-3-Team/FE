@@ -14,7 +14,7 @@
   height: 100%;
 
   font-size: 2.5vh;
-  background-color: #d9d9d9;
+  background-color: #fffefc;
   border: 0.1vh solid black;
 
   overflow: hidden;
@@ -43,27 +43,58 @@
 }
 
 .IS_text_box {
-  width: 100%;
-  height: 40vh;
+  width: 36vw;
+  height: 32vh;
+  padding: 2vh 2vw;
+  padding-top: 6vh;
 
-  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 3vh;
 }
 
 .IS_select_box {
   width: 36vw;
-  height: 36vh;
+  height: 32vh;
   padding: 2vh 2vw;
+  padding-bottom: 6vh;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 4vh;
+}
 
-  background-color: aqua;
+.IS_select_group {
+  width: 36vw;
+  height: 10vh;
+
+  display: flex;
+  justify-content: space-between;
 }
 
 .IS_select {
-  width: 20vw;
-  height: 8vh;
-  background-color: #E9DAFF;
+  width: 15vw;
+  height: 6vh;
+  padding: 1vh 1vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #e9daff;
+  box-shadow: inset 0 -1vh 4vh rgba(147, 124, 238, 0.8);
+  border: 0.3vh solid #7e6aa0;
+  border-radius: 1.5vw;
+  font-size: 2vh;
+
+  cursor: pointer;
+}
+
+.IS_select:active {
+  transform: scale(0.9);
+  transition: transform 0.1s ease;
 }
