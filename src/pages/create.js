@@ -1,4 +1,3 @@
-// src/pages/create.js
 import { useState } from "react";
 import Footer from "../component/footer";
 import "../component/Css/create.css";
@@ -32,7 +31,7 @@ function Create() {
   const [location, setLocation] = useState("");
   const [era, setEra] = useState("");
   const [genre, setGenre] = useState("");
-  const [visibility, setVisibility] = useState("private"); // UI에는 유지, 전송은 안 함
+  const [visibility, setVisibility] = useState("private"); // UI용
   const [endingpoint, setEndingpoint] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -113,7 +112,11 @@ function Create() {
   ];
 
   /**
-   * AI로 전달
+   * POST /stories 로 "동화 시작" 호출
+   * 서버가 storyId를 반환
+   * 
+   * /loading 으로 storyId와 설정값들을 넘김
+   * /loading에서 /stories/:storyId/pages, /stories/:storyId(제목 설정) 호출
    */
   const handleStorySubmit = async () => {
     const n = parseInt(endingpoint, 10);
@@ -122,23 +125,23 @@ function Create() {
       return;
     }
 
+    const payload = {
+      name,
+      personality,
+      characteristics,
+      location,
+      era,
+      genre,
+      endingpoint: n,
+    };
+
     try {
       setSubmitting(true);
 
       const token = localStorage.getItem("token");
-      const payload = {
-        name,
-        personality,
-        characteristics,
-        location,
-        era,
-        genre,
-        endingpoint: n,
-      };
+      console.log("[DEBUG] POST /stories payload:", payload);
 
-      console.log("[DEBUG] AI로 보낼 페이로드:", payload);
-
-      const { data } = await ai.post("/api/story", payload, {
+      const { data } = await ai.post("/stories", payload, {
         headers: {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -146,10 +149,22 @@ function Create() {
       });
 
       const storyId = data?.storyId;
-      navigate("/loading", { state: { storyId } });
+      if (!storyId) {
+        throw new Error("storyId가 응답에 없습니다.");
+      }
+
+      console.log("[DEBUG] 받은 storyId:", storyId);
+
+      // 로딩 페이지로 이동 (여기서 페이지 추가/제목 설정 진행)
+      navigate("/loading", {
+        state: {
+          storyId,
+          settings: payload, // 로딩 페이지에서 필요하면 사용
+        },
+      });
     } catch (error) {
-      console.error("동화 생성 실패:", error);
-      alert("동화 생성에 실패했어요. 잠시 후 다시 시도해 주세요.");
+      console.error("동화 시작 실패:", error);
+      alert("동화 시작에 실패했어요. 잠시 후 다시 시도해 주세요.");
     } finally {
       setSubmitting(false);
     }
