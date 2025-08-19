@@ -222,14 +222,13 @@ function Create() {
                     >
                       설정 바꾸기
                     </div>
-                    <button
-                      type="button"
+                    <div
                       className="pagination_button right_button"
                       onClick={handleStorySubmit}
                       disabled={!isEndingpointValid || submitting}
                     >
                       동화 만들기
-                    </button>
+                    </div>
                   </>
                 ) : (
                   <>
