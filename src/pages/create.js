@@ -19,7 +19,7 @@ import SummaryPage from "../component/create/summaryPage";
 // ✅ AI 서버 axios 인스턴스 (.env: REACT_APP_AI_IP=79823528d5cc.ngrok-free.app)
 const AI_IP = process.env.REACT_APP_AI_IP;
 const ai = axios.create({
-  baseURL: `https://${AI_IP}`,
+  baseURL: `https://${AI_IP}:8000`,
   headers: { "ngrok-skip-browser-warning": "true" },
 });
 
@@ -132,7 +132,7 @@ function Create() {
       location,
       era,
       genre,
-      endingpoint: n,
+      ending_point: n,
     };
 
     try {
@@ -141,7 +141,7 @@ function Create() {
       const token = localStorage.getItem("token");
       console.log("[DEBUG] POST /stories payload:", payload);
 
-      const { data } = await ai.post("/stories", payload, {
+      const { data } = await ai.post("/sessions", payload, {
         headers: {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
