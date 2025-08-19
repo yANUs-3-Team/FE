@@ -1,39 +1,74 @@
+// src/pages/InteractiveStory.js
 import { useRef } from "react";
 import HTMLFlipBook from "react-pageflip";
 import "../component/Css/interactiveStory.css";
+import Illust from "../images/test_illustration.png";
 
 function InteractiveStory() {
-  const flipBookRef = useRef();
+  const flipBookRef = useRef(null);
 
   const rawPages = [
     {
-      image: "🌄 삽화 1",
-      text: "대한민국의 주권은 국민에게 있고, 모든 권력은 국민으로부터 나온다. 국가안전보장에 관련되는 대외정책·군사정책과 국내정책의 수립에 관하여 국무회의의 심의에 앞서 대통령의 자문에 응하기 위하여 국가안전보장회의를 둔다.",
-      select1: "선택지 1",
-      select2: "선택지 2",
-      select3: "선택지 3",
-      select4: "선택지 4",
+      image: Illust, // ✅ import된 PNG -> 문자열 URL
+      text:
+        "윈터는 화려한 금색 단발을 휘날리며 성 안에서 즐겁게 뛰어놀고 있었다. 그러던 중, 창문 너머로 낯선 빛이 들어오는 것을 보았다.",
+      select1: "방 안에서 나비에게 조심스럽게 인사를 건넨다.",
+      select2: "방 안을 둘러보면서 나비와의 특별한 만남을 상상한다.",
+      select3: "나비를 쫓아다니며 장난을 치고 싶어진다.",
     },
-    { image: "🌄 삽화 2", text: "📖 이야기 2" },
+    { image: "🌄 삽화 2", text: "📖 이야기 2" }, // 이건 텍스트(이모지)로 렌더
     { image: "🌄 삽화 3", text: "📖 이야기 3" },
   ];
 
-  // 삽화와 이야기 각각을 독립된 페이지로 분리
+  const handleChoiceClick = (choiceText) => {
+    // TODO: choiceText로 AI 호출 → 다음 컨텐츠 받아서 상태 업데이트
+    flipBookRef.current?.pageFlip()?.flipNext();
+  };
+
+  const isImageUrlLike = (v) =>
+    typeof v === "string" &&
+    (v.startsWith("http") ||
+      v.startsWith("/") ||
+      v.startsWith("blob:") ||
+      v.startsWith("data:") ||
+      /\.(png|jpe?g|gif|webp|svg)$/i.test(v));
+
   const pageComponents = rawPages.flatMap((page, idx) => [
     <div key={`image-${idx}`} className="IS_leftBox IS_page">
-      {page.image}
+      {isImageUrlLike(page.image) ? (
+        <img src={page.image} alt="" className="IS_illust" />
+      ) : (
+        <div className="IS_illustPlaceholder">{String(page.image)}</div>
+      )}
     </div>,
     <div key={`text-${idx}`} className="IS_rightBox IS_page">
       <div className="IS_text_box">{page.text}</div>
       <div className="IS_select_box">
-        <div className="IS_select_group">
-          <div className="IS_select">{page.select1}</div>
-          <div className="IS_select">{page.select2}</div>
-        </div>
-        <div className="IS_select_group">
-          <div className="IS_select">{page.select3}</div>
-          <div className="IS_select">{page.select4}</div>
-        </div>
+        {page.select1 && (
+          <button className="IS_select" onClick={() => handleChoiceClick(page.select1)}>
+            {page.select1}
+          </button>
+        )}
+        {page.select2 && (
+          <button className="IS_select" onClick={() => handleChoiceClick(page.select2)}>
+            {page.select2}
+          </button>
+        )}
+        {page.select3 && (
+          <button className="IS_select" onClick={() => handleChoiceClick(page.select3)}>
+            {page.select3}
+          </button>
+        )}
+        <input
+          type="text"
+          className="IS_select_input"
+          placeholder="당신이 직접 입력해 보세요!"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && e.currentTarget.value.trim()) {
+              handleChoiceClick(e.currentTarget.value.trim());
+            }
+          }}
+        />
       </div>
     </div>,
   ]);
@@ -41,15 +76,16 @@ function InteractiveStory() {
   return (
     <div className="interactiveStory_page">
       <HTMLFlipBook
+        ref={flipBookRef}
         width={1}
         height={1}
         size="stretch"
         showCover={false}
-        ref={flipBookRef}
         maxShadowOpacity={0.5}
-        useMouseEvents
         drawShadow
         flippingTime={800}
+        useMouseEvents={false}
+        mobileScrollSupport={false}
         style={{ width: "80vw", height: "80vh" }}
       >
         {pageComponents}
