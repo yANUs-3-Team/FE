@@ -122,12 +122,12 @@ function Community() {
     };
   };
 
-  // GET /api/articles
+  // GET /articles
   const fetchArticles = useCallback(async () => {
     setLoading(true);
     setErrorMsg(null);
     try {
-      const res = await api.get("/api/articles");
+      const res = await api.get("/articles");
       const list = Array.isArray(res.data) ? res.data : [];
       setPosts(list.map(mapArticleToPost));
     } catch (e) {
@@ -138,7 +138,7 @@ function Community() {
     }
   }, []);
 
-  // ✅ POST /api/articles  → { user_id, title, content }
+  // ✅ POST /articles  → { user_id, title, content }
   const createArticle = async ({ title, content }) => {
     const user_id = getNumericUserId();
     if (user_id == null) {
@@ -148,10 +148,10 @@ function Community() {
     }
     const body = { user_id, title, content };
     // 디버깅용 로그
-    console.debug("POST /api/articles body:", body);
+    console.debug("POST /articles body:", body);
     console.log(user_id);
     console.log(body);
-    const res = await api.post("/api/articles", body, {
+    const res = await api.post("/articles", body, {
       headers: { "Content-Type": "application/json" },
     });
     return res.data;

@@ -74,7 +74,7 @@ function Join() {
   const handleUserInfo = async () => {
     try {
       const response = await axios.post(
-        `https://${BACK_IP}/api/users/register`,
+        `https://${BACK_IP}/users/register`,
         {
           name,
           email,

@@ -17,7 +17,7 @@ function Login() {
 
   const handleLoginInfo = async () => {
     try {
-      const response = await axios.post(`https://${BACK_IP}/api/users/login`, {
+      const response = await axios.post(`https://${BACK_IP}/users/login`, {
         username,
         password,
       });

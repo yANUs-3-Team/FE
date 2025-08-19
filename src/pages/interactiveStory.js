@@ -17,8 +17,7 @@ function InteractiveStory() {
       {page.image}
     </div>,
     <div key={`text-${idx}`} className="IS_rightBox IS_page">
-      {page.text}
-      <div className=""></div>
+      <div className="IS_text_box">{page.text}</div>
       <div className="IS_select_box">
         <div className="IS_select">선택지 1</div>
         <div className="IS_select">선택지 2</div>
