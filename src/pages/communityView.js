@@ -32,7 +32,7 @@ function CommunityView() {
     post.author ??
     post.username ??
     post.user_name ??
-    (post.user_id != null ? String(post.user_id) : null) ??
+    (post.name != null ? String(post.name) : null) ??
     "익명";
   // 정규화된 post.date 우선, 없으면 원시 타임스탬프 후보에서 변환
   const dateStr =

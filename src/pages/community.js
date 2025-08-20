@@ -64,7 +64,7 @@ function Community() {
   const mapArticleToPost = (a) => {
     const id =
       a.article_id ?? a.id ?? a._id ?? a.articleId ?? String(Math.random());
-    const author = a.user_id ?? a.author ?? a.username ?? "작성자";
+    const author = a.username ?? a.author ?? a.username ?? "작성자";
     const createdIso =
       a.created_At ??
       a.createdAt ??
