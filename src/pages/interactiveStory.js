@@ -82,7 +82,7 @@ function InteractiveStory() {
       return;
     }
     if (storyData) {
-      const firstPage = toPage(storyData.data ?? storyData);
+      const firstPage = toPage(storyData.data.data);
       setRawPages([firstPage]);
       return;
     }
