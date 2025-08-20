@@ -18,7 +18,7 @@ function Loading() {
     // 3초 정도 로딩 화면 보여주고 바로 넘어가기
     const timer = setTimeout(() => {
       navigate("/interactive-story", {
-        state: { storyId, storyData, request: state.request },
+        state: { storyId, storyData },
         replace: true,
       });
     }, 3000);

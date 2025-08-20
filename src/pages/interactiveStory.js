@@ -18,10 +18,10 @@ const toPage = (p) => ({
       ? `${ORIGIN}${p.image}`
       : p?.image ?? "",
   text: p?.story ?? "",
-  select1: p?.choices_1 ?? "",
-  select2: p?.choices_2 ?? "",
-  select3: p?.choices_3 ?? "",
-  select4: p?.choices_4 ?? "",
+  select1: p?.choices_1 ?? p?.choice_1 ?? "",
+  select2: p?.choices_2 ?? p?.choice_2 ?? "",
+  select3: p?.choices_3 ?? p?.choice_3 ?? "",
+  select4: p?.choices_4 ?? p?.choice_4 ?? "",
 });
 
 const isImageUrlLike = (v) =>
@@ -37,21 +37,18 @@ function InteractiveStory() {
   const flipBookRef = useRef(null);
 
   const [rawPages, setRawPages] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
 
-  // storyId: navigate state 우선, 없으면 ?storyId=
+  // storyId: navigate state 우선, 없으면 ?storyId= 로 대체
   const { state, search } = useLocation();
   const qs = new URLSearchParams(search);
 
-  // Create.js → navigate에서 보낸 값
   const storyId = state?.storyId ?? qs.get("storyId");
-  const request = state?.request;
-  const storyData = state?.storyData;
+  const storyData = state?.storyData; // ✅ Loading → navigate에서 전달받음
 
-  console.log("넘어온 설정값:", request);
+  console.log("넘어온 동화 정보:", storyData);
 
-  // axios 인스턴스 (안정화)
+  // axios 인스턴스
   const api = useMemo(
     () =>
       axios.create({
@@ -62,7 +59,7 @@ function InteractiveStory() {
     []
   );
 
-  // 최초 1페이지 로딩
+  /** 최초 1페이지 로딩 */
   useEffect(() => {
     if (!storyId) {
       setErr("storyId가 없습니다.");
@@ -70,22 +67,19 @@ function InteractiveStory() {
     }
 
     if (storyData) {
-      const firstPage = toPage(storyData);
+      // ✅ storyData.data 안에 진짜 페이지 내용이 있음
+      const firstPage = toPage(storyData.data ?? storyData);
       setRawPages([firstPage]);
       return;
     }
+  }, [storyId, storyData]);
 
-    // request fallback은 아예 제거하거나,
-    // storyData 없을 때만 안전하게 사용
-  }, [storyId, storyData]); // ✅ request 제거
-
-  /** 선택지 클릭 → 다음 페이지 붙이기(추가 예정 자리) */
+  /** 선택지 클릭 → 다음 페이지 붙이기 */
   const handleChoiceClick = async (choiceText) => {
     try {
       const url = `/stories/${storyId}/pages`;
       const { data } = await api.post(url, { choice: choiceText });
 
-      // BE 응답: { story: "...", image: "...", choices_1: "...", ... }
       const nextPage = toPage(data);
 
       setRawPages((prev) => [...prev, nextPage]);
@@ -96,15 +90,20 @@ function InteractiveStory() {
     }
   };
 
-  /** 퍼블리싱 동일 레이아웃 유지: 항상 "왼쪽/오른쪽" 형태로 렌더 */
+  /** 한 쌍(좌: 이미지, 우: 텍스트+선택지) 렌더 */
   const renderSpread = (page, idx) => [
+    // 🔽 왼쪽 페이지(이미지) → 임시로 비워둠
     <div key={`image-${idx}`} className="IS_leftBox IS_page">
-      {isImageUrlLike(page.image) ? (
-        <img src={page.image} alt="" className="IS_illust" />
-      ) : (
-        <div className="IS_illustPlaceholder" />
-      )}
+      {/* 
+    {isImageUrlLike(page.image) ? (
+      <img src={page.image} alt="" className="IS_illust" />
+    ) : (
+      <div className="IS_illustPlaceholder" />
+    )} 
+    */}
     </div>,
+
+    // 🔽 오른쪽 페이지(텍스트 + 선택지)
     <div key={`text-${idx}`} className="IS_rightBox IS_page">
       <div className="IS_text_box">{page.text}</div>
       <div className="IS_select_box">
@@ -123,7 +122,7 @@ function InteractiveStory() {
     </div>,
   ];
 
-  /** 스켈레톤 스프레드(로딩/에러/빈값일 때도 동일 레이아웃 유지) */
+  /** 스켈레톤 스프레드 */
   const renderSkeletonSpread = () => [
     <div key="skel-image" className="IS_leftBox IS_page">
       <div className="IS_skel IS_skel-illust" />
@@ -146,7 +145,6 @@ function InteractiveStory() {
 
   return (
     <div className="interactiveStory_page">
-      {/* 에러는 책 밖 배너로만 표시 → 퍼블리싱 구조 보존 */}
       {err && <div className="IS_errorBanner">{err}</div>}
 
       <HTMLFlipBook
