@@ -12,12 +12,14 @@
 }
 
 .modalContainer {
+  min-width: 28vw;
+  max-width: 24vh;
+
   background: white;
   padding: 2rem;
   border-radius: 1rem;
+  border: 0.4vh solid #ff8f8f;
   text-align: center;
-  min-width: 320px;
-  max-width: 500px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.2s ease-in-out;
 }
