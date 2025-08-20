@@ -7,8 +7,7 @@ import DefaultModal from "../component/modal/defaultModal";
 
 /** ===== 환경 상수 ===== */
 const BACK_IP = process.env.REACT_APP_BACK_IP;
-const API_BASE =
-  process.env.NODE_ENV === "development" ? "/" : `https://${BACK_IP}`;
+const API_BASE = `https://${BACK_IP}`;
 
 const AI_IP = process.env.REACT_APP_AI_IP;
 
@@ -48,9 +47,12 @@ function InteractiveStory() {
   const [rawPages, setRawPages] = useState([]);
   const [bookSize, setBookSize] = useState({ width: 600, height: 800 }); // 기본값
 
+  const [sessionId, setSessionId] = useState(null);
+
   // 🔹 모달 상태 추가
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
+  const [loadingNext, setLoadingNext] = useState(false);
 
   // storyId 가져오기
   const { state, search } = useLocation();
@@ -96,29 +98,59 @@ function InteractiveStory() {
     if (storyData) {
       const firstPage = toPage(storyData.data);
       setRawPages([firstPage]);
+
+      // session_id 저장
+      if (storyData.data.session_id) {
+        setSessionId(storyData.data.session_id);
+      }
       return;
     }
   }, [storyId, storyData]);
 
   /** 선택지 클릭 → 다음 페이지 추가 */
-  const handleChoiceClick = async (choiceText) => {
+  const handleChoiceClick = async (choiceIndex) => {
     try {
-      const url = `/stories/${storyId}/pages`;
-      const { data } = await api.post(url, { choice: choiceText });
-      const nextPage = toPage(data);
+      setLoadingNext(true); // 🔹 로딩 시작
 
+      const payload = {
+        choice: String(choiceIndex + 1),
+        session_id: sessionId,
+        storyId: storyId,
+      };
+
+      const token = localStorage.getItem("token");
+
+      console.log("보내는 데이터:", payload);
+      const { data } = await api.post(`/stories/${storyId}/pages`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      });
+
+      // 응답에서 다음 페이지 데이터 변환
+      const pageData = data.data ?? data.page ?? data;
+      const nextPage = toPage(pageData);
+
+      // 페이지 먼저 추가
       setRawPages((prev) => [...prev, nextPage]);
-      flipBookRef.current?.pageFlip()?.flipNext();
+
+      // 잠깐 띄운 뒤 자동 넘기기
+      setTimeout(() => {
+        flipBookRef.current?.pageFlip()?.flipNext();
+      }, 500); // 0.5초 정도 딜레이 (원하면 늘리기 가능)
     } catch (err) {
       console.error("선택지 전송 실패:", err);
       setModalMsg("다음 페이지를 불러오지 못했습니다.");
       setModalOpen(true);
+    } finally {
+      setLoadingNext(false); // 🔹 성공/실패 상관없이 로딩 종료
     }
   };
 
   /** 페이지 렌더링 */
   const renderSpread = (page, idx) => {
-    // ✅ 여기서 로그 찍기 (page 매개변수를 쓸 수 있음)
+    // 여기서 로그 찍기 (page 매개변수를 쓸 수 있음)
     console.log(`이미지 주소 [${idx}]:`, page.image);
 
     return [
@@ -130,19 +162,21 @@ function InteractiveStory() {
         )}
       </div>,
       <div key={`text-${idx}`} className="IS_rightBox IS_page">
-        <div className="IS_text_box">{page.text}</div>
-        <div className="IS_select_box">
-          {[page.select1, page.select2, page.select3, page.select4]
-            .filter(Boolean)
-            .map((label, i) => (
-              <button
-                key={`${idx}-sel-${i}`}
-                className="IS_select"
-                onClick={() => handleChoiceClick(label)}
-              >
-                {label}
-              </button>
-            ))}
+        <div className="IS_rightGroup">
+          <div className="IS_text_box">{page.text}</div>
+          <div className="IS_select_box">
+            {[page.select1, page.select2, page.select3, page.select4]
+              .filter(Boolean)
+              .map((label, i) => (
+                <button
+                  key={`${idx}-sel-${i}`}
+                  className="IS_select"
+                  onClick={() => handleChoiceClick(i)}
+                >
+                  {label}
+                </button>
+              ))}
+          </div>
         </div>
       </div>,
     ];
@@ -179,6 +213,15 @@ function InteractiveStory() {
         message={modalMsg}
         onClose={() => setModalOpen(false)}
       />
+
+      {loadingNext && (
+        <DefaultModal
+          isOpen={true}
+          title="페이지 생성 중"
+          message="AI가 다음 페이지를 만드는 중입니다..."
+          onClose={() => {}} // 닫기 못 하게 비워두기
+        />
+      )}
     </div>
   );
 }
