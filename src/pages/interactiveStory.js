@@ -23,13 +23,14 @@ const toPage = (p) => ({
   select4: p?.choices_4 ?? p?.choice_4 ?? "",
 });
 
+/*
 const isImageUrlLike = (v) =>
   typeof v === "string" &&
   (v.startsWith("http") ||
     v.startsWith("/") ||
     v.startsWith("blob:") ||
     v.startsWith("data:") ||
-    /\.(png|jpe?g|gif|webp|svg)$/i.test(v));
+    /\.(png|jpe?g|gif|webp|svg)$/i.test(v));*/
 
 /** ===== 컴포넌트 ===== */
 function InteractiveStory() {

@@ -16,17 +16,6 @@ const api = axios.create({
 });
 api.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
 
-
-/**
- * 한국식 날짜 & 시간 문자열 표현
- */
-const formatKoreanDate = (iso) => {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (isNaN(d.getTime())) return iso;
-  return d.toLocaleString("ko-KR", { hour12: false });
-};
-
 /*
 *24시간 이내면 상대시간, 넘으면 YYYY-MM-DD HH:mm
 */
@@ -136,7 +125,6 @@ function Community() {
 
   // 검색
   const handleSearch = () => setCurrentPage(1);
-  const handleSearchKeyDown = (e) => e.key === "Enter" && handleSearch();
 
   const filteredPosts = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
