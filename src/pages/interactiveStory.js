@@ -8,7 +8,6 @@ import "../component/Css/interactiveStory.css";
 const BACK_IP = process.env.REACT_APP_BACK_IP;
 const API_BASE =
   process.env.NODE_ENV === "development" ? "/" : `https://${BACK_IP}`;
-// 이미지 등 정적 자원은 절대 경로로(개발/배포 동일) 보정
 const ORIGIN = `https://${BACK_IP}`;
 
 /** ===== 유틸 ===== */
@@ -35,16 +34,17 @@ const isImageUrlLike = (v) =>
 /** ===== 컴포넌트 ===== */
 function InteractiveStory() {
   const flipBookRef = useRef(null);
+  const containerRef = useRef(null); // pageBox 크기 참조
 
   const [rawPages, setRawPages] = useState([]);
   const [err, setErr] = useState(null);
+  const [bookSize, setBookSize] = useState({ width: 600, height: 800 }); // 기본값
 
-  // storyId: navigate state 우선, 없으면 ?storyId= 로 대체
+  // storyId 가져오기
   const { state, search } = useLocation();
   const qs = new URLSearchParams(search);
-
   const storyId = state?.storyId ?? qs.get("storyId");
-  const storyData = state?.storyData; // ✅ Loading → navigate에서 전달받음
+  const storyData = state?.storyData;
 
   console.log("넘어온 동화 정보:", storyData);
 
@@ -59,27 +59,39 @@ function InteractiveStory() {
     []
   );
 
+  /** pageBox 크기 → bookSize 갱신 */
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        const box = containerRef.current.getBoundingClientRect();
+        const width = box.width / 2; // 펼친 책의 절반 → 한쪽 페이지
+        const height = box.height;
+        setBookSize({ width, height });
+      }
+    };
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   /** 최초 1페이지 로딩 */
   useEffect(() => {
     if (!storyId) {
       setErr("storyId가 없습니다.");
       return;
     }
-
     if (storyData) {
-      // ✅ storyData.data 안에 진짜 페이지 내용이 있음
       const firstPage = toPage(storyData.data ?? storyData);
       setRawPages([firstPage]);
       return;
     }
   }, [storyId, storyData]);
 
-  /** 선택지 클릭 → 다음 페이지 붙이기 */
+  /** 선택지 클릭 → 다음 페이지 추가 */
   const handleChoiceClick = async (choiceText) => {
     try {
       const url = `/stories/${storyId}/pages`;
       const { data } = await api.post(url, { choice: choiceText });
-
       const nextPage = toPage(data);
 
       setRawPages((prev) => [...prev, nextPage]);
@@ -90,20 +102,17 @@ function InteractiveStory() {
     }
   };
 
-  /** 한 쌍(좌: 이미지, 우: 텍스트+선택지) 렌더 */
+  /** 페이지 렌더링 */
   const renderSpread = (page, idx) => [
-    // 🔽 왼쪽 페이지(이미지) → 임시로 비워둠
     <div key={`image-${idx}`} className="IS_leftBox IS_page">
       {/* 
-    {isImageUrlLike(page.image) ? (
-      <img src={page.image} alt="" className="IS_illust" />
-    ) : (
-      <div className="IS_illustPlaceholder" />
-    )} 
-    */}
+      {isImageUrlLike(page.image) ? (
+        <img src={page.image} alt="" className="IS_illust" />
+      ) : (
+        <div className="IS_illustPlaceholder" />
+      )}
+      */}
     </div>,
-
-    // 🔽 오른쪽 페이지(텍스트 + 선택지)
     <div key={`text-${idx}`} className="IS_rightBox IS_page">
       <div className="IS_text_box">{page.text}</div>
       <div className="IS_select_box">
@@ -122,46 +131,31 @@ function InteractiveStory() {
     </div>,
   ];
 
-  /** 스켈레톤 스프레드 */
-  const renderSkeletonSpread = () => [
-    <div key="skel-image" className="IS_leftBox IS_page">
-      <div className="IS_skel IS_skel-illust" />
-    </div>,
-    <div key="skel-text" className="IS_rightBox IS_page">
-      <div className="IS_skel IS_skel-text" />
-      <div className="IS_select_box">
-        <div className="IS_skel IS_skel-btn" />
-        <div className="IS_skel IS_skel-btn" />
-        <div className="IS_skel IS_skel-btn" />
-        <div className="IS_skel IS_skel-btn" />
-      </div>
-    </div>,
-  ];
-
   const pagesToRender =
-    rawPages.length > 0
-      ? rawPages.flatMap(renderSpread)
-      : renderSkeletonSpread();
+    rawPages.length > 0 ? rawPages.flatMap(renderSpread) : [];
 
   return (
     <div className="interactiveStory_page">
-      {err && <div className="IS_errorBanner">{err}</div>}
+      <div className="IS_pageBox" ref={containerRef}>
+        {err && <div className="IS_errorBanner">{err}</div>}
 
-      <HTMLFlipBook
-        ref={flipBookRef}
-        width={1}
-        height={1}
-        size="stretch"
-        showCover={false}
-        maxShadowOpacity={0.5}
-        drawShadow
-        flippingTime={800}
-        useMouseEvents={false}
-        mobileScrollSupport={false}
-        style={{ width: "80vw", height: "80vh" }}
-      >
-        {pagesToRender}
-      </HTMLFlipBook>
+        <HTMLFlipBook
+          ref={flipBookRef}
+          width={bookSize.width}
+          height={bookSize.height}
+          size="stretch"
+          showCover={false}
+          maxShadowOpacity={0.5}
+          drawShadow
+          flippingTime={800}
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          {pagesToRender}
+        </HTMLFlipBook>
+      </div>
     </div>
   );
 }
