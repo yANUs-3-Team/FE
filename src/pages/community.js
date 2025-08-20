@@ -84,14 +84,23 @@ function Community() {
     };
   };
 
-  // GET /articles
+  // GET /articles (최신순 정렬)
   const fetchArticles = useCallback(async () => {
     setLoading(true);
     setErrorMsg(null);
     try {
       const res = await api.get("/articles");
       const list = Array.isArray(res.data) ? res.data : [];
-      setPosts(list.map(mapArticleToPost));
+
+      const sorted = list
+        .map(mapArticleToPost)
+        .sort(
+          (a, b) =>
+            new Date(b.raw.created_at || b.raw.createdAt) -
+            new Date(a.raw.created_at || a.raw.createdAt)
+        );
+
+      setPosts(sorted);
     } catch (e) {
       console.error("fetchArticles error:", e?.message, e);
       setErrorMsg("게시글 불러오는 중 오류가 발생했습니다.");
@@ -107,7 +116,7 @@ function Community() {
     }
     const user_id = Number(user.user_id);
     if (isNaN(user_id)) {
-        throw new Error("INVALID_USER_ID");
+      throw new Error("INVALID_USER_ID");
     }
 
     const body = { user_id, title, content };
@@ -194,7 +203,7 @@ function Community() {
         title: newTitle.trim(),
         content: newContent.trim(),
       });
-      await fetchArticles();
+      await fetchArticles(); // ✅ 새 글 작성 후 즉시 최신순 정렬된 목록 다시 불러오기
       setIsWriting(false);
       setCurrentPage(1);
       setMedia([]);
