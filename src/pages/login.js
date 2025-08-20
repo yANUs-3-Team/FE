@@ -25,19 +25,15 @@ function Login() {
 
   const handleLoginInfo = async () => {
     try {
-      // 서버는 여기서 Set-Cookie: access_token=...; HttpOnly; Secure; SameSite=...
       const res = await api.post(
         "/users/login",
         { username, password },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
 
-      // 1) 응답에 user가 오면 그대로 사용
       let user = res?.data?.user;
 
-      // 2) 없으면 쿠키 기반 인증으로 /users/me에서 조회
+      // 쿠키 기반 인증으로 다시 확인
       if (!user) {
         const me = await api.get("/users/me");
         user = me?.data?.user || me?.data;
@@ -48,12 +44,10 @@ function Login() {
         return;
       }
 
-      // ✅ 전역 상태 업데이트 + community가 동기 조회할 sessionStorage 프라임
       setUser({
         username: user.username,
         user_id: user.user_id,
       });
-      
 
       navigate("/");
     } catch (error) {
@@ -66,51 +60,64 @@ function Login() {
     <div className="login_page">
       <div className="login_circle_back"></div>
 
-      <div className="login_container">
-        <div className="login_circle_front">
-          <img src={mainLogo} alt="main logo" className="login_logo" />
-        </div>
-
-        <input
-          type="text"
-          placeholder="아이디"
-          className="login_input"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="비밀번호"
-          className="login_input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <div className="social_login_box">
-          <div className="social_login social_kakao">
-            <div className="social_icon_box">
-              <div className="kakao_icon"></div>
-            </div>
-            Kakao 계정으로 로그인
+      {/* ✅ form으로 감싸되, .login_container는 그대로 둔다 */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLoginInfo();
+        }}
+      >
+        <div className="login_container">
+          <div className="login_circle_front">
+            <img src={mainLogo} alt="main logo" className="login_logo" />
           </div>
-          <div className="social_login social_google">
-            <div className="social_icon_box">
-              <img src={googleLogo} alt="google icon" className="google_icon" />
+
+          <input
+            type="text"
+            placeholder="아이디"
+            className="login_input"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="비밀번호"
+            className="login_input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <div className="social_login_box">
+            <div className="social_login social_kakao">
+              <div className="social_icon_box">
+                <div className="kakao_icon"></div>
+              </div>
+              Kakao 계정으로 로그인
             </div>
-            Google 계정으로 로그인
+            <div className="social_login social_google">
+              <div className="social_icon_box">
+                <img
+                  src={googleLogo}
+                  alt="google icon"
+                  className="google_icon"
+                />
+              </div>
+              Google 계정으로 로그인
+            </div>
+          </div>
+
+          {/* ✅ submit 버튼으로 변경 */}
+          <button type="submit" className="login_button">
+            로그인
+          </button>
+
+          <div className="login_find">아이디/비밀번호 찾기</div>
+
+          <div className="login_toJoin" onClick={() => navigate("/join")}>
+            회원가입 하기
           </div>
         </div>
-
-        <div className="login_button" onClick={handleLoginInfo}>
-          로그인
-        </div>
-
-        <div className="login_find">아이디/비밀번호 찾기</div>
-
-        <div className="login_toJoin" onClick={() => navigate("/join")}>
-          회원가입 하기
-        </div>
-      </div>
+      </form>
     </div>
   );
 }
