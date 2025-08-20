@@ -33,6 +33,7 @@ function SummaryPage({
             id="endingCount"
             type="number"
             className="selected_value endingCount"
+            placeholder="첫 페이지 제외"
             value={endingpoint ?? ""}
             min={1}
             max={100}
