@@ -11,7 +11,6 @@ const BACK_IP = process.env.REACT_APP_BACK_IP;
 const API_BASE = `https://${BACK_IP}`;
 
 const AI_IP = process.env.REACT_APP_AI_IP;
-
 const ORIGIN = `https://${AI_IP}`;
 
 /** ===== 유틸 ===== */
@@ -172,7 +171,7 @@ function InteractiveStory() {
               // finish=true → 끝내기 버튼만 노출
               <button
                 className="IS_select"
-                onClick={() => navigate("/story-viewer", { state: { from: "interactiveStory" } })}
+                onClick={() => navigate("/story-viewer", { state: { from: "interactiveStory", storyId } })}
               >
                 끝내기
               </button>

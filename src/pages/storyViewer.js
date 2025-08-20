@@ -1,8 +1,14 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
+import axios from "axios";
 import HTMLFlipBook from "react-pageflip";
 import "../component/Css/storyViewer.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import Illust from "../images/test_illustration.png";
+
+const BACK_IP = process.env.REACT_APP_BACK_IP;
+const API_BASE = `https://${BACK_IP}`;
+
+const AI_IP = process.env.REACT_APP_AI_IP;
+const ORIGIN = `https://${AI_IP}`;
 
 function StoryViewer() {
   const navigate = useNavigate();
@@ -11,29 +17,78 @@ function StoryViewer() {
   const flipBookRef = useRef(null);
   const containerRef = useRef(null);
 
-  const [bookSize] = useState({ width: 600, height: 800 }); // 기본값
+  const [bookSize] = useState({ width: 600, height: 800 });
+  const [rawPages, setRawPages] = useState([]);
+  const [storyTitle, setStoryTitle] = useState("");
 
-  const rawPages = [
-    {
-      image: Illust, // ✅ import된 PNG -> 문자열 URL
-      text: "윈터는 화려한 금색 단발을 휘날리며 성 안에서 즐겁게 뛰어놀고 있었다. 그러던 중, 창문 너머로 낯선 빛이 들어오는 것을 보았다.",
-    },
-    { image: "🌄 삽화 2", text: "📖 이야기 2" }, // 이건 텍스트(이모지)로 렌더
-    { image: "🌄 삽화 3", text: "📖 이야기 3" },
+  const storyId = location.state?.storyId;
+
+  const api = useMemo(
+    () =>
+      axios.create({
+        baseURL: API_BASE,
+        withCredentials: true,
+        headers: { "ngrok-skip-browser-warning": "true" },
+      }),
+    []
+  );
+
+  useEffect(() => {
+    if (!storyId) return;
+
+    const fetchStory = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await api.get(`/stories/${storyId}/pages`, {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        });
+
+        console.log("동화 내용 페이지 조회 성공:", res.data);
+
+        const data = res.data.data;
+
+        // ✅ 제목 세팅
+        setStoryTitle(data.title || "제목 없는 동화");
+
+        // ✅ 페이지 배열인지 확인 후 처리
+        if (Array.isArray(data.pages)) {
+          const sortedPages = [...data.pages].sort(
+            (a, b) => a.page_number - b.page_number
+          );
+
+          setRawPages(
+            sortedPages.map((p) => ({
+              image: p.img_url
+                ? `${ORIGIN}${p.img_url}` // 절대 경로로 변환
+                : null,
+              text: p.content,
+            }))
+          );
+        } else {
+          console.warn("페이지 데이터가 배열이 아님:", data.pages);
+        }
+      } catch (err) {
+        console.error("스토리 로딩 실패:", err);
+      }
+    };
+
+    fetchStory();
+  }, [storyId, api]);
+
+  const renderSpread = (page, idx) => [
+    <div key={`image-${idx}`} className="SV_leftBox SV_page">
+      <img src={page.image} alt="" className="SV_illust" />
+    </div>,
+    <div key={`text-${idx}`} className="SV_rightBox SV_page">
+      <div className="SV_rightGroup">
+        <div className="SV_text_box">{page.text}</div>
+      </div>
+    </div>,
   ];
-
-  const renderSpread = (page, idx) => {
-    return [
-      <div key={`image-${idx}`} className="SV_leftBox SV_page">
-        <img src={page.image} alt="" className="SV_illust" />
-      </div>,
-      <div key={`text-${idx}`} className="SV_rightBox SV_page">
-        <div className="SV_rightGroup">
-          <div className="SV_text_box">{page.text}</div>
-        </div>
-      </div>,
-    ];
-  };
 
   const pagesToRender =
     rawPages.length > 0 ? rawPages.flatMap(renderSpread) : [];
@@ -50,10 +105,7 @@ function StoryViewer() {
           maxShadowOpacity={0.5}
           drawShadow
           flippingTime={800}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
+          style={{ width: "100%", height: "100%" }}
         >
           {pagesToRender}
         </HTMLFlipBook>
@@ -62,21 +114,14 @@ function StoryViewer() {
       <div
         className="SV_exit_button"
         onClick={() => {
-          const from = location.state?.from; // 있으면 사용
-          console.log("from 값:", from);
-
-          if (from === "interactiveStory" || from === "/interactive-story") {
-            navigate("/");
-          } else if (from === "myGallery" || from === "/my-gallery") {
-            navigate("/my-gallery");
-          } else if (from === "openGallery" || from === "/open-gallery") {
-            navigate("/open-gallery");
-          } else {
-            alert("error");
-          }
+          const from = location.state?.from;
+          if (from === "interactiveStory") navigate("/");
+          else if (from === "myGallery") navigate("/my-gallery");
+          else if (from === "openGallery") navigate("/open-gallery");
+          else navigate("/");
         }}
       >
-        🔙 나가기
+        ⬅ 나가기
       </div>
     </div>
   );
