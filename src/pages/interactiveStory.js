@@ -1,5 +1,6 @@
 import { useRef, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import HTMLFlipBook from "react-pageflip";
 import axios from "axios";
 import "../component/Css/interactiveStory.css";
@@ -18,7 +19,7 @@ const toPage = (p) => {
   const rawImg = p?.image ?? "";
   const image =
     typeof rawImg === "string" && !rawImg.startsWith("http")
-      ? `${ORIGIN}${rawImg}` // 슬래시로 시작하면 ngrok 주소 붙임
+      ? `${ORIGIN}${rawImg}`
       : rawImg;
 
   return {
@@ -28,6 +29,7 @@ const toPage = (p) => {
     select2: p?.choices_2 ?? p?.choice_2 ?? "",
     select3: p?.choices_3 ?? p?.choice_3 ?? "",
     select4: p?.choices_4 ?? p?.choice_4 ?? "",
+    finish: p?.finish ?? false,
   };
 };
 
@@ -41,6 +43,8 @@ const isImageUrlLike = (v) =>
 
 /** ===== 컴포넌트 ===== */
 function InteractiveStory() {
+  const navigate = useNavigate();
+
   const flipBookRef = useRef(null);
   const containerRef = useRef(null); // pageBox 크기 참조
 
@@ -132,6 +136,8 @@ function InteractiveStory() {
       const pageData = data.data ?? data.page ?? data;
       const nextPage = toPage(pageData);
 
+      console.log("선택지로 넘어온 동화 정보:", pageData);
+
       // 페이지 먼저 추가
       setRawPages((prev) => [...prev, nextPage]);
 
@@ -150,9 +156,6 @@ function InteractiveStory() {
 
   /** 페이지 렌더링 */
   const renderSpread = (page, idx) => {
-    // 여기서 로그 찍기 (page 매개변수를 쓸 수 있음)
-    console.log(`이미지 주소 [${idx}]:`, page.image);
-
     return [
       <div key={`image-${idx}`} className="IS_leftBox IS_page">
         {isImageUrlLike(page.image) ? (
@@ -165,17 +168,28 @@ function InteractiveStory() {
         <div className="IS_rightGroup">
           <div className="IS_text_box">{page.text}</div>
           <div className="IS_select_box">
-            {[page.select1, page.select2, page.select3, page.select4]
-              .filter(Boolean)
-              .map((label, i) => (
-                <button
-                  key={`${idx}-sel-${i}`}
-                  className="IS_select"
-                  onClick={() => handleChoiceClick(i)}
-                >
-                  {label}
-                </button>
-              ))}
+            {page.finish ? (
+              // finish=true → 끝내기 버튼만 노출
+              <button
+                className="IS_select"
+                onClick={() => navigate("/story-viewer", { state: { from: "interactiveStory" } })}
+              >
+                끝내기
+              </button>
+            ) : (
+              // 일반 선택지
+              [page.select1, page.select2, page.select3, page.select4]
+                .filter(Boolean)
+                .map((label, i) => (
+                  <button
+                    key={`${idx}-sel-${i}`}
+                    className="IS_select"
+                    onClick={() => handleChoiceClick(i)}
+                  >
+                    {label}
+                  </button>
+                ))
+            )}
           </div>
         </div>
       </div>,

@@ -52,7 +52,7 @@ function OpenGallery() {
               <button className="OG_detail_button">💡 저자: {author}</button>
               <button
                 className="OG_detail_button"
-                onClick={() => navigate("/story-viewer")}
+                onClick={() => navigate("/story-viewer", { state: { from: "openGallery" } })}
               >
                 📖 동화책 읽기
               </button>
