@@ -1,19 +1,30 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../component/Css/loading.css";
 import charPen from "../images/character_pen.png";
 
 function Loading() {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const storyId = state?.storyId;
+  const storyData = state?.storyData;
 
   useEffect(() => {
-    // 3초 후 story-complete 페이지로 이동
+    if (!storyId || !storyData) {
+      console.error("storyId나 storyData가 없습니다.");
+      return;
+    }
+
+    // 3초 정도 로딩 화면 보여주고 바로 넘어가기
     const timer = setTimeout(() => {
-      navigate("/story-complete");
+      navigate("/interactive-story", {
+        state: { storyId, storyData, request: state.request },
+        replace: true,
+      });
     }, 3000);
 
-    return () => clearTimeout(timer); // cleanup
-  }, [navigate]);
+    return () => clearTimeout(timer);
+  }, [storyId, storyData, navigate]);
 
   return (
     <div className="loading_page">
@@ -34,7 +45,6 @@ function Loading() {
               "#C8C0C9",
               "#D3CED4",
             ];
-
             return (
               <div
                 key={i}

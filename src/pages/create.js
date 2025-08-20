@@ -119,6 +119,7 @@ function Create() {
   const handleStorySubmit = async () => {
     if (submitting) return;
 
+
     const n = parseInt(endingpoint, 10);
     if (!Number.isInteger(n) || n < 1) {
       alert("엔딩페이지 수를 1 이상의 정수로 입력해 주세요.");
@@ -135,6 +136,9 @@ function Create() {
       ending_point: n,
     };
 
+    console.log("Payload being sent:", payload);
+    
+
     try {
       setSubmitting(true);
 
@@ -145,15 +149,21 @@ function Create() {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        // 필요하면 withCredentsials: true,
       });
 
       // 응답 형태에 storyId가 있으면 함께 넘기고, 없어도 로딩으로 이동해 대기
-      const storyId = res.data?.storyId ?? res.data?.id ?? null;
+      const storyId =
+        res.data?.storyId ?? // 혹시 백에서 바뀔 수도 있으니 남겨둠
+        res.data?.id ??
+        res.data?.data?.story_id ??
+        null;
+
+      console.log("백에서 받은 storyId:", storyId, res.data);
 
       navigate("/loading", {
         state: {
-          storyId, // 있으면 사용, 없어도 OK
+          storyId,
+          storyData: res.data, 
           request: payload, // 로딩에서 디버깅/표시용으로 쓸 수 있음
         },
         replace: true, // 뒤로가기 시 중복 제출 방지
