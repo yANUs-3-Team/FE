@@ -12,8 +12,15 @@
 }
 
 .modalContainer {
-  min-width: 28vw;
-  max-width: 24vh;
+  width: 24vw;
+  height: 18vh;
+  padding: 4vh 2vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5vh;
 
   background: white;
   padding: 2rem;
@@ -27,12 +34,10 @@
 .modalTitle {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
 }
 
 .modalMessage {
   font-size: 1.2rem;
-  margin-bottom: 2rem;
   color: #333;
 }
 
@@ -44,6 +49,7 @@
 
 .modalButton {
   padding: 0.5rem 1.2rem;
+
   border: none;
   border-radius: 0.5rem;
   background: #ff8f8f;
@@ -58,6 +64,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
