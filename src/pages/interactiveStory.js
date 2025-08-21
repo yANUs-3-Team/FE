@@ -5,6 +5,7 @@ import HTMLFlipBook from "react-pageflip";
 import axios from "axios";
 import "../component/Css/interactiveStory.css";
 import DefaultModal from "../component/modal/defaultModal";
+import LoadingModal from "../component/modal/loadingModal";
 
 /** ===== 환경 상수 ===== */
 const BACK_IP = process.env.REACT_APP_BACK_IP;
@@ -171,7 +172,11 @@ function InteractiveStory() {
               // finish=true → 끝내기 버튼만 노출
               <button
                 className="IS_select"
-                onClick={() => navigate("/story-viewer", { state: { from: "interactiveStory", storyId } })}
+                onClick={() =>
+                  navigate("/story-viewer", {
+                    state: { from: "interactiveStory", storyId },
+                  })
+                }
               >
                 끝내기
               </button>
@@ -227,14 +232,11 @@ function InteractiveStory() {
         onClose={() => setModalOpen(false)}
       />
 
-      {loadingNext && (
-        <DefaultModal
-          isOpen={true}
-          title="페이지 생성 중"
-          message="AI가 다음 페이지를 만드는 중입니다..."
-          onClose={() => {}} // 닫기 못 하게 비워두기
-        />
-      )}
+      <LoadingModal
+        isOpen={loadingNext}
+        title="생성 중..."
+        message="이미지를 생성하고 있습니다. 잠시만 기다려 주세요."
+      />
     </div>
   );
 }

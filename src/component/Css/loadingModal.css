@@ -1,0 +1,100 @@
+.LM_modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.LM_modalContainer {
+  width: 24vw;
+  height: 18vh;
+  padding: 4vh 2vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5vh;
+
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 0.4vh solid #ff8f8f;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  animation: LM_fadeIn 0.2s ease-in-out;
+}
+
+.LM_modalTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.LM_modalMessage {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.LM_modalActions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px; /* 스피너 영역 높이 확보 */
+}
+
+.LM_spinnerRing {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  animation: LM_spinnerRotate 1.6s linear infinite;
+}
+
+.LM_spinnerDot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: LM_spinnerPulse 0.9s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* 회전 애니메이션 */
+@keyframes LM_spinnerRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 점 맥동 애니메이션 */
+@keyframes LM_spinnerPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.75);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+/* 모달 Fade-In */
+@keyframes LM_fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
