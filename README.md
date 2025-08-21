@@ -42,14 +42,14 @@
 
 ```
 /src
-├───api/          # (추천) Axios 인스턴스 및 API 호출 함수 관리
+├───api/          # Axios 인스턴스 및 API 호출 함수 관리
 ├───assets/       # CSS, 폰트 등 에셋
 ├───components/   # 재사용 가능한 UI 컴포넌트 (Header, Footer, Modal 등)
 │   ├───create/   # 동화 생성 단계별 컴포넌트
 │   └───...
-├───constants/    # (추천) 상수 관리 (라우팅 경로, API 주소 등)
+├───constants/    # 상수 관리 (라우팅 경로, API 주소 등)
 ├───context/      # 전역 상태 관리 (UserContext)
-├───hooks/        # (추천) 커스텀 훅 관리
+├───hooks/        # 커스텀 훅 관리
 ├───images/       # 정적 이미지 에셋
 ├───pages/        # 라우팅 단위가 되는 페이지 컴포넌트
 ├───styles/       # 전역 스타일 및 스타일 관련 유틸
